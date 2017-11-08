@@ -11,5 +11,12 @@
       <result name="success">/Schemes/Success.jsp</result>
     </action>
   </package>
-      
+  <package name="Users" extends="struts-default">
+    <action name="register" class="Action.Register" method="execute">
+      <interceptor-ref name="basicStack"/>
+      <result name="success">/Other/RegisterSuccess.jsp</result>
+      <result name="error">/Other/RegisterError.jsp</result>
+    </action>
+    
+  </package>
 </struts>
