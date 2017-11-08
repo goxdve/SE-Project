@@ -12,12 +12,17 @@
     </action>
   </package>
   <package name="Users" extends="struts-default">
-
   	
   	<action name="Login" class="Action.Login" method="execute">
   	  <interceptor-ref name="basicStack"/>
   	  <result name="success">/index.jsp</result>
   	  <result name="error">/Other/RegisterError.jsp</result>
   	</action>
+
+    <action name="register" class="Action.Register" method="execute">
+      <interceptor-ref name="basicStack"/>
+      <result name="success">/Other/RegisterSuccess.jsp</result>
+      <result name="error">/Other/RegisterError.jsp</result>
+    </action>
   </package>
 </struts>
