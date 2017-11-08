@@ -3,8 +3,6 @@ package Action;
 import java.sql.Date;
 import java.sql.Time;
 
-import org.apache.catalina.core.ApplicationFilterFactory;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 import Data.SchemeRepository;
