@@ -15,53 +15,39 @@ public class PerfectInformation
         String ret = "success";
         ActionContext context = ActionContext.getContext();
         Map application = context.getApplication();
-        String Username = (String) application.get("Username");
-        HashMap<String, Object>NewInformation = new HashMap<String, Object>();
-        NewInformation.put("Username", Username);
-        NewInformation.put("rightname", rightname);
-        NewInformation.put("sex", sex);
-        NewInformation.put("age", age);
-        NewInformation.put("telephone", telephone);
-        new InformationRepository().ChangeInformation(NewInformation);
+        String username = (String) application.get("username");
+        HashMap<String,Object> newinformation = new HashMap<String, Object>();
+        newinformation.put("newpassword",newpassword);
+        newinformation.put("newage",newage);
+        newinformation.put("newsex",newsex);
+        (new UserRepository()).UpdateInformation(newinformation);
         return ret;
     }
-    public String rightname;
+    public String newpassword;
+    public int newage;
+    public int newsex;
 
-    public String getRightname() {
-        return rightname;
+    public String getNewpassword() {
+        return newpassword;
     }
 
-    public void setRightname(String rightname) {
-        this.rightname = rightname;
+    public int getNewage() {
+        return newage;
     }
 
-    public String sex;
-
-    public String getSex() {
-        return sex;
+    public int getNewsex() {
+        return newsex;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setNewpassword(String newpassword) {
+        this.newpassword = newpassword;
     }
 
-    public int age;
-
-    public int getAge() {
-        return age;
+    public void setNewage(int newage) {
+        this.newage = newage;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String telephone;
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setNewsex(int newsex) {
+        this.newsex = newsex;
     }
 }
