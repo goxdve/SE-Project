@@ -131,15 +131,15 @@
   <script src="../js/time/moment-with-locales.js"></script>
   <script src="../js/time/bootstrap-datetimepicker.zh-CN.js"></script>
   <script type="text/javascript">
-			$(function() {
-				$('#datetimepicker').datetimepicker({
-					language : 'zh-CN',
-					format : 'yyyy-mm-dd',
-					minView : "month",
-					locale : moment.locale('zh-cn')
-				});
-			});
-		</script>
+    $(function() {
+      $('#datetimepicker').datetimepicker({
+        language : 'zh-CN',
+        format : 'yyyy-mm-dd',
+        minView : "month",
+        locale : moment.locale('zh-cn')
+      });
+    });
+  </script>
 
 </body>
 
