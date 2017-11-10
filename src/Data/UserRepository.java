@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.catalina.core.ApplicationContext;
@@ -89,4 +90,41 @@ public class UserRepository {
 		}
     }
 
+    public HashMap<String,Object> SearchInformation() throws Exception
+    {
+        HashMap<String,Object> ret = new HashMap<String, Object>();
+        ActionContext ac=ActionContext.getContext();
+        Map<String, Object> session1=ac.getSession();
+        String username = (String)session1.get("username");
+        Class.forName("com.mysql.jdbc.Driver");
+        conn= DriverManager.getConnection(ul,ue,pw);
+        stmt=conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        SearchString = String.format("SELECT * from user WHERE Username = \"%s\";", username);
+        rs = stmt.executeQuery(SearchString);
+        ret.put("password",rs.getString(2));
+        ret.put("age",rs.getInt(3));
+        ret.put("sex",rs.getInt(4));
+        rs.close();
+        stmt.close();
+        conn.close();
+        return ret;
+    }
+    public void UpdateInformation(HashMap<String,Object> newinformation) throws Exception
+    {
+        ActionContext ac=ActionContext.getContext();
+        Map<String, Object> session1=ac.getSession();
+        String username = (String)session1.get("username");
+        Class.forName("com.mysql.jdbc.Driver");
+        conn= DriverManager.getConnection(ul,ue,pw);
+        stmt=conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        SearchString = String.format("SELECT * from user WHERE Username = \"%s\";", username);
+        rs = stmt.executeQuery(SearchString);
+        rs.updateString(2,(String) newinformation.get("newpassword"));
+        rs.updateInt(3,(int)newinformation.get("newage"));
+        rs.updateInt(4,(int)newinformation.get("newsex"));
+        rs.refreshRow();
+        rs.close();
+        stmt.close();
+        conn.close();
+    }
 }
