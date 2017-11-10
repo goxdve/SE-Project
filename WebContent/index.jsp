@@ -7,7 +7,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css" />
 <title>驴吧</title>
 </head>
 
@@ -28,30 +28,26 @@
         <li><a href="#">通知</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <% ActionContext ac=ActionContext.getContext();
-          Map<String, Object> session1=ac.getSession();
-          if(session1.containsKey("username")){
+        <%
+            ActionContext ac = ActionContext.getContext();
+            Map<String, Object> session1 = ac.getSession();
+            if (session1.containsKey("username")) {
         %>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <s:property value="username"/>
-            <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a href="#">个人中心</a></li>
-            <li><a href="#">消息</a></li>
-            <li><a href="#">退出</a></li>
-          </ul>
-        </li>
-        <%}else{ %>
-        <li><a data-toggle="modal" data-target="#login" href=""> <span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+        <li data-toggle="modal" data-target="#signin-signup-tab" id="signin-button"><a href="./Login.jsp"><s:property value="username" /></a></li>
+        <%
+            } else {
+        %>
+        <li><a data-toggle="modal" data-target="#login" href=""> <span class="glyphicon glyphicon-log-in"></span> 登录
+        </a></li>
         <li><a href="./Other/Register.jsp"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
-        <%} %>
+        <%
+            }
+        %>
       </ul>
     </div>
   </div>
   </nav>
-  
+
   <!-- 登陆模态框 -->
   <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
@@ -86,7 +82,7 @@
       <h1 style="font-size: 2em">征集队友 <small>发布你的组队意向</small></h1>
     </div>
   </div>
-  
+
   <script src="./js/jquery.min.js"></script>
   <script src="./js/bootstrap.min.js"></script>
 </body>
