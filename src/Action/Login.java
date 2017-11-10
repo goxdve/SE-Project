@@ -28,36 +28,6 @@ public class Login extends ActionSupport
         else
             return "error";
     }
-//    public void validate()
-//    {
-//        UserRepository userRepository = null;
-//		try {
-//			userRepository = new UserRepository();
-//		} catch (ClassNotFoundException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		} catch (SQLException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//        try
-//        {
-//            String result = userRepository.Login(username,password);
-//            if(result.equals("error"))
-//            {
-//                addFieldError("password","密码错误！");
-//            }
-//            else if (result.equals("doesn't exist"))
-//            {
-//                addFieldError("Username","用户不存在！");
-//            }
-//        }
-//        catch (Exception e)
-//        {
-//            e.printStackTrace();
-//        }
-//
-//    }
 
     public String username;//用户名
 
