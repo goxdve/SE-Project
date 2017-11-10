@@ -48,7 +48,6 @@
         <li><a href="./Other/Register.jsp"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
         <%} %>
       </ul>
-
     </div>
   </div>
   </nav>

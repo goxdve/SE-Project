@@ -6,10 +6,10 @@
 <html>
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="../css/bootstrap.min.css" />
-<link rel="stylesheet" href="../css/time/bootstrap-datetimepicker.min.css" />
-<title>驴吧</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="../css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../css/time/bootstrap-datetimepicker.min.css" />
+  <title>驴吧</title>
 </head>
 
 <body>
@@ -34,7 +34,6 @@
         </li>
         <li><a href="../Other/Register.jsp"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
       </ul>
-
     </div>
   </div>
   </nav>
@@ -93,7 +92,9 @@
         <label for="beginDate" class="col-lg-1 control-label">起始日期</label>
         <div class="col-lg-3">
           <div class='input-group date' id='datetimepicker'>
-            <input type="text" class="form-control" name="beginDate" placeholder="请选择起始日期" /> <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span>
+            <input type="text" class="form-control" name="beginDate" placeholder="请选择起始日期"/>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
             </span>
           </div>
         </div>
@@ -127,7 +128,6 @@
           <button type="reset" class="btn btn-block">重置</button>
         </div>
       </div>
-
     </form>
   </div>
 
