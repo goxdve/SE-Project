@@ -6,10 +6,10 @@
 <html>
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="../css/bootstrap.min.css" />
-<link rel="stylesheet" href="../css/time/bootstrap-datetimepicker.min.css" />
-<title>驴吧</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/css/time/bootstrap-datetimepicker.min.css" />
+  <title>驴吧</title>
 </head>
 
 <body>
@@ -21,12 +21,12 @@
     </div>
     <div>
       <ul class="nav navbar-nav">
-        <li><a href="#">首页</a></li>
-        <li><a href="../Schemes/NewScheme.jsp">寻找旅伴</a></li>
-        <li><a href="#">个人中心</a></li>
-        <li><a href="#">旅游小组</a></li>
-        <li><a href="#">出行攻略</a></li>
-        <li><a href="#">通知</a></li>
+        <li><a href="../index.jsp">首页</a></li>
+        <li class="active"><a href="">寻找旅伴</a></li>
+        <li><a href="">个人中心</a></li>
+        <li><a href="">旅游小组</a></li>
+        <li><a href="">出行攻略</a></li>
+        <li><a href="">通知</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <%
@@ -45,17 +45,27 @@
             <li><a href="#">退出</a></li>
           </ul>
         </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <s:property value="username"/>
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">个人中心</a></li>
+            <li><a href="#">消息</a></li>
+            <li><a href="#">退出</a></li>
+          </ul>
+        </li>
         <%
             } else {
         %>
         <li><a data-toggle="modal" data-target="#login" href=""> <span class="glyphicon glyphicon-log-in"></span> 登录
         </a></li>
-        <li><a href="./Other/Register.jsp"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
+        <li><a href="../Other/Register.jsp"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
         <%
             }
         %>
       </ul>
-
     </div>
   </div>
   </nav>
@@ -82,7 +92,7 @@
               <button class="btn btn-primary" type="submit">登录</button>
               <button class="btn btn-danger" data-dismiss="modal">取消</button>
             </div>
-            <a href="./Other/Register.jsp">还没有账号？点我注册</a>
+            <a href="../Other/Register.jsp">还没有账号？点我注册</a>
           </form>
         </div>
       </div>
@@ -91,75 +101,83 @@
 
   <div class="container">
     <div style="padding: 5px" class="page-header">
-      <h1 style="font-size: 2em">注册</h1>
+      <h1 style="font-size: 2em">
+        征集队友 <small>发布你的组队意向</small>
+      </h1>
     </div>
     <div class="row"></div>
-    <form class="form-horizontal" role="form" action="register" method="post">
+    <form class="form-horizontal" role="form" action="NewScheme" method="post">
       <div class="form-group">
-        <label for="username" class="col-lg-1 control-label">用户名</label>
+        <label for="schemeTitle" class="col-lg-1 control-label">标题</label>
         <div class="col-lg-3">
-          <input type="text" class="form-control" name="username" placeholder="请输入用户名" required>
+          <input type="text" class="form-control" name="schemeTitle" placeholder="请输入标题">
         </div>
       </div>
       <div class="form-group">
-        <label for="password1" class="col-lg-1 control-label">密码</label>
+        <label for="destination" class="col-lg-1 control-label">目的地</label>
         <div class="col-lg-3">
-          <input type="password" class="form-control" name="password1" required>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="password2" class="col-lg-1 control-label">确认密码</label>
-        <div class="col-lg-3">
-          <input type="password" class="form-control" name="password2" required>
+          <input type="text" class="form-control" name="destination" placeholder="请输入目的地">
         </div>
       </div>
 
       <div class="form-group">
-        <label for="sex" class="col-lg-1 control-label">性别</label>
-        <div class="col-lg-3">
-          <input type="radio" name="sex" value=0 />男 &nbsp;&nbsp; <input type="radio" name="sex" value=1 />女
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="birthday" class="col-lg-1 control-label">出生日期</label>
+        <label for="beginDate" class="col-lg-1 control-label">起始日期</label>
         <div class="col-lg-3">
           <div class='input-group date' id='datetimepicker'>
-            <input type="text" class="form-control" name="birthday" placeholder="出生日期" required/> <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span>
+            <input type="text" class="form-control" name="beginDate" placeholder="请选择起始日期"/>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
             </span>
           </div>
         </div>
       </div>
 
+      <div class="form-group">
+        <label for="duration" class="col-lg-1 control-label">持续时间</label>
+        <div class="col-lg-3">
+          <select class="fomr-control" name="duration">
+            <option value=1>1-3天</option>
+            <option value=2>4-7天</option>
+            <option value=3>7天以上</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description" class="col-lg-1 control-label">详情</label>
+        <div class="col-lg-5">
+          <textarea class="form-control" rows="5" name="description"></textarea>
+        </div>
+      </div>
+
       <!-- 按钮 -->
       <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-1">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-1">
           <button type="submit" class="btn btn-block">提交</button>
         </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-1">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-1">
           <button type="reset" class="btn btn-block">重置</button>
         </div>
       </div>
     </form>
-  </div>  
+  </div>
 
 
-  <script src="../js/jquery.min.js"></script>
-  <script src="../js/bootstrap.min.js"></script>
-  <script src="../js/time/bootstrap-datetimepicker.js"></script>
-  <script src="../js/time/moment-with-locales.js"></script>
-  <script src="../js/time/bootstrap-datetimepicker.zh-CN.js"></script>
+  <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
+  <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
+  <script src="<%=request.getContextPath()%>/js/time/bootstrap-datetimepicker.js"></script>
+  <script src="<%=request.getContextPath()%>/js/time/moment-with-locales.js"></script>
+  <script src="<%=request.getContextPath()%>/js/time/bootstrap-datetimepicker.zh-CN.js"></script>
   <script type="text/javascript">
-    $(function() {
-      $('#datetimepicker').datetimepicker({
-        language : 'zh-CN',
-        format : 'yyyy-mm-dd',
-        minView : "month",
-        locale : moment.locale('zh-cn')
+      $(function() {
+        $('#datetimepicker').datetimepicker({
+          language : 'zh-CN',
+          format : 'yyyy-mm-dd',
+          minView : "month",
+          locale : moment.locale('zh-cn')
+        });
       });
-    });
   </script>
 
 </body>
