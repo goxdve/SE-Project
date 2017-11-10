@@ -29,10 +29,31 @@
         <li><a href="#">通知</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a data-toggle="modal" data-target="#login" href="#"> <span class="glyphicon glyphicon-log-in"></span> 登录</a>
+        <%
+            ActionContext ac = ActionContext.getContext();
+            Map<String, Object> session1 = ac.getSession();
+            if (session1.containsKey("username")) {
+        %>
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">
+            <s:property value="username"/>
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">个人中心</a></li>
+            <li><a href="#">消息</a></li>
+            <li><a href="#">退出</a></li>
+          </ul>
         </li>
-        <li><a href="./Register.jsp"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
+        <%
+            } else {
+        %>
+        <li><a data-toggle="modal" data-target="#login" href=""> <span class="glyphicon glyphicon-log-in"></span> 登录
+        </a></li>
+        <li><a href="./Other/Register.jsp"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
+        <%
+            }
+        %>
       </ul>
 
     </div>
@@ -50,7 +71,7 @@
           <div class="modal-title">
             <h2 class="text-center">登录</h2>
           </div>
-          <form class="form-group" action="Login">
+          <form class="form-group" action="Login" method="post">
             <div class="form-group">
               <label for="username">用户名</label> <input class="form-control" type="text" name="username" required>
             </div>
