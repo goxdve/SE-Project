@@ -33,7 +33,17 @@
             Map<String, Object> session1 = ac.getSession();
             if (session1.containsKey("username")) {
         %>
-        <li data-toggle="modal" data-target="#signin-signup-tab" id="signin-button"><a href="./Login.jsp"><s:property value="username" /></a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <s:property value="username"/>
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">个人中心</a></li>
+            <li><a href="#">消息</a></li>
+            <li><a href="#">退出</a></li>
+          </ul>
+        </li>
         <%
             } else {
         %>
@@ -59,7 +69,7 @@
           <div class="modal-title">
             <h2 class="text-center">登录</h2>
           </div>
-          <form class="form-group" action="Login">
+          <form class="form-group" action="Login" method="post">
             <div class="form-group">
               <label for="username">用户名</label> <input class="form-control" type="text" name="username" required>
             </div>
