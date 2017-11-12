@@ -29,10 +29,56 @@ public class GroupUserRepository {
         }
     }
 
+    public boolean isInGroup(String groupid, String username) throws SQLException {
+        int rowCount = 0;
+        String sql = "SELECT COUNT(*) FROM groupuser where groupid = '" + groupid + "' and username = '" + username
+                + "'";
+        rs = stat.executeQuery(sql);
+        while (rs.next()) {
+            rowCount = rs.getInt(1);
+        }
+        return rowCount != 0;
+    }
+
     public void addGroupUser(String groupid, String username) throws SQLException {
         stat.execute("INSERT INTO groupuser(groupid,username) VALUES('" + groupid
                 + "', '" + username + "');");
-        close();
+    }
+
+    public ArrayList<String> getUsernames(String groupid) throws Exception {
+        ArrayList<String> ret = new ArrayList<String>();
+        String sql = String.format("select * from groupuser where groupid = \"%s\";", groupid);
+        ResultSet rs = stat.executeQuery(sql);
+        while (rs.next()) {
+            ret.add(rs.getString("username"));
+        }
+        return ret;
+    }
+    
+    public ArrayList<String> mygroupid(String username) throws Exception {
+        ArrayList<String> ret = new ArrayList<String>();
+        stat = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String SearchString = String.format("SELECT * from groupuser WHERE username = \"%s\";", username);
+        rs = stat.executeQuery(SearchString);
+        while (rs.next()) {
+            ret.add(rs.getString("groupid"));
+        }
+        rs.close();
+        stat.close();
+        return ret;
+    }
+
+    public void quitgroup(String username, String groupid) throws Exception {
+        String sql = String.format("delete from groupuser WHERE username = \"%s\""
+                + " and groupid = \"%s\";", username, groupid);
+        stat.executeUpdate(sql);
+    }
+
+    public void dismissgroup(String groupid) throws Exception {
+        stat = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String SearchString = String.format("DELETE FROM groupuser WHERE groupid = \"%s\"", groupid);
+        stat.executeUpdate(SearchString);
+        stat.close();
     }
 
 }
