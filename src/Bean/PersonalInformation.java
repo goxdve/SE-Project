@@ -13,9 +13,9 @@ public class PersonalInformation
         setAge((int)ret.get("age"));
         setSex((int)ret.get("sex"));
     }
-    String password;
-    int sex;
-    int age;
+    public String password;
+    public int sex;
+    public int age;
 
     public int getSex() {
         return sex;
