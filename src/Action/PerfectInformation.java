@@ -14,13 +14,14 @@ public class PerfectInformation
     {
         String ret = "success";
         ActionContext context = ActionContext.getContext();
-        Map application = context.getApplication();
-        String username = (String) application.get("username");
+        Map session1 = context.getSession();
+        String username = (String) session1.get("username");
         HashMap<String,Object> newinformation = new HashMap<String, Object>();
         newinformation.put("newpassword",newpassword);
         newinformation.put("newage",newage);
         newinformation.put("newsex",newsex);
         (new UserRepository()).UpdateInformation(newinformation);
+        System.out.println(newpassword+newage+newsex);
         return ret;
     }
     public String newpassword;
