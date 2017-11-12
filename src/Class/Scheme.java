@@ -1,20 +1,17 @@
 package Class;
 
-import java.sql.Time;
-import java.sql.Date;
-
-// beginDate暂时设为起始时间, 日后再改
 public class Scheme {
     private String schemeID; // 编号
     private String schemeTitle; // 标题
-    private java.sql.Date postDate; // 发布日期
-    private java.sql.Time postTime; // 发布时间
+    private String postDate; // 发布日期
+    private String postTime; // 发布时间
     private String destination; // 目的地
     private String beginDate; // 起始日期
     private int duration; // 持续时间: 1: 1-3天 2: 4-7天 3: 7天以上
     private String description; // 详情
     private String ownerName; // 发帖人用户名
-
+    private long timestamp; // 时间戳
+    
     public String getSchemeID() {
         return schemeID;
     }
@@ -31,19 +28,19 @@ public class Scheme {
         this.schemeTitle = schemeTitle;
     }
 
-    public Date getPostDate() {
+    public String getPostDate() {
         return postDate;
     }
 
-    public void setPostDate(Date postDate) {
+    public void setPostDate(String postDate) {
         this.postDate = postDate;
     }
 
-    public Time getPostTime() {
+    public String getPostTime() {
         return postTime;
     }
 
-    public void setPostTime(Time postTime) {
+    public void setPostTime(String postTime) {
         this.postTime = postTime;
     }
 
@@ -87,4 +84,11 @@ public class Scheme {
         this.ownerName = ownerName;
     }
 
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
 }
