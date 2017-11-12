@@ -46,7 +46,6 @@ public class GroupRepository {
                 + "','" + groupname + "','" + destination + "','" + begindate + "',"
                 + membercount + "," + maxmembercount + ",'" + manager + "',"
                 + timestamp + ")");
-        close();
     }
 
     public ArrayList<Group> getGroups(int offset, int num) throws SQLException {
@@ -74,5 +73,71 @@ public class GroupRepository {
             ret.add(group);
         }
         return ret;
+    }
+
+    public int getSize() throws SQLException {
+        int rowCount = 0;
+        String sql = "SELECT COUNT(*) FROM tourgroup;";
+        rs = stat.executeQuery(sql);
+        while (rs.next()) {
+            rowCount = rs.getInt(1);
+        }
+        return rowCount;
+    }
+
+    public boolean IsManager(String username, String groupid) throws Exception {
+        boolean ret = false;
+        stat = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String SearchString = String.format("SELECT * from tourgroup WHERE groupid = \"%s\";", groupid);
+        rs = stat.executeQuery(SearchString);
+        if (rs.first() && rs.getString("manager").equals(username)) {
+            ret = true;
+        }
+        return ret;
+    }
+
+    public Group getgroup(String groupid) throws Exception {
+        Group ret = new Group();
+        String sql = String.format("SELECT * from tourgroup WHERE groupid = \"%s\";", groupid);
+        rs = stat.executeQuery(sql);
+        if (rs.next()) {
+            ret.setGroupid(rs.getString("groupid"));
+            ret.setGroupname(rs.getString("groupname"));
+            ret.setDestination(rs.getString("destination"));
+            ret.setBegindate(rs.getString("begindate"));
+            ret.setMembercount(rs.getInt("membercount"));
+            ret.setMaxmembercount(rs.getInt("maxmembercount"));
+            ret.setManager(rs.getString("manager"));
+            ret.setTimestamp(rs.getInt("timestamp"));
+        }
+        return ret;
+    }
+
+    public void dismissgroup(String groupid) throws Exception {
+        stat = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        String SearchString = String.format("SELECT * from tourgroup WHERE groupid = \"%s\";", groupid);
+        rs = stat.executeQuery(SearchString);
+        if (rs.first()) {
+            rs.deleteRow();
+            rs.refreshRow();
+        }
+        close();
+    }
+    
+    public void updateGroup(Group group) throws Exception{
+        String groupid = group.getGroupid();
+        String groupname = group.getGroupname();
+        String destination = group.getDestination();
+        String begindate = group.getBegindate();
+        int membercount = group.getMembercount();
+        int maxmembercount = group.getMaxmembercount();
+        String manager = group.getManager();
+        String sql = String.format("update tourgroup set groupname=\"%s\","
+                + "destination=\"%s\",begindate=\"%s\",membercount=%d,"
+                + "maxmembercount=%d,manager=\"%s\" where groupid=\"%s\";"
+                , groupname, destination, begindate, membercount, maxmembercount
+                , manager, groupid);
+        System.err.println("sql = " + sql);
+        stat.executeUpdate(sql);
     }
 }
