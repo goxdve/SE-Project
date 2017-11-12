@@ -7,7 +7,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css" />
 <title>驴吧</title>
 </head>
 
@@ -16,48 +16,59 @@
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand brand-lg" href="index.jsp">驴吧</a>
+      <a class="navbar-brand brand-lg" href="<%=request.getContextPath() %>/index.jsp">驴吧</a>
     </div>
     <div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="index.jsp">首页</a></li>
-        <li><a href="./Schemes/NewScheme.jsp">寻找旅伴</a></li>
+        <li class="active"><a href="<%=request.getContextPath() %>/index.jsp">首页</a></li>
+        <li><a href="<%=request.getContextPath() %>/Schemes/NewScheme.jsp">寻找旅伴</a></li>
         <li><a href="#">个人中心</a></li>
-        <li><a href="#">旅游小组</a></li>
-        <li><a href="#">出行攻略</a></li>
-        <li><a href="#">通知</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <%
-            ActionContext ac = ActionContext.getContext();
-            Map<String, Object> session1 = ac.getSession();
-            if (session1.containsKey("username")) {
-        %>
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">旅游小组<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="<%=request.getContextPath() %>/Groups/AllGroups.jsp">所有小组</a></li>
+            <li><a href="<%=request.getContextPath() %>/Groups/NewGroup.jsp">创建小组</a></li>
+            <li><a href="<%=request.getContextPath() %>/Groups/MyGroups.jsp">我的小组</a></li>
+          </ul>
+        </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <s:property value="username"/>
+                     出行攻略
             <b class="caret"></b>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="#">个人中心</a></li>
-            <li><a href="#">消息</a></li>
-            <li><a href="#">退出</a></li>
+            <li><a href="allTravelNotes">查看所有攻略</a></li>
+            <li><a href="<%=request.getContextPath() %>/travelNotes/editTravelNotes.jsp">写攻略</a></li>
           </ul>
         </li>
-        <%
-            } else {
-        %>
-        <li><a data-toggle="modal" data-target="#login" href=""> <span class="glyphicon glyphicon-log-in"></span> 登录
-        </a></li>
-        <li><a href="./Other/Register.jsp"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
-        <%
-            }
-        %>
+        <li><a href="#">通知</a></li>
       </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <% ActionContext ac=ActionContext.getContext();
+          Map<String, Object> session1=ac.getSession();
+          if(session1.containsKey("username")){
+        %>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <s:property value="#session.username"/>
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="<%=request.getContextPath() %>/PersonalSpace/PerfectInformation.jsp">个人中心</a></li>
+            <li><a href="#">消息</a></li>
+            <li><a href="Logout.action">退出</a></li>
+          </ul>
+        </li>
+        <%}else{ %>
+        <li><a data-toggle="modal" data-target="#login" href=""> <span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+        <li><a href="<%=request.getContextPath() %>/Other/Register.jsp"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
+        <%} %>
+      </ul>
+
     </div>
   </div>
   </nav>
-
+  
   <!-- 登陆模态框 -->
   <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
@@ -80,21 +91,21 @@
               <button class="btn btn-primary" type="submit">登录</button>
               <button class="btn btn-danger" data-dismiss="modal">取消</button>
             </div>
-            <a href="./Other/Register.jsp">还没有账号？点我注册</a>
+            <a href="<%=request.getContextPath() %>/Other/Register.jsp">还没有账号？点我注册</a>
           </form>
         </div>
       </div>
     </div>
   </div>
-
+ 
   <div class="container">
     <div style="padding: 5px" class="page-header">
       <h1 style="font-size: 2em">征集队友 <small>发布你的组队意向</small></h1>
     </div>
   </div>
-
-  <script src="./js/jquery.min.js"></script>
-  <script src="./js/bootstrap.min.js"></script>
+  
+  <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+  <script src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
 </body>
 
 </html>
