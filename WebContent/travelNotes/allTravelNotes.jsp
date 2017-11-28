@@ -1,19 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.opensymphony.xwork2.ActionContext"%>
+<%@page import="java.io.FileReader"%>
+<%@page import="java.io.FileInputStream"%>
+<%@page import="java.io.InputStreamReader"%>
+<%@page import="java.io.Reader"%>
+<%@page import="com.opensymphony.xwork2.ActionContext"%>
 <%@ page import="java.util.Map"%>
+<%@page import="java.io.File"%>
+<%@page import="Class.Note" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css" />
-<title>所有攻略</title>
-<style>
-.table th, .table td {
-  text-align: center;
-  vertical-align: middle !important;
-}
-</style>
+<title>攻略详情</title>
 </head>
 <body>
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -99,27 +100,16 @@
     </div>
   </div>
   
-  
-  <table class="table table-striped table-bordered table-hover">
-    <thead>
-      <tr>
-        <th style="width: 150px;">标题</th>
-        <th style="width: 150px;">作者</th>
-        <th style="width: 150px;">发表时间</th>
-      </tr>
-    </thead>
-    <tbody>
-      <s:iterator value="noteList" status="st">
-        <tr>
-          <td>
-            <a href="<s:url action="noteInfo"> <s:param name="name" value="noteID"/></s:url>"> <s:property value="noteTitle" /></a>
-          </td>
-          <td><s:property value="ownerName" /></td>
-          <td><s:property value="noteTime" /></td>
-        </tr>
-      </s:iterator>
-    </tbody>
-  </table>
+  <div class="container">
+    <s:iterator value="aNote" status="st">
+    <div style="padding: 5px" class="page-header">
+      <h1 style="font-size: 2em"><s:property value="noteTitle" /></h1>
+    </div>
+
+
+        <s:property escape="false" value="travelNote" />
+    </s:iterator>
+  </div>
   <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
   <script src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
 </body>
