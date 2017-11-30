@@ -80,15 +80,15 @@
           <div class="modal-title">
             <h2 class="text-center">登录</h2>
           </div>
-          <form class="form-group" action="Login" method="post">
+          <form class="form-group" method="post">
             <div class="form-group">
-              <label for="username">用户名</label> <input class="form-control" type="text" name="username" required>
+              <label for="username">用户名</label> <input class="form-control" type="text" name="username" id="username" required>
             </div>
             <div class="form-group">
-              <label for="password">密码</label> <input class="form-control" type="password" name="password" required>
+              <label for="password">密码</label> <input class="form-control" type="password" name="password" id="password" required>
             </div>
             <div class="text-right">
-              <button class="btn btn-primary" type="submit">登录</button>
+              <button class="btn btn-primary" id="LoginButton">登录</button>
               <button class="btn btn-danger" data-dismiss="modal">取消</button>
             </div>
             <a href="<%=request.getContextPath() %>/Other/Register.jsp">还没有账号？点我注册</a>
@@ -103,7 +103,7 @@
       <h1 style="font-size: 2em">创建小组</h1>
     </div>
     <div class="row"></div>
-    <form class="form-horizontal" role="form" action="NewGroup" method="post">
+    <form class="form-horizontal" role="form" method="post">
       <div class="form-group">
         <label for="groupname" class="col-xs-1 control-label">组名</label>
         <div class="col-lg-3">
@@ -140,7 +140,7 @@
       <div class="row">
         <div class="col-lg-1"></div>
         <div class="col-lg-1">
-          <button type="submit" class="btn btn-block">提交</button>
+          <button id="NewGroup" class="btn btn-block">提交</button>
         </div>
         <div class="col-lg-1"></div>
         <div class="col-lg-1">
@@ -164,6 +164,61 @@
           locale : moment.locale('zh-cn')
         });
       });
+  </script>
+  <script>
+    $(document).ready(function() {
+      $("#LoginButton").bind("click", function() {
+        $.ajax({
+          type: "post",
+          url: "LoginAjax.action",
+          data: {
+            username: $("#username").val(),
+            password: $("#password").val()
+          },
+          dataType: "json",
+          success: function(data) {
+            var d = eval("(" + data + ")");
+            if (d.LoginResult == 1) {
+              location.reload();
+            }
+            else if (d.LoginResult == 2) {
+              $("LoginError").html("密码错误!");
+              alert("密码错误!");
+            }
+          },
+          error: function() {
+            alert("系统异常，请稍后再试");
+          }
+        });
+      });
+    });
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#NewGroup").bind("click", function() {
+        var submitdata = $("form").serialize();
+        submitdata = decodeURIComponent(submitdata, true);
+        submitdata = encodeURI(encodeURI(submitdata));
+        $.ajax({
+          async: false,
+          type: "post",
+          url: "NewGroup.action",
+          data: submitdata,
+          dataType: "json",
+          success:function(data) {
+            var d = eval("(" + data + ")");
+            if (d.success == "true") {
+              alert("创建小组成功");
+            } else {
+              window.alert("创建小组失败，请重新创建");
+            }
+          },
+          error:function() {
+            window.alert("系统异常，请稍后重试");
+          }
+        });
+      });
+    });
   </script>
 </body>
 

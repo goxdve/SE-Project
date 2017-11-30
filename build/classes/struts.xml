@@ -1,15 +1,97 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC
-	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
-	"http://struts.apache.org/dtds/struts-2.3.dtd">
+  "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+  "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
   <constant name="struts.i18n.encoding" value="UTF-8" />
-  <include file="struts-default.xml"/>
-  <package name="Schemes" extends="struts-default">    
+  <include file="struts-default.xml" />
+
+  <package name="Schemes" extends="struts-default">
     <action name="NewScheme" class="Action.NewScheme" method="execute">
-      <interceptor-ref name="basicStack"/>
+      <interceptor-ref name="basicStack" />
       <result name="success">/Schemes/Success.jsp</result>
+      <result name="error">/Other/RegisterError.jsp</result>
+    </action>
+    <action name="SkipSchemesPage" class="Action.SkipSchemesPage" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Schemes/AllSchemes.jsp</result>
     </action>
   </package>
-      
+
+
+  <package name="Users" extends="struts-default,json-default">
+    <action name="Login" class="Action.LoginAjax">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
+    </action>
+
+    <action name="register" class="Action.Register" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Other/RegisterSuccess.jsp</result>
+      <result name="error">/Other/RegisterError.jsp</result>
+    </action>
+    <action name="Logout" class="Action.Logout" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success" type="redirect">
+      	<param name="location">
+      	  /index.jsp
+      	</param>
+  	  </result>
+    </action>
+  </package>
+
+
+  <package name="Groups" extends="struts-default">
+    <action name="NewGroup" class="Action.NewGroup" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Groups/success.jsp</result>
+      <result name="error">/Groups/error.jsp</result>
+    </action>
+    <action name="JoinGroup" class="Action.JoinGroup" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Groups/AllGroups.jsp</result>
+      <result name="error">/Groups/error.jsp</result>
+    </action>
+    <action name="SkipGroupsPage" class="Action.SkipGroupsPage" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Groups/AllGroups.jsp</result>
+    </action>
+    <action name="DismissGroup" class="Action.DismissGroup" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Groups/MyGroups.jsp</result>
+    </action>
+    <action name="QuitGroup" class="Action.QuitGroup" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Groups/MyGroups.jsp</result>
+    </action>
+    <action name="ManageGroup" class="Action.ManageGroup" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Groups/ManageGroup.jsp</result>
+    </action>
+    <action name="UpdateGroup" class="Action.UpdateGroup" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Groups/success.jsp</result>
+    </action>    
+  </package>
+  
+  <package name="Notes" extends="struts-default">
+  	<action name="allTravelNotes" class="Action.AllNotes" method="execute">
+  	  <interceptor-ref name="basicStack"/>
+  	  <result name="success">/travelNotes/allTravelNotes.jsp</result>
+  	  <result name="error">/Other/RegisterError.jsp</result>
+  	</action>
+  	<action name="noteInfo" class="Action.noteInfo" method="execute">
+  	  <interceptor-ref name="basicStack"/>
+  	  <result name="success">/travelNotes/noteInfo.jsp</result>
+  	  <result name="error">/Other/RegisterError.jsp</result>
+  	</action>
+  	<action name="saveNote" class="Action.SaveNote" method="execute">
+  	  <result name="success">/travelNotes/allTravelNotes.jsp</result>
+  	  <result name="error">/Other/RegisterError.jsp</result>
+  	</action>
+  </package>
+  
+  
 </struts>

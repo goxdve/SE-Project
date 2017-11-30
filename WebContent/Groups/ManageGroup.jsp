@@ -81,21 +81,24 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
-          <button class="close" data-dismiss="modal">
+          <button class="close" data-dismiss="modal" id="CloseLoginModal">
             <span>&times;</span>
           </button>
           <div class="modal-title">
             <h2 class="text-center">登录</h2>
           </div>
-          <form class="form-group" action="Login" method="post">
+          <form class="form-group" method="post">
             <div class="form-group">
-              <label for="username">用户名</label> <input class="form-control" type="text" name="username" required>
+              <label for="username">用户名</label>
+              <input class="form-control" type="text" name="username" id="username" required>
             </div>
             <div class="form-group">
-              <label for="password">密码</label> <input class="form-control" type="password" name="password" required>
+              <label for="password">密码</label>
+              <input class="form-control" type="password" name="password" id="password" required>
+              <label id="LoginError"></label>
             </div>
             <div class="text-right">
-              <button class="btn btn-primary" type="submit">登录</button>
+              <button class="btn btn-primary" id="LoginButton">登录</button>
               <button class="btn btn-danger" data-dismiss="modal">取消</button>
             </div>
             <a href="<%=request.getContextPath() %>/Other/Register.jsp">还没有账号？点我注册</a>
@@ -123,21 +126,21 @@
         <div id="GroupInfo" class="panel-collapse collapse">
           <div class="panel-body">
 
-            <form class="form-horizontal" role="form" method="post" action="UpdateGroup">
+            <form class="form-horizontal" role="form" method="post">
               <input type="hidden" name="groupid" 
               value="<s:property value="#parameters.groupid"/>"/>
               <div class="form-group">
                 <label for="groupname" class="col-sm-2 control-label">组名</label>
                 <div class="col-sm-4">
                   <input type="text" class="form-control" name="groupname"
-                   placeholder="<s:property value="#content.group.groupname"/>" required />
+                   value="<s:property value="#content.group.groupname"/>" required />
                 </div>
               </div>
               <div class="form-group">
                 <label for="destination" class="col-sm-2 control-label">目的地</label>
                 <div class="col-sm-4">
                   <input type="text" class="form-control" name="destination"
-                   placeholder="<s:property value="#content.group.destination"/>" required />
+                   value="<s:property value="#content.group.destination"/>" required />
                 </div>
               </div>
 
@@ -146,7 +149,7 @@
                 <div class="col-sm-4">
                   <div class='input-group date' id='datetimepicker'>
                     <input type="text" class="form-control" name="begindate"
-                     placeholder="<s:property value="#content.group.begindate"/>" required> <span class="input-group-addon"> <span
+                     value="<s:property value="#content.group.begindate"/>" required> <span class="input-group-addon"> <span
                       class="glyphicon glyphicon-calendar"></span>
                     </span>
                   </div>
@@ -158,7 +161,7 @@
                 <div class="col-sm-4">
                   <input class="input" type="number" min="1" step="1" max="1000"
                   name="maxmembercount" pattern="^[0-9]*[1-9][0-9]*$"
-                  placeholder="<s:property value="#content.maxmembercount"/>" required />
+                  value="<s:property value="#content.maxmembercount"/>" required />
                 </div>
               </div>
 
@@ -166,7 +169,7 @@
               <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-2">
-                  <button type="submit" class="btn btn-block">提交</button>
+                  <button id="ReviseGroupInfoButton" class="btn btn-block">提交</button>
                 </div>
                 <div class="col-sm-1"></div>
                 <div class="col-sm-2">
@@ -174,7 +177,6 @@
                 </div>
               </div>
             </form>
-
 
           </div>
         </div>
@@ -234,6 +236,65 @@
           locale : moment.locale('zh-cn')
         });
       });
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#LoginButton").bind("click", function() {
+        if ($("#username").val != "") {
+          $.ajax({
+            type: "post",
+            url: "LoginAjax.action",
+            data: {
+              username: $("#username").val(),
+              password: $("#password").val()
+            },
+            dataType: "json",
+            success: function(data) {
+              var d = eval("(" + data + ")");
+              if (d.LoginResult == 1) {
+                location.reload();
+              }
+              else if (d.LoginResult == 2) {
+                $("LoginError").html("密码错误!");
+                alert("密码错误!");
+              }
+            },
+            error: function() {
+              alert("系统异常，请稍后再试");
+            }
+          });
+        }
+      });
+    });
+  </script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#ReviseGroupInfoButton").bind("click", function() {
+        var submitdata = $("form").serialize();
+        submitdata = decodeURIComponent(submitdata, true);
+        submitdata = encodeURI(encodeURI(submitdata));
+        $.ajax({
+          async: false,
+          type: "post",
+          url: "UpdateGroup.action",
+          data: submitdata,
+          dataType: "json",
+          success:function(data) {
+            var d = eval("(" + data + ")");
+            if (d.success == "true") {
+              alert("修改成功");
+              location.reload();
+            } else {
+              window.alert("修改失败，请稍后再试");
+            }
+          },
+          error:function() {
+            window.alert("系统异常，请稍后重试");
+          }
+        });
+      });
+    });
   </script>
 </body>
 

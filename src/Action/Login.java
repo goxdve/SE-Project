@@ -14,7 +14,7 @@ import Data.UserRepository;
 import net.sf.json.JSONObject;
 import Class.Scheme;
 
-public class LoginAjax extends ActionSupport implements ServletRequestAware {
+public class Login extends ActionSupport implements ServletRequestAware {
     /**
      * 
      */
