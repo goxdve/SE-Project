@@ -36,22 +36,24 @@ public class GroupRepository {
         String groupid = group.getGroupid();
         String groupname = group.getGroupname();
         String destination = group.getDestination();
-        String begindate = group.getDestination();
+        String begindate = group.getBegindate();
         int membercount = group.getMembercount();
         int maxmembercount = group.getMaxmembercount();
         String manager = group.getManager();
         long timestamp = group.getTimestamp();
-        stat.execute("insert into tourgroup(groupid,groupname,destination,begindate,"
-                + "membercount,maxmembercount,manager,timestamp)values('" + groupid
-                + "','" + groupname + "','" + destination + "','" + begindate + "',"
-                + membercount + "," + maxmembercount + ",'" + manager + "',"
-                + timestamp + ")");
+        String sql = String.format( "insert into tourgroup(groupid,groupname,"
+                + "destination,begindate,membercount,maxmembercount,manager,"
+                + "timestamp)values(\"%s\",\"%s\",\"%s\",\"%s\",%d,%d,\"%s\",%d)",
+                groupid, groupname, destination, begindate, membercount,
+                maxmembercount, manager, timestamp);
+        System.out.println("GroupRepository.java: sql = " + sql);
+        stat.execute(sql);
     }
 
     public ArrayList<Group> getGroups(int offset, int num) throws SQLException {
         ArrayList<Group> ret = new ArrayList<Group>();
-        ResultSet rs = stat.executeQuery("select * from tourgroup"
-                + " order by timestamp desc limit " +  (offset - 1) + ", " + num);
+        ResultSet rs = stat.executeQuery(
+                "select * from tourgroup" + " order by timestamp desc limit " + (offset - 1) + ", " + num);
         while (rs.next()) {
             String groupid = rs.getString("groupid");
             String groupname = rs.getString("groupname");
@@ -123,8 +125,8 @@ public class GroupRepository {
         }
         close();
     }
-    
-    public void updateGroup(Group group) throws Exception{
+
+    public void updateGroup(Group group) throws Exception {
         String groupid = group.getGroupid();
         String groupname = group.getGroupname();
         String destination = group.getDestination();
@@ -132,12 +134,10 @@ public class GroupRepository {
         int membercount = group.getMembercount();
         int maxmembercount = group.getMaxmembercount();
         String manager = group.getManager();
-        String sql = String.format("update tourgroup set groupname=\"%s\","
-                + "destination=\"%s\",begindate=\"%s\",membercount=%d,"
-                + "maxmembercount=%d,manager=\"%s\" where groupid=\"%s\";"
-                , groupname, destination, begindate, membercount, maxmembercount
-                , manager, groupid);
-        System.err.println("sql = " + sql);
+        String sql = String.format(
+                "update tourgroup set groupname=\"%s\"," + "destination=\"%s\",begindate=\"%s\",membercount=%d,"
+                        + "maxmembercount=%d,manager=\"%s\" where groupid=\"%s\";",
+                groupname, destination, begindate, membercount, maxmembercount, manager, groupid);
         stat.executeUpdate(sql);
     }
 }

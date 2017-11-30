@@ -273,7 +273,6 @@
       $("#ReviseGroupInfoButton").bind("click", function() {
         var submitdata = $("form").serialize();
         submitdata = decodeURIComponent(submitdata, true);
-        alert(submitdata);
         submitdata = encodeURI(encodeURI(submitdata));
         $.ajax({
           async: false,

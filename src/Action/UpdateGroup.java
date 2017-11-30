@@ -3,8 +3,6 @@ package Action;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.interceptor.ServletRequestAware;
-
 import com.opensymphony.xwork2.ActionSupport;
 import java.net.URLDecoder;
 import java.util.HashMap;
@@ -46,7 +44,7 @@ public class UpdateGroup extends ActionSupport {
 
             GroupRepository grouprepository = new GroupRepository();
             Group group = grouprepository.getgroup(groupid);
-            System.out.println(group);
+//            System.out.println(group);
             group.setGroupname(groupname);
             group.setDestination(destination);
             group.setBegindate(begindate);
@@ -59,7 +57,7 @@ public class UpdateGroup extends ActionSupport {
 
             JSONObject json = JSONObject.fromObject(map);
             result = json.toString();
-            System.out.println("UpdateGroup.java result = " + result);
+//            System.out.println("UpdateGroup.java result = " + result);
         } catch (Exception e) {
             e.printStackTrace();
         }

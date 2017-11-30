@@ -35,16 +35,16 @@ public class NewGroup extends ActionSupport implements ServletRequestAware {
 
     public String execute() {
         try {
-            System.out.println("NewGroup.java: hello bug");
+//            System.out.println("NewGroup.java: hello bug");
             String groupname = URLDecoder.decode(request.getParameter("groupname"), "UTF-8");
             String destination = URLDecoder.decode(request.getParameter("destination"), "UTF-8");
             String begindate = request.getParameter("begindate");
             int maxmembercount = Integer.parseInt(request.getParameter("maxmembercount"));
 
-            System.out.println("NewGroup.java: groupname = " + groupname);
-            System.out.println("NewGroup.java: destination = " + destination);
-            System.out.println("NewGroup.java: beginDate = " + begindate);
-            System.out.println("NewGroup.java: maxmembercount = " + maxmembercount);
+//            System.out.println("NewGroup.java: groupname = " + groupname);
+//            System.out.println("NewGroup.java: destination = " + destination);
+//            System.out.println("NewGroup.java: beginDate = " + begindate);
+//            System.out.println("NewGroup.java: maxmembercount = " + maxmembercount);
 
 
             String groupid = UUID.randomUUID().toString().replaceAll("-", "");
@@ -77,7 +77,7 @@ public class NewGroup extends ActionSupport implements ServletRequestAware {
 
             JSONObject json = JSONObject.fromObject(map);
             result = json.toString();
-             System.out.println("NewGroup.java result = " + result);
+//             System.out.println("NewGroup.java result = " + result);
         } catch (Exception e) {
             e.printStackTrace();
         }

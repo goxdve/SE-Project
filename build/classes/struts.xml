@@ -13,10 +13,6 @@
         <param name="root">result</param>
       </result>
     </action>
-<!--     <action name="NewScheme" class="Action.NewScheme" method="execute"> -->
-<!--       <interceptor-ref name="basicStack" /> -->
-<!--       <result name="error">/Other/RegisterError.jsp</result> -->
-<!--     </action> -->
     <action name="SkipSchemesPage" class="Action.SkipSchemesPage" method="execute">
       <interceptor-ref name="basicStack" />
       <result name="success">/Schemes/AllSchemes.jsp</result>
@@ -83,12 +79,7 @@
 
   </package>
   
-  <package name="Notes" extends="struts-default">
-  	<action name="NewNote" class="Action.NewNote" method="execute">
-  	  <interceptor-ref name="basicStack"/>
-  	  <result name="success">/index.jsp</result>
-  	  <result name="error">/Other/RegisterError.jsp</result>
-  	</action>
+  <package name="Notes" extends="struts-default,json-default">
   	<action name="allTravelNotes" class="Action.AllNotes" method="execute">
   	  <interceptor-ref name="basicStack"/>
   	  <result name="success">/travelNotes/allTravelNotes.jsp</result>
@@ -99,6 +90,17 @@
   	  <result name="success">/travelNotes/noteInfo.jsp</result>
   	  <result name="error">/Other/RegisterError.jsp</result>
   	</action>
+<!--   	<action name="saveNote" class="Action.SaveNote" method="execute"> -->
+<!--   	  <result name="success">/travelNotes/allTravelNotes.jsp</result> -->
+<!--   	  <result name="error">/Other/RegisterError.jsp</result> -->
+<!--  	</action> -->
+ 	
+    <action name="SaveNote" class="Action.SaveNote">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
+    </action>
   </package>
   
   

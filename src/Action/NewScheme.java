@@ -31,7 +31,6 @@ public class NewScheme extends ActionSupport implements ServletRequestAware {
     public String execute() {
        try {
 //         System.out.println("NewScheme.java: hello bug");
-           System.out.println(request);
          Scheme scheme = new Scheme();
          String schemeTitle = URLDecoder.decode(request.getParameter("schemeTitle"), "UTF-8");
          String destination = URLDecoder.decode(request.getParameter("destination"), "UTF-8");

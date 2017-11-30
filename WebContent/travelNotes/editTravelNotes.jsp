@@ -40,8 +40,8 @@
       <ul class="nav navbar-nav navbar-right">
         <%
             ActionContext ac = ActionContext.getContext();
-        			Map<String, Object> session1 = ac.getSession();
-        			if (session1.containsKey("username")) {
+              Map<String, Object> session1 = ac.getSession();
+              if (session1.containsKey("username")) {
         %>
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <s:property value="#session.username" /> <b class="caret"></b>
         </a>
@@ -76,18 +76,18 @@
           <div class="modal-title">
             <h2 class="text-center">登录</h2>
           </div>
-          <form class="form-group" action="Login" method="post">
+          <form class="form-group" method="post">
             <div class="form-group">
-              <label for="username">用户名</label> <input class="form-control" type="text" name="username" required>
+              <label for="username">用户名</label> <input class="form-control" type="text" name="username" id="username" required>
             </div>
             <div class="form-group">
-              <label for="password">密码</label> <input class="form-control" type="password" name="password" required>
+              <label for="password">密码</label> <input class="form-control" type="password" name="password" id="password" required>
             </div>
             <div class="text-right">
-              <button class="btn btn-primary" type="submit">登录</button>
+              <button class="btn btn-primary" id="LoginButton">登录</button>
               <button class="btn btn-danger" data-dismiss="modal">取消</button>
             </div>
-            <a href="<%=request.getContextPath()%>/Other/Register.jsp">还没有账号？点我注册</a>
+            <a href="<%=request.getContextPath() %>/Other/Register.jsp">还没有账号？点我注册</a>
           </form>
         </div>
       </div>
@@ -112,7 +112,7 @@
     </s:if>
     <s:else>
 
-      <form class="form-horizontal" role="form" method="post" action="saveNote">
+      <form class="form-horizontal" role="form" method="post">
         <div class="form-group">
           <label for="noteTitle" class="col-sm-1 control-label">标题</label>
           <div class="col-sm-3">
@@ -124,7 +124,7 @@
         &nbsp;
         <div class="row">
           <div class="col-sm-1">
-            <button type="submit" class="btn btn-block">上传</button>
+            <button id="EditNoteButton" class="btn btn-block">上传</button>
           </div>
         </div>
 
@@ -141,15 +141,71 @@
   <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
   <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
   <script type="text/javascript">
-			var ue = UE.getEditor('travelNote',
-					{
-						toolbars : [ [ 'undo', 'redo', 'insertunorderedlist',
-								'insertorderedlist', 'cleardoc', '|',
-								'emotion', 'simpleupload', 'snapscreen', 'map',
-								'insertvideo', 'horizontal', '|', 'indent',
-								'italic', 'underline', 'strikethrough',
-								'fontfamily', 'fontsize', 'forecolor', ] ]
-					});
-		</script>
+      var ue = UE.getEditor('travelNote',
+          {
+            toolbars : [ [ 'undo', 'redo', 'insertunorderedlist',
+                'insertorderedlist', 'cleardoc', '|',
+                'emotion', 'simpleupload', 'snapscreen', 'map',
+                'insertvideo', 'horizontal', '|', 'indent',
+                'italic', 'underline', 'strikethrough',
+                'fontfamily', 'fontsize', 'forecolor', ] ]
+          });
+  </script>
+  <script>
+    $(document).ready(function() {
+      $("#LoginButton").bind("click", function() {
+        $.ajax({
+          type: "post",
+          url: "Login.action",
+          data: {
+            username: $("#username").val(),
+            password: $("#password").val()
+          },
+          dataType: "json",
+          success: function(data) {
+            var d = eval("(" + data + ")");
+            if (d.LoginResult == 1) {
+              location.reload();
+            }
+            else if (d.LoginResult == 2) {
+              $("LoginError").html("密码错误!");
+              alert("密码错误!");
+            }
+          },
+          error: function() {
+            alert("系统异常，请稍后再试");
+          }
+        });
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      $("#EditNoteButton").bind("click", function() {
+        var submitdata = $("form").serialize();
+        submitdata = decodeURIComponent(submitdata, true);
+        submitdata = encodeURI(encodeURI(submitdata));
+        $.ajax({
+          async : false,
+          type : "post",
+          url : "SaveNote.action",
+          data : submitdata,
+          dataType : "json",
+          success: function(data) {
+            var d = eval("(" + data + ")");
+            if (d.success == "true") {
+              alert("发布攻略成功");
+            }
+            else if (d.success == "false") {
+              alert("发布失败，请稍后再试");
+            }
+          },
+          error: function() {
+            alert("系统异常，请稍后再试");
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
