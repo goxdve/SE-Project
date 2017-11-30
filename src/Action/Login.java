@@ -1,48 +1,69 @@
 package Action;
 
-import Data.UserRepository;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts2.interceptor.ServletRequestAware;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-
-import Class.User;
+import java.net.URLDecoder;
+import java.util.HashMap;
 import java.util.Map;
+import Data.SchemeRepository;
+import Data.UserRepository;
+import net.sf.json.JSONObject;
+import Class.Scheme;
 
-public class Login extends ActionSupport {
+public class LoginAjax extends ActionSupport implements ServletRequestAware {
     /**
      * 
      */
-    private static final long serialVersionUID = -4085415268098721474L;
-
-    public String execute() throws Exception {
-        UserRepository userrepository = new UserRepository();
-        if (userrepository.Login(username, password)) {
-            ActionContext ac = ActionContext.getContext();
-            Map<String, Object> session1 = ac.getSession();
-            session1.put("username", username);
-            return "success";
-        }
-        else
-            return "error";
+    private static final long serialVersionUID = 6760341805820670987L;
+    private HttpServletRequest request;
+    private String result;
+    public void setServletRequest(HttpServletRequest arg) {
+        this.request = arg;
     }
-
-    public String username;// 用户名
-
-    public String password;// 密码
-
-    public void setUsername(String username) {
-        this.username = username;
+    public String getResult() {
+        return result;
     }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setResult(String result) {
+        this.result = result;
     }
+    public String execute() {
+       try {
+//         System.out.println("LoginAjax.java: hello bug");
+         String username = request.getParameter("username");
+         String password = request.getParameter("password");
 
-    public String getUsername() {
-        return username;
+//         System.out.println("LoginAjax.java:username = " + username);
+//         System.out.println("LoginAjax.java: password = " + password);
+
+         UserRepository userrepository = new UserRepository();
+         boolean success = false;
+         if (userrepository.Login(username, password)) {
+             ActionContext ac = ActionContext.getContext();
+             Map<String, Object> session1 = ac.getSession();
+             session1.put("username", username);
+             success = true;
+         }
+         else
+             success = false;
+
+         Map<String, Object> map = new HashMap<String, Object>(); 
+         if (success) {
+             map.put("LoginResult", 1);
+         }
+         else {
+             map.put("LoginResult", 2);
+         }
+
+         JSONObject json = JSONObject.fromObject(map);
+         result = json.toString();
+//         System.out.println("LoginAjax.java result = " + result);
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+       return "success";
     }
-
-    public String getPassword() {
-        return password;
-    }
-
 }

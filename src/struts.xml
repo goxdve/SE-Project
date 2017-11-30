@@ -19,16 +19,14 @@
   </package>
 
 
-  <package name="Users" extends="struts-default">
-    <action name="Login" class="Action.Login" method="execute">
+  <package name="Users" extends="struts-default,json-default">
+    <action name="Login" class="Action.LoginAjax">
       <interceptor-ref name="basicStack" />
-      <result name="success" type="redirect">
-      	<param name="location">
-      	  /index.jsp
-      	</param>
-  	  </result>
-      <result name="error">/Other/RegisterError.jsp</result>
+      <result type="json">
+        <param name="root">result</param>
+      </result>
     </action>
+
     <action name="register" class="Action.Register" method="execute">
       <interceptor-ref name="basicStack" />
       <result name="success">/Other/RegisterSuccess.jsp</result>
