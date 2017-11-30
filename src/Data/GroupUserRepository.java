@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class GroupUserRepository {
     Connection con = null;
@@ -22,7 +23,7 @@ public class GroupUserRepository {
         this.con = DriverManager.getConnection(dbUrl, username, password);
         this.stat = this.con.createStatement();
     }
-    
+
     public void close() throws SQLException {
         if (this.con != null) {
             this.con.close();
@@ -80,5 +81,4 @@ public class GroupUserRepository {
         stat.executeUpdate(SearchString);
         stat.close();
     }
-
 }

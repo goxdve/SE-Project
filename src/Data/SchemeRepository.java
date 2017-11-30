@@ -1,17 +1,11 @@
 package Data;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import org.apache.catalina.core.ApplicationContext;
-
+import java.util.ArrayList;
 import Class.Scheme;
 
 public class SchemeRepository {
@@ -37,35 +31,58 @@ public class SchemeRepository {
         }
     }
 
-    public void picture(File file, int id) throws SQLException, IOException {
-        FileInputStream in = null;
-        in = new FileInputStream(file);
-        String sql = "update user set picture = ? where id = " + id;
-        System.out.println(id);
-        PreparedStatement ps = this.con.prepareStatement(sql);
-        System.out.println(in.toString());
-        ps.setBinaryStream(1, in, in.available());
-        ps.executeUpdate();
-    }
-
-    public boolean execute(String sql) throws SQLException {
-        return this.stat.execute(sql);
-    }
-
-    public ResultSet executeQuery(String sql) throws SQLException {
-        return this.stat.executeQuery(sql);
-    }
-
-    public void executeUpdate(String sql) throws SQLException {
-        this.stat.executeUpdate(sql);
-    }
-
     public void addScheme(Scheme scheme) throws SQLException {
-        stat.execute("INSERT INTO scheme(schemeID,schemeTitle,postDate,postTime,destination,beginDate,"
-                + "duration,description,ownerName) VALUES('" + scheme.getSchemeID() + "', '" + scheme.getSchemeTitle()
-                + "', '" + scheme.getPostDate() + "', '" + scheme.getPostTime() + "', '" + scheme.getDestination()
-                + "', '" + scheme.getBeginDate() + "', '" + scheme.getDuration() + "', '" + scheme.getDescription()
-                + "', '" + scheme.getOwnerName() + "');");
+        stat.execute("INSERT INTO scheme(schemeID,schemeTitle,postDate,"
+                + "postTime,destination,beginDate,duration,description,"
+                + "ownerName,timestamp) VALUES('" + scheme.getSchemeID()
+                + "', '" + scheme.getSchemeTitle() + "', '"+ scheme.getPostDate()
+                + "', '"+ scheme.getPostTime() + "', '" + scheme.getDestination()
+                + "', '" + scheme.getBeginDate() + "', '" + scheme.getDuration()
+                + "', '"+ scheme.getDescription() + "', '" + scheme.getOwnerName()
+                + "', " + scheme.getTimestamp() + ");");
     }
+    
+    public ArrayList<Scheme> getSchemes(int offset, int num) throws SQLException {
+        ArrayList<Scheme> ret = new ArrayList<Scheme>();
+        rs = stat.executeQuery("select * from scheme"
+                + " order by timestamp desc limit " +  (offset - 1) +
+                ", " + num + "");
+        while (rs.next()) {
+            String schemeid = rs.getString("schemeID");
+            String schemetitle = rs.getString("schemeTitle");
+            String destination = rs.getString("destination");
+            int duration = rs.getInt("duration");
+            String begindate = rs.getString("beginDate");
+            String postdate = rs.getString("postDate");
+            String posttime = rs.getString("postTime");
+            String description = rs.getString("description");
+            String owner = rs.getString("ownerName");
+            long timestamp = rs.getLong("timestamp");
 
+            Scheme scheme = new Scheme();
+            scheme.setSchemeID(schemeid);
+            scheme.setSchemeTitle(schemetitle);
+            scheme.setDestination(destination);
+            scheme.setDuration(duration);
+            scheme.setBeginDate(begindate);
+            scheme.setPostDate(postdate);
+            scheme.setPostTime(posttime);
+            scheme.setDescription(description);
+            scheme.setOwnerName(owner);
+            scheme.setTimestamp(timestamp);
+            
+            ret.add(scheme);
+        }
+        return ret;
+    }
+    
+    public int getSize() throws SQLException{
+        int rowCount = 0;
+        String sql = "SELECT COUNT(*) FROM scheme;";  
+        rs = stat.executeQuery(sql);
+        while (rs.next()) {
+            rowCount = rs.getInt(1);
+        }
+        return rowCount;  
+    }  
 }
