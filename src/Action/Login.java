@@ -9,10 +9,8 @@ import com.opensymphony.xwork2.ActionSupport;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
-import Data.SchemeRepository;
 import Data.UserRepository;
 import net.sf.json.JSONObject;
-import Class.Scheme;
 
 public class Login extends ActionSupport implements ServletRequestAware {
     /**
@@ -33,7 +31,7 @@ public class Login extends ActionSupport implements ServletRequestAware {
     public String execute() {
        try {
 //         System.out.println("LoginAjax.java: hello bug");
-         String username = request.getParameter("username");
+         String username = URLDecoder.decode(request.getParameter("username"), "UTF-8");
          String password = request.getParameter("password");
 
 //         System.out.println("LoginAjax.java:username = " + username);

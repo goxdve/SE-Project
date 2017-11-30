@@ -1,16 +1,12 @@
 package Action;
 
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
-import java.util.Map;
-import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts2.ServletActionContext;
-
+import com.opensymphony.xwork2.ActionSupport;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.json.JSONObject;
 import Data.GroupRepository;
-import Data.GroupUserRepository;
 import Class.Group;
 
 public class UpdateGroup extends ActionSupport {
@@ -18,66 +14,53 @@ public class UpdateGroup extends ActionSupport {
      * 
      */
     private static final long serialVersionUID = 5213923617593721299L;
-    // 这一部分内容通过页面获取
-    private String groupname;
-    private String groupid;
-    private String destination;
-    private String begindate;
-    private int maxmembercount;
+    private HttpServletRequest request;
+    private String result;
 
-    public String getGroupname() {
-        return groupname;
+    public void setServletRequest(HttpServletRequest arg) {
+        this.request = arg;
     }
 
-    public void setGroupname(String groupname) {
-        this.groupname = groupname;
+    public String getResult() {
+        return result;
     }
 
-    public String getGroupid() {
-        return groupid;
+    public void setResult(String result) {
+        this.result = result;
     }
 
-    public void setGroupid(String groupid) {
-        this.groupid = groupid;
-    }
+    public String execute() {
+        try {
+            System.out.println("UpdateGroup.java: hello bug");
+            String groupname = URLDecoder.decode(request.getParameter("groupname"), "UTF-8");
+            String destination = URLDecoder.decode(request.getParameter("destination"), "UTF-8");
+            String begindate = request.getParameter("begindate");
+            int maxmembercount = Integer.parseInt(request.getParameter("maxmembercount"));
+            String groupid = request.getParameter("groupid");
 
-    public String getDestination() {
-        return destination;
-    }
+            System.out.println("UpdateGroup.java: groupname = " + groupname);
+            System.out.println("UpdateGroup.java: destination = " + destination);
+            System.out.println("UpdateGroup.java: beginDate = " + begindate);
+            System.out.println("UpdateGroup.java: maxmembercount = " + maxmembercount);
 
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
+            GroupRepository grouprepository = new GroupRepository();
+            Group group = grouprepository.getgroup(groupid);
+            group.setGroupname(groupname);
+            group.setDestination(destination);
+            group.setBegindate(begindate);
+            group.setMaxmembercount(maxmembercount);
+            grouprepository.updateGroup(group);
+            grouprepository.close();
 
-    public String getBegindate() {
-        return begindate;
-    }
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("success", "true");
 
-    public void setBegindate(String begindate) {
-        this.begindate = begindate;
-    }
-
-    public int getMaxmembercount() {
-        return maxmembercount;
-    }
-
-    public void setMaxmembercount(int maxmembercount) {
-        this.maxmembercount = maxmembercount;
-    }
-
-    public String execute() throws Exception {
-        Map<String, Object> session1 = ActionContext.getContext().getSession();
-        if (!session1.containsKey("username"))
-            return "error";
-        System.err.println("aaagroupid = " + groupid);
-        GroupRepository grouprepository = new GroupRepository();
-        Group group = grouprepository.getgroup(groupid);
-        group.setGroupname(groupname);
-        group.setDestination(destination);
-        group.setBegindate(begindate);
-        group.setMaxmembercount(maxmembercount);
-        grouprepository.updateGroup(group);
-        grouprepository.close();
-        return SUCCESS;
+            JSONObject json = JSONObject.fromObject(map);
+            result = json.toString();
+            System.out.println("UpdateGroup.java result = " + result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "success";
     }
 }
