@@ -1,10 +1,12 @@
 package Action;
 
 import java.util.Map;
-
 import com.opensymphony.xwork2.ActionContext;
-
+import Class.Group;
+import Class.Groupmessage;
+import Data.GroupRepository;
 import Data.GroupUserRepository;
+import Data.MessageRepository;
 
 public class JoinGroup {
     public String joingroupid;
@@ -29,8 +31,21 @@ public class JoinGroup {
             groupuserrepository.close();
             return "error";
         }
-        System.err.println("NotInGroup");
-        groupuserrepository.addGroupUser(joingroupid, username);
+        System.out.println("NotInGroup");
+        //groupuserrepository.addGroupUser(joingroupid, username);
+        Groupmessage message=new Groupmessage();
+        message.setType(0);
+        message.setGroupid(joingroupid);
+        message.setSender(username);
+        GroupRepository groupRepository=new GroupRepository();
+        Group group=new Group();
+        group=groupRepository.getgroup(joingroupid);
+        message.setReceiver(group.getManager());
+        message.setState(0);
+        MessageRepository repository=new MessageRepository();
+        repository.addMessage(message);
+        repository.close();
+        groupRepository.close();
         groupuserrepository.close();
         return "success";
     }

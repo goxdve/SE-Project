@@ -39,7 +39,7 @@ public class NoteRepository {
     	String noteTitle=note.getNoteTitle();
     	String travelNote=note.getTravelNote();
     	String ownerName=note.getOwnerName();
-    	java.sql.Time noteTime=note.getNoteTime();
+    	String noteTime=note.getNoteTime();
     	String sql="insert into note(noteID,noteTitle,travelNote,ownerName,noteTime)values('"+noteID+"','"+noteTitle+"','"+travelNote+"','"+ownerName+"','"+noteTime+"')";
 		try {
 			stat.execute(sql);
@@ -58,7 +58,7 @@ public class NoteRepository {
 			n.setNoteTitle(rs.getString(2));
 			n.setTravelNote(rs.getString(3));
 			n.setOwnerName(rs.getString(4));
-			n.setNoteTime(rs.getTime(5));
+			n.setNoteTime(rs.getString(5));
 			noteList.add(n);
 		}
     	ActionContext.getContext().put("noteList", noteList);
@@ -73,7 +73,7 @@ public class NoteRepository {
 			note.setNoteTitle(rs.getString(2));
 			note.setTravelNote(rs.getString(3));
 			note.setOwnerName(rs.getString(4));
-			note.setNoteTime(rs.getTime(5));
+			note.setNoteTime(rs.getString(5));
 			ActionContext.getContext().put("aNote", note);
 		}
 		return true;

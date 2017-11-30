@@ -33,7 +33,7 @@ public class SaveNote extends ActionSupport{
 		note.setNoteTitle(noteTitle);
 		note.setTravelNote(travelNote);
 		note.setOwnerName(ownerName);
-//		note.setNoteTime(noteTime);
+		note.setNoteTime(noteTime);
 		NoteRepository noteRepository=new NoteRepository();
 		if (noteRepository.addNote(note)) {
 			return SUCCESS;

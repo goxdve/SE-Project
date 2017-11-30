@@ -5,7 +5,7 @@ public class Note {
 	private String noteTitle;//题目
 	private String travelNote;//富文本内容
 	private String ownerName;//作者
-	private java.sql.Time noteTime;//发布时间
+	private String noteTime;//发布时间
 	
 	public void setNoteID(String noteID) {
 		this.noteID=noteID;
@@ -31,10 +31,10 @@ public class Note {
 	public String getOwnerName() {
 		return this.ownerName;
 	}
-	public void setNoteTime(java.sql.Time noteTime) {
+	public void setNoteTime(String noteTime) {
 		this.noteTime=noteTime;
 	}
-	public java.sql.Time getNoteTime() {
+	public String getNoteTime() {
 		return this.noteTime;
 	}
 }

@@ -100,23 +100,16 @@
     </div>
   </div>
   
-  
-  <s:iterator value="aNote" status="st">
-    <h2><s:property value="noteTitle"/></h2><hr/>
-    <%
-        Note n=(Note)ActionContext.getContext().get("aNote");
-        File file=new File(n.getTravelNote());
-        char[] buffer;
-        Reader input=null;
-        input=new FileReader(file);
-        buffer=new char[(int)file.length()];
-        input.read(buffer);
-        input.close();
-      %>
-    <div>
-      <%=buffer %> 
-    </div> 
-  </s:iterator>
+  <div class="container">
+    <s:iterator value="aNote" status="st">
+    <div style="padding: 5px" class="page-header">
+      <h1 style="font-size: 2em"><s:property value="noteTitle" /></h1>
+    </div>
+
+
+        <s:property escape="false" value="travelNote" />
+    </s:iterator>
+  </div>
   <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
   <script src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
 </body>
