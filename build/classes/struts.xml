@@ -46,7 +46,6 @@
     </action>
   </package>
 
-
   <package name="Groups" extends="struts-default,json-default">
     <action name="NewGroup" class="Action.NewGroup">
       <interceptor-ref name="basicStack" />
@@ -58,6 +57,12 @@
       <interceptor-ref name="basicStack" />
       <result name="success">/Groups/AllGroups.jsp</result>
       <result name="error">/Groups/error.jsp</result>
+    </action>
+    <action name="UpdateGroup" class="Action.UpdateGroup">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
     </action>
     <action name="SkipGroupsPage" class="Action.SkipGroupsPage" method="execute">
       <interceptor-ref name="basicStack" />
@@ -75,12 +80,7 @@
       <interceptor-ref name="basicStack" />
       <result name="success">/Groups/ManageGroup.jsp</result>
     </action>
-    <action name="UpdateGroup" class="Action.UpdateGroup">
-      <interceptor-ref name="basicStack" />
-      <result type="json">
-        <param name="root">result</param>
-      </result>
-    </action>
+
   </package>
   
   <package name="Notes" extends="struts-default">

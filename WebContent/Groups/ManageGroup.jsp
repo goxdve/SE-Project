@@ -243,7 +243,7 @@
         if ($("#username").val != "") {
           $.ajax({
             type: "post",
-            url: "LoginAjax.action",
+            url: "Login.action",
             data: {
               username: $("#username").val(),
               password: $("#password").val()

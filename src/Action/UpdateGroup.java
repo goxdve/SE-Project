@@ -1,6 +1,10 @@
 package Action;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.ServletRequestAware;
+
 import com.opensymphony.xwork2.ActionSupport;
 import java.net.URLDecoder;
 import java.util.HashMap;
@@ -17,10 +21,6 @@ public class UpdateGroup extends ActionSupport {
     private HttpServletRequest request;
     private String result;
 
-    public void setServletRequest(HttpServletRequest arg) {
-        this.request = arg;
-    }
-
     public String getResult() {
         return result;
     }
@@ -31,20 +31,22 @@ public class UpdateGroup extends ActionSupport {
 
     public String execute() {
         try {
-            System.out.println("UpdateGroup.java: hello bug");
+//            System.out.println("UpdateGroup.java: hello bug");
+            request = ServletActionContext.getRequest();
             String groupname = URLDecoder.decode(request.getParameter("groupname"), "UTF-8");
             String destination = URLDecoder.decode(request.getParameter("destination"), "UTF-8");
             String begindate = request.getParameter("begindate");
             int maxmembercount = Integer.parseInt(request.getParameter("maxmembercount"));
             String groupid = request.getParameter("groupid");
 
-            System.out.println("UpdateGroup.java: groupname = " + groupname);
-            System.out.println("UpdateGroup.java: destination = " + destination);
-            System.out.println("UpdateGroup.java: beginDate = " + begindate);
-            System.out.println("UpdateGroup.java: maxmembercount = " + maxmembercount);
+//            System.out.println("UpdateGroup.java: groupname = " + groupname);
+//            System.out.println("UpdateGroup.java: destination = " + destination);
+//            System.out.println("UpdateGroup.java: beginDate = " + begindate);
+//            System.out.println("UpdateGroup.java: maxmembercount = " + maxmembercount);
 
             GroupRepository grouprepository = new GroupRepository();
             Group group = grouprepository.getgroup(groupid);
+            System.out.println(group);
             group.setGroupname(groupname);
             group.setDestination(destination);
             group.setBegindate(begindate);
