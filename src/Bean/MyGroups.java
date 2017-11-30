@@ -8,7 +8,6 @@ import Data.GroupUserRepository;
 
 public class MyGroups {
     public ArrayList<GroupM> allmygroups;
-    public boolean loggedin;
     public ArrayList<GroupM> getAllmygroups() {
         return allmygroups;
     }
@@ -17,21 +16,10 @@ public class MyGroups {
         this.allmygroups = allmygroups;
     }
 
-    public boolean getLoggedin() {
-        return loggedin;
-    }
-
-    public void setLoggedin(boolean loggedin) {
-        this.loggedin = loggedin;
-    }
-
     public MyGroups() throws Exception {
         Map<String, Object> session1 = ActionContext.getContext().getSession();
-        if (!session1.containsKey("username")) {
-            loggedin = false;
+        if (!session1.containsKey("username"))
             return;
-        }
-        loggedin = true;
         String username = (String)session1.get("username");
         
         // 获取当前用户所属的所有小组ID

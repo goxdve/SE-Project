@@ -1,7 +1,5 @@
 package Action;
 
-import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import com.opensymphony.xwork2.ActionContext;

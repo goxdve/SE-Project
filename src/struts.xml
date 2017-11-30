@@ -54,11 +54,6 @@
         <param name="root">result</param>
       </result>
     </action>
-<!--     <action name="NewGroup" class="Action.NewGroup" method="execute"> -->
-<!--       <interceptor-ref name="basicStack" /> -->
-<!--       <result name="success">/Groups/success.jsp</result> -->
-<!--       <result name="error">/Groups/error.jsp</result> -->
-<!--     </action> -->
     <action name="JoinGroup" class="Action.JoinGroup" method="execute">
       <interceptor-ref name="basicStack" />
       <result name="success">/Groups/AllGroups.jsp</result>
@@ -80,10 +75,6 @@
       <interceptor-ref name="basicStack" />
       <result name="success">/Groups/ManageGroup.jsp</result>
     </action>
-<!--     <action name="UpdateGroup" class="Action.UpdateGroup" method="execute"> -->
-<!--       <interceptor-ref name="basicStack" /> -->
-<!--       <result name="success">/Groups/success.jsp</result> -->
-<!--     </action>     -->
     <action name="UpdateGroup" class="Action.UpdateGroup">
       <interceptor-ref name="basicStack" />
       <result type="json">

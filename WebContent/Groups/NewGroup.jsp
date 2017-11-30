@@ -13,6 +13,7 @@
 </head>
 
 <body>
+  <s:bean name="Bean.CheckLoginState" var="checkloginstate"></s:bean>
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -103,6 +104,17 @@
       <h1 style="font-size: 2em">创建小组</h1>
     </div>
     <div class="row"></div>
+    <s:if test="%{#checkloginstate.loggedin==false}">
+      <div style="font-size: 110%">
+        <p>您尚未登录</p>
+        <ul>
+          <li><a data-toggle="modal" data-target="#login" href=""> 登录</a></li>
+          <li><a href="../Other/Register.jsp">还没有账号？点击此处注册</a></li>
+          <li><a href="../index.jsp">再看看</a></li>
+        </ul>
+      </div>
+    </s:if>
+    <s:else>
     <form class="form-horizontal" role="form" method="post">
       <div class="form-group">
         <label for="groupname" class="col-xs-1 control-label">组名</label>
@@ -148,6 +160,7 @@
         </div>
       </div>
     </form>
+    </s:else>
   </div>
 
   <script src="../js/jquery.min.js"></script>
@@ -170,7 +183,7 @@
       $("#LoginButton").bind("click", function() {
         $.ajax({
           type: "post",
-          url: "LoginAjax.action",
+          url: "Login.action",
           data: {
             username: $("#username").val(),
             password: $("#password").val()

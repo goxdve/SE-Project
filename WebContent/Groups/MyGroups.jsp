@@ -11,13 +11,14 @@
 <title>驴吧</title>
 <style>
 .table th, .table td {
-	text-align: center;
-	vertical-align: middle !important;
+  text-align: center;
+  vertical-align: middle !important;
 }
 </style>
 </head>
 
 <body>
+  <s:bean name="Bean.CheckLoginState" var="checkloginstate"></s:bean>
   <s:bean name="Bean.MyGroups" var="content"></s:bean>
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
@@ -109,7 +110,7 @@
       <h1 style="font-size: 2em">我的小组</h1>
     </div>
     <div class="row"></div>
-    <s:if test="%{#content.loggedin==false}">
+    <s:if test="%{#checkloginstate.loggedin==false}">
       <div style="font-size: 110%">
         <p>您尚未登录</p>
         <ul>
@@ -172,12 +173,12 @@
   <script src="../js/jquery.min.js"></script>
   <script src="../js/bootstrap.min.js"></script>
   <script type="text/javascript">
-			$(function() {
-				$('#ManagedGroups').collapse('toggle')
-			});
-			$(function() {
-				$('#JoinedGroups').collapse('toggle')
-			});
+      $(function() {
+        $('#ManagedGroups').collapse('toggle')
+      });
+      $(function() {
+        $('#JoinedGroups').collapse('toggle')
+      });
   </script>
   <script type="text/javascript">
     $(document).ready(function() {
@@ -185,7 +186,7 @@
         if ($("#username").val != "") {
           $.ajax({
             type: "post",
-            url: "LoginAjax.action",
+            url: "Login.action",
             data: {
               username: $("#username").val(),
               password: $("#password").val()

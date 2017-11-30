@@ -39,6 +39,7 @@ public class AllGroups {
         session1.put("grouppage", -1);
         GroupRepository grouprepository = new GroupRepository();
         int groupNum = grouprepository.getSize();
+//        System.out.println("AllGroups.java groupNum = " + groupNum);
         int maxpage = (groupNum + termsPerPage - 1) / termsPerPage;
         int termsPresentPage = termsPerPage;
         if (page >= maxpage) {

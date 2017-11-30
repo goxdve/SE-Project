@@ -51,7 +51,7 @@ public class GroupRepository {
     public ArrayList<Group> getGroups(int offset, int num) throws SQLException {
         ArrayList<Group> ret = new ArrayList<Group>();
         ResultSet rs = stat.executeQuery("select * from tourgroup"
-                + " order by timestamp desc limit offset - 1, num");
+                + " order by timestamp desc limit " +  (offset - 1) + ", " + num);
         while (rs.next()) {
             String groupid = rs.getString("groupid");
             String groupname = rs.getString("groupname");
