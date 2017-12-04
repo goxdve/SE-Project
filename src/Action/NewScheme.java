@@ -2,7 +2,8 @@ package Action;
 
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.struts2.interceptor.ServletRequestAware;
+
+import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.net.URLDecoder;
@@ -12,16 +13,13 @@ import Data.SchemeRepository;
 import net.sf.json.JSONObject;
 import Class.Scheme;
 
-public class NewScheme extends ActionSupport implements ServletRequestAware {
+public class NewScheme extends ActionSupport {
     /**
      * 
      */
     private static final long serialVersionUID = 6760341805820670987L;
     private HttpServletRequest request;
     private String result;
-    public void setServletRequest(HttpServletRequest arg) {
-        this.request = arg;
-    }
     public String getResult() {
         return result;
     }
@@ -30,24 +28,26 @@ public class NewScheme extends ActionSupport implements ServletRequestAware {
     }
     public String execute() {
        try {
-//         System.out.println("NewScheme.java: hello bug");
+         //System.out.println("NewScheme.java: hello bug");
+         request = ServletActionContext.getRequest();
          Scheme scheme = new Scheme();
          String schemeTitle = URLDecoder.decode(request.getParameter("schemeTitle"), "UTF-8");
-         String destination = URLDecoder.decode(request.getParameter("destination"), "UTF-8");
+         String destprovince = URLDecoder.decode(request.getParameter("destprovince"), "UTF-8");
+         String destcity = URLDecoder.decode(request.getParameter("destcity"), "UTF-8");
          String beginDate = request.getParameter("beginDate");
          String description = URLDecoder.decode(request.getParameter("description"), "UTF-8");
+         String relatedgroupid = URLDecoder.decode(request.getParameter("relatedgroupid"), "UTF-8");
          int duration = Integer.parseInt(request.getParameter("duration"));
+         int expenses = Integer.parseInt(request.getParameter("expenses"));
 
-//         System.out.println("NewScheme.java: schemeTitle = " + schemeTitle);
-//         System.out.println("NewScheme.java: destination = " + destination);
-//         System.out.println("NewScheme.java: beginDate = " + beginDate);
-//         System.out.println("NewScheme.java: description = " + description);
-//         System.out.println("NewScheme.java: duration = " + duration);
          scheme.setSchemeTitle(schemeTitle);
-         scheme.setDestination(destination);
+         scheme.setDestprovince(destprovince);
+         scheme.setDestcity(destcity);
          scheme.setBeginDate(beginDate);
          scheme.setDuration(duration);
          scheme.setDescription(description);
+         scheme.setRelatedgroupid(relatedgroupid);
+         scheme.setExpenses(expenses);
          
          // 发布时间postDate和postTime
          java.util.Date now = new java.util.Date();

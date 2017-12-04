@@ -5,12 +5,15 @@ public class Scheme {
     private String schemeTitle; // 标题
     private String postDate; // 发布日期
     private String postTime; // 发布时间
-    private String destination; // 目的地
+    private String destprovince;    // 目的地省份
+    private String destcity;        // 目的地地市
     private String beginDate; // 起始日期
-    private int duration; // 持续时间: 1: 1-3天 2: 4-7天 3: 7天以上
+    private int duration; // 持续时间: 1. 1-3天   2. 4-7天    3. 7天以上
     private String description; // 详情
     private String ownerName; // 发帖人用户名
     private long timestamp; // 时间戳
+    private int expenses;   // 预计开销: 1. 0-500  2. 500-1000   3. 1000-2000   4. 2000以上   
+    private String relatedgroupid;
     
     public String getSchemeID() {
         return schemeID;
@@ -42,14 +45,6 @@ public class Scheme {
 
     public void setPostTime(String postTime) {
         this.postTime = postTime;
-    }
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
     }
 
     public String getBeginDate() {
@@ -90,5 +85,37 @@ public class Scheme {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getDestprovince() {
+        return destprovince;
+    }
+
+    public void setDestprovince(String destprovince) {
+        this.destprovince = destprovince;
+    }
+
+    public String getDestcity() {
+        return destcity;
+    }
+
+    public void setDestcity(String destcity) {
+        this.destcity = destcity;
+    }
+
+    public int getExpenses() {
+        return expenses;
+    }
+
+    public void setExpenses(int expenses) {
+        this.expenses = expenses;
+    }
+
+    public String getRelatedgroupid() {
+        return relatedgroupid;
+    }
+
+    public void setRelatedgroupid(String relatedgroupid) {
+        this.relatedgroupid = relatedgroupid;
     }
 }

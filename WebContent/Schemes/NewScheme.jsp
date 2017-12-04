@@ -14,6 +14,7 @@
 
 <body>
   <s:bean name="Bean.CheckLoginState" var="checkloginstate"></s:bean>
+  <s:bean name="Bean.MyGroups" var="mygroups"></s:bean>
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -114,47 +115,85 @@
     </s:if>
     <s:else>
       <form class="form-horizontal" role="form" method="post">
+        <!-- 标题 -->
         <div class="form-group">
           <label for="schemeTitle" class="col-lg-1 control-label">标题</label>
           <div class="col-lg-3">
             <input type="text" class="form-control" name="schemeTitle" placeholder="请输入标题" required />
           </div>
         </div>
+        <!-- 关联小组 -->
         <div class="form-group">
-          <label for="destination" class="col-lg-1 control-label">目的地</label>
+          <label for="relatedgroupid" class="col-lg-1 control-label">关联小组</label>
           <div class="col-lg-3">
-            <input type="text" class="form-control" name="destination" placeholder="请输入目的地" required>
+            <select class="fomr-control" name="relatedgroupid" id="relatedgroupid" style="height: 30px; width: 270px" required>
+              <option value=""></option>
+              <s:iterator value="%{#mygroups.allmygroups}" var="iter">
+                <option value="<s:property value="#iter.groupid" />"><s:property value="#iter.groupname" /></option>
+              </s:iterator>
+            </select>
+          </div>
+          <div class="col-lg-1">
+            <a href="../Groups/NewGroup.jsp">没有想要关联的小组？点击此处创建小组</a>
           </div>
         </div>
-
+        <!-- 目的地 -->
+        <div class="form-group">
+          <!-- <label for="destination" class="col-lg-1 control-label">目的地</label> -->
+          <!-- <div class="col-lg-3">
+            <input type="text" class="form-control" name="destination" placeholder="请输入目的地" required>
+          </div> -->
+          <label class="col-lg-1 control-label">目的地</label>
+          <div class="col-lg-3">
+            <label for="province"></label>
+            <select class="form-control" id="province" name="destprovince" required></select>
+          </div>
+          <div class="col-lg-3">
+            <label for="city"></label>
+            <select class="form-control" id="city" name="destcity" required></select>
+          </div>
+        </div>
+        <!-- 起始日期 -->
         <div class="form-group">
           <label for="beginDate" class="col-lg-1 control-label">起始日期</label>
           <div class="col-lg-3">
             <div class='input-group date' id='datetimepicker'>
-              <input type="text" class="form-control" name="beginDate" placeholder="请选择起始日期" pattern="^\d{4}-\d{1,2}-\d{1,2}" required /> <span class="input-group-addon"> <span
+              <input type="text" class="form-control" id="beginDate" name="beginDate" placeholder="请选择起始日期" pattern="^\d{4}-\d{1,2}-\d{1,2}" required /> <span class="input-group-addon"> <span
                 class="glyphicon glyphicon-calendar"></span>
               </span>
             </div>
           </div>
         </div>
-
+        <!-- 持续时间 -->
         <div class="form-group">
           <label for="duration" class="col-lg-1 control-label">持续时间</label>
           <div class="col-lg-3">
-            <select class="fomr-control" name="duration" style="height: 30px;">
+            <select class="fomr-control" id="duration" name="duration" style="height: 30px; width: 270px">
               <option value=1>1-3天</option>
               <option value=2>4-7天</option>
               <option value=3>7天以上</option>
             </select>
           </div>
         </div>
+        <!-- 预计开销 -->
+        <div class="form-group">
+          <label for="expenses" class="col-lg-1 control-label">预计开销</label>
+          <div class="col-lg-3">
+            <select class="fomr-control" id="expenses" name="expenses" style="height: 30px; width: 270px" required>
+              <option value=1>0-500</option>
+              <option value=2>500-1000</option>
+              <option value=3>1000-2000</option>
+              <option value=4>2000以上</option>
+            </select>
+          </div>
+        </div>
+        <!-- 详情 -->
         <div class="form-group">
           <label for="description" class="col-lg-1 control-label">详情</label>
           <div class="col-lg-5">
             <textarea class="form-control" rows="5" name="description"></textarea>
           </div>
         </div>
-
         <!-- 按钮 -->
         <div class="row">
           <div class="col-lg-1"></div>
@@ -176,6 +215,7 @@
   <script src="<%=request.getContextPath()%>/js/time/bootstrap-datetimepicker.js"></script>
   <script src="<%=request.getContextPath()%>/js/time/moment-with-locales.js"></script>
   <script src="<%=request.getContextPath()%>/js/time/bootstrap-datetimepicker.zh-CN.js"></script>
+  <script src="<%=request.getContextPath()%>/js/provincecity.js"></script>
   <script type="text/javascript">
       $(function() {
         $('#datetimepicker').datetimepicker({
@@ -191,6 +231,7 @@
         $("#NewSchemeButton").bind("click", function() {
           var submitdata = $("form").serialize();
           submitdata = decodeURIComponent(submitdata, true);
+          alert(submitdata);
           submitdata = encodeURI(encodeURI(submitdata));
           $.ajax({
             async : false,
@@ -199,7 +240,6 @@
             data : submitdata,
             dataType : "json",
             success : function(data) {
-              //           alert(data);
               var d = eval("(" + data + ")");
               if (d.success == "true") {
                 alert("提交成功");
@@ -242,6 +282,39 @@
           }
         });
       });
+    </script>
+   <script type="text/javascript">
+      $(document).ready(function() {
+        $("#relatedgroupid").blur(function() {
+          if ($("#relatedgroupid").val != "") {
+            alert($("#relatedgroupid").val);
+            $.ajax({
+              type : "post",
+              url : "GetGroupInfo.action",
+              data : {
+                groupid : $("#relatedgroupid").val()
+              },
+              dataType : "json",
+              success : function(data) {
+                var d = eval("(" + data + ")");
+                // if (d.LoginResult == 1) {
+                //   location.reload();
+                // } else if (d.LoginResult == 2) {
+                //   $("LoginError").html("密码错误!");
+                //   alert("密码错误!");
+                // }
+
+              },
+              error : function() {
+              }
+            });
+          }
+        });
+      });
+    </script>
+   
+    <script type="text/javascript">
+      $(document).ready(CreateProvinceCity);
     </script>
 </body>
 

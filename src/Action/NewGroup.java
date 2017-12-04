@@ -13,7 +13,7 @@ import Data.GroupRepository;
 import Data.GroupUserRepository;
 import Class.Group;
 
-public class NewGroup extends ActionSupport implements ServletRequestAware {
+public class NewGroup extends ActionSupport{
     /**
      * 
      */
