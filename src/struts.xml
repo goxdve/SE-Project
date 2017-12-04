@@ -103,5 +103,10 @@
     </action>
   </package>
   
-  
+  <package name="Route" extends="struts-default,json-default">
+  	<action name="GetRoute" class="Action.GetRoute" method="execute">
+  	    <interceptor-ref name="basicStack"/>
+  		<result name="success">/Route/GetRoute.jsp</result>
+  	</action>
+  </package>
 </struts>
