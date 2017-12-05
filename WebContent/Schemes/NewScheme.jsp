@@ -240,7 +240,6 @@
         $("#NewSchemeButton").bind("click", function() {
           var submitdata = $("form").serialize();
           submitdata = decodeURIComponent(submitdata, true);
-          // alert(submitdata);
           submitdata = encodeURI(encodeURI(submitdata));
           $.ajax({
             async : false,
@@ -262,7 +261,7 @@
           });
         });
       });
-    </script>
+  </script>
   <script type="text/javascript">
     $(document).ready(function() {
       $("#LoginButton").bind("click", function() {
@@ -291,6 +290,8 @@
         }
       });
     });
+  </script>
+  <script>
   </script>
   <!-- <script type="text/javascript">
     $(document).ready(function() {
