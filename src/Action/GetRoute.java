@@ -1,7 +1,6 @@
 package Action;
 
-public class GetRoute 
-{
+public class GetRoute {
 	public String start;
 	public String end;
 	public int mean;
@@ -24,8 +23,7 @@ public class GetRoute
 	public void setMean(int mean) {
 		this.mean = mean;
 	}
-	public String execute()
-	{
+	public String execute() {
 		System.out.println(getStart()+" "+getEnd()+" "+getMean());
 		return "success";
 	}

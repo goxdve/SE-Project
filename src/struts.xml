@@ -90,10 +90,6 @@
   	  <result name="success">/travelNotes/noteInfo.jsp</result>
   	  <result name="error">/Other/RegisterError.jsp</result>
   	</action>
-<!--   	<action name="saveNote" class="Action.SaveNote" method="execute"> -->
-<!--   	  <result name="success">/travelNotes/allTravelNotes.jsp</result> -->
-<!--   	  <result name="error">/Other/RegisterError.jsp</result> -->
-<!--  	</action> -->
  	
     <action name="SaveNote" class="Action.SaveNote">
       <interceptor-ref name="basicStack" />
