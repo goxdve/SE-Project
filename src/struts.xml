@@ -99,6 +99,34 @@
     </action>
   </package>
   
+  <package name="Privateletters" extends="struts-default,json-default">
+  
+  	<action name="SendedPrivateLetterInfo" class="Action.SendedPrivateLetterInfo" method="execute">
+  		<interceptor-ref name="basicStack"/>
+  		<result name="success">/Privateletter/SendedPrivateletterInfo.jsp</result>
+  	</action>
+  	
+  	<action name="ReceivedPrivateLetterInfo" class="Action.ReceivedPrivateLetterInfo" method="execute">
+  		<interceptor-ref name="basicStack"/>
+  		<result name="success">/Privateletter/ReceivedPrivateletterInfo.jsp</result>
+  	</action>
+  	
+  	<action name="SendPrivateLetter" class="Action.SendPrivateLetter" method="execute">
+  		<interceptor-ref name="basicStack"/>
+     	<result type="json">
+      		<param name="root">result</param>
+     	</result>
+  	</action>
+  	
+  	<action name="DeletePrivateLetter" class="Action.DeletePrivateLetter" method="execute">
+  		<interceptor-ref name="basicStack"/>
+     	<result type="json">
+      		<param name="root">result</param>
+     	</result>
+  	</action>
+  	
+  </package>
+  
   <package name="Route" extends="struts-default,json-default">
   	<action name="GetRoute" class="Action.GetRoute" method="execute">
   	    <interceptor-ref name="basicStack"/>
