@@ -113,7 +113,8 @@
     <table class="table table-striped table-bordered table-hover">
       <thead>
         <tr>
-          <th style="width: 150px;">组名</th>
+          <th style="width: 150px">组名</th>
+          <th style="width: 150px">出发地</th>
           <th style="width: 150px">目的地</th>
           <th style="width: 150px">出发日期</th>
           <th style="width: 150px">人数/人数上限</th>
@@ -125,7 +126,8 @@
         <s:iterator value="%{#content.groups}" var="var">
           <tr>
             <td style="width: 150px"><s:property value="#var.groupname" /></td>
-            <td style="width: 150px"><s:property value="#var.destination" /></td>
+            <td style="width: 150px"><s:property value="#var.departureprovince" /><s:property value="#var.departurecity" /></td>
+            <td style="width: 150px"><s:property value="#var.destprovince" /><s:property value="#var.destcity" /></td>
             <td style="width: 150px"><s:property value="#var.begindate" /></td>
             <td style="width: 150px"><s:property value="#var.membercount" />/<s:property value="#var.maxmembercount" /></td>
             <td style="width: 150px"><s:property value="#var.manager" /></td>

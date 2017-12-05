@@ -33,10 +33,7 @@
           </ul>
         </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                     出行攻略
-            <b class="caret"></b>
-          </a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">出行攻略<b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="allTravelNotes">查看所有攻略</a></li>
             <li><a href="<%=request.getContextPath() %>/travelNotes/editTravelNotes.jsp">写攻略</a></li>
@@ -119,13 +116,33 @@
       <div class="form-group">
         <label for="groupname" class="col-xs-1 control-label">组名</label>
         <div class="col-lg-3">
-          <input type="text" class="form-control" name="groupname" placeholder="请输入组名" required>
+          <input type="text" class="form-control" name="groupname" style="height:33px; width:260px" placeholder="请输入组名" required>
         </div>
       </div>
+
+      <!-- 出发地 -->
       <div class="form-group">
-        <label for="destination" class="col-lg-1 control-label">目的地</label>
+        <label class="col-lg-1 control-label">出发地</label>
         <div class="col-lg-3">
-          <input type="text" class="form-control" name="destination" placeholder="请输入目的地" required>
+          <label for="departureprovince"></label>
+          <select class="form-control" id="departureprovince" name="departureprovince" style="height:33px; width:260px" required></select>
+        </div>
+        <div class="col-lg-3">
+          <label for="departurecity"></label>
+          <select class="form-control" id="departurecity" name="departurecity" style="height:33px; width:260px" required></select>
+        </div>
+      </div>
+
+      <!-- 目的地 -->
+      <div class="form-group">
+        <label class="col-lg-1 control-label">目的地</label>
+        <div class="col-lg-3">
+          <label for="destprovince"></label>
+          <select class="form-control" id="destprovince" name="destprovince" style="height:33px; width:260px" required></select>
+        </div>
+        <div class="col-lg-3">
+          <label for="destcity"></label>
+          <select class="form-control" id="destcity" name="destcity" style="height:33px; width:260px" required></select>
         </div>
       </div>
 
@@ -133,7 +150,7 @@
         <label for="begindate" class="col-lg-1 control-label">出发日期</label>
         <div class="col-lg-3">
           <div class='input-group date' id='datetimepicker'>
-            <input type="text" class="form-control" name="begindate" placeholder="请选择出发日期" / required>
+            <input type="text" class="form-control" name="begindate" style="height:33px; width:260px" placeholder="请选择出发日期" / required>
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-calendar"></span>
             </span>
@@ -144,7 +161,8 @@
       <div class="form-group">
         <label for="maxmembercount" class="col-lg-1 control-label">人数上限</label>
         <div class="col-lg-3">
-          <input class="input" type="number" min="1" step="1" max="1000" name="maxmembercount" pattern="^[0-9]*[1-9][0-9]*$"/ required>
+          <input class="input" type="number" min="1" step="1" max="1000" name="maxmembercount"
+          style="height:33px; width:260px" pattern="^[0-9]*[1-9][0-9]*$"/ required>
         </div>
       </div>
 
@@ -168,6 +186,7 @@
   <script src="../js/time/bootstrap-datetimepicker.js"></script>
   <script src="../js/time/moment-with-locales.js"></script>
   <script src="../js/time/bootstrap-datetimepicker.zh-CN.js"></script>
+  <script src="<%=request.getContextPath()%>/js/provincecity.js"></script>
   <script type="text/javascript">
       $(function() {
         $('#datetimepicker').datetimepicker({
@@ -211,6 +230,7 @@
       $("#NewGroup").bind("click", function() {
         var submitdata = $("form").serialize();
         submitdata = decodeURIComponent(submitdata, true);
+        //alert(submitdata);
         submitdata = encodeURI(encodeURI(submitdata));
         $.ajax({
           async: false,
@@ -231,6 +251,12 @@
           }
         });
       });
+    });
+  </script>
+  <script type="text/javascript">
+    $(function() {
+      CreateProvinceCity('departureprovince', 'departurecity');
+      CreateProvinceCity('destprovince', 'destcity');
     });
   </script>
 </body>

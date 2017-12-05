@@ -119,38 +119,46 @@
         <div class="form-group">
           <label for="schemeTitle" class="col-lg-1 control-label">标题</label>
           <div class="col-lg-3">
-            <input type="text" class="form-control" name="schemeTitle" placeholder="请输入标题" required />
+            <input type="text" class="form-control" name="schemeTitle" placeholder="请输入标题" style="height:33px; width:260px" required />
           </div>
         </div>
         <!-- 关联小组 -->
         <div class="form-group">
           <label for="relatedgroupid" class="col-lg-1 control-label">关联小组</label>
           <div class="col-lg-3">
-            <select class="fomr-control" name="relatedgroupid" id="relatedgroupid" style="height: 30px; width: 270px" required>
+            <select class="fomr-control" name="relatedgroupid" id="relatedgroupid" style="height:33px; width:260px" required>
               <option value=""></option>
               <s:iterator value="%{#mygroups.allmygroups}" var="iter">
                 <option value="<s:property value="#iter.groupid" />"><s:property value="#iter.groupname" /></option>
               </s:iterator>
             </select>
           </div>
-          <div class="col-lg-1">
-            <a href="../Groups/NewGroup.jsp">没有想要关联的小组？点击此处创建小组</a>
+          <div class="col-lg-3">
+            <a href="../Groups/NewGroup.jsp">没有想要关联的小组？点击此处</a>
+          </div>
+        </div>
+        <!-- 出发地 -->
+        <div class="form-group">
+          <label class="col-lg-1 control-label">出发地</label>
+          <div class="col-lg-3">
+            <label for="departureprovince"></label>
+            <select class="form-control" id="departureprovince" name="departureprovince" style="height:33px; width:260px" required></select>
+          </div>
+          <div class="col-lg-3">
+            <label for="departurecity"></label>
+            <select class="form-control" id="departurecity" name="departurecity" style="height:33px; width:260px" required></select>
           </div>
         </div>
         <!-- 目的地 -->
         <div class="form-group">
-          <!-- <label for="destination" class="col-lg-1 control-label">目的地</label> -->
-          <!-- <div class="col-lg-3">
-            <input type="text" class="form-control" name="destination" placeholder="请输入目的地" required>
-          </div> -->
           <label class="col-lg-1 control-label">目的地</label>
           <div class="col-lg-3">
-            <label for="province"></label>
-            <select class="form-control" id="province" name="destprovince" required></select>
+            <label for="destprovince"></label>
+            <select class="form-control" id="destprovince" name="destprovince" style="height:33px; width:260px" required></select>
           </div>
           <div class="col-lg-3">
-            <label for="city"></label>
-            <select class="form-control" id="city" name="destcity" required></select>
+            <label for="destcity"></label>
+            <select class="form-control" id="destcity" name="destcity" style="height:33px; width:260px" required></select>
           </div>
         </div>
         <!-- 起始日期 -->
@@ -158,8 +166,9 @@
           <label for="beginDate" class="col-lg-1 control-label">起始日期</label>
           <div class="col-lg-3">
             <div class='input-group date' id='datetimepicker'>
-              <input type="text" class="form-control" id="beginDate" name="beginDate" placeholder="请选择起始日期" pattern="^\d{4}-\d{1,2}-\d{1,2}" required /> <span class="input-group-addon"> <span
-                class="glyphicon glyphicon-calendar"></span>
+              <input type="text" class="form-control" id="beginDate" style="height:33px; width:260px" name="beginDate"
+              placeholder="请选择起始日期" pattern="^\d{4}-\d{1,2}-\d{1,2}" required /> <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
               </span>
             </div>
           </div>
@@ -168,7 +177,7 @@
         <div class="form-group">
           <label for="duration" class="col-lg-1 control-label">持续时间</label>
           <div class="col-lg-3">
-            <select class="fomr-control" id="duration" name="duration" style="height: 30px; width: 270px">
+            <select class="fomr-control" id="duration" name="duration" style="height: 33px; width: 260px">
               <option value=1>1-3天</option>
               <option value=2>4-7天</option>
               <option value=3>7天以上</option>
@@ -177,9 +186,9 @@
         </div>
         <!-- 预计开销 -->
         <div class="form-group">
-          <label for="expenses" class="col-lg-1 control-label">预计开销</label>
+          <label for="expenses" class="col-lg-1 control-label">预计开支</label>
           <div class="col-lg-3">
-            <select class="fomr-control" id="expenses" name="expenses" style="height: 30px; width: 270px" required>
+            <select class="fomr-control" id="expenses" name="expenses" style="height: 33px; width: 260px" required>
               <option value=1>0-500</option>
               <option value=2>500-1000</option>
               <option value=3>1000-2000</option>
@@ -231,7 +240,7 @@
         $("#NewSchemeButton").bind("click", function() {
           var submitdata = $("form").serialize();
           submitdata = decodeURIComponent(submitdata, true);
-          alert(submitdata);
+          // alert(submitdata);
           submitdata = encodeURI(encodeURI(submitdata));
           $.ajax({
             async : false,
@@ -255,67 +264,70 @@
       });
     </script>
   <script type="text/javascript">
-      $(document).ready(function() {
-        $("#LoginButton").bind("click", function() {
-          if ($("#username").val != "") {
-            $.ajax({
-              type : "post",
-              url : "Login.action",
-              data : {
-                username : $("#username").val(),
-                password : $("#password").val()
-              },
-              dataType : "json",
-              success : function(data) {
-                var d = eval("(" + data + ")");
-                if (d.LoginResult == 1) {
-                  location.reload();
-                } else if (d.LoginResult == 2) {
-                  $("LoginError").html("密码错误!");
-                  alert("密码错误!");
-                }
-              },
-              error : function() {
-                alert("系统异常，请稍后再试");
+    $(document).ready(function() {
+      $("#LoginButton").bind("click", function() {
+        if ($("#username").val != "") {
+          $.ajax({
+            type : "post",
+            url : "Login.action",
+            data : {
+              username : $("#username").val(),
+              password : $("#password").val()
+            },
+            dataType : "json",
+            success : function(data) {
+              var d = eval("(" + data + ")");
+              if (d.LoginResult == 1) {
+                location.reload();
+              } else if (d.LoginResult == 2) {
+                $("LoginError").html("密码错误!");
+                alert("密码错误!");
               }
-            });
-          }
-        });
+            },
+            error : function() {
+              alert("系统异常，请稍后再试");
+            }
+          });
+        }
       });
-    </script>
-   <script type="text/javascript">
-      $(document).ready(function() {
-        $("#relatedgroupid").blur(function() {
-          if ($("#relatedgroupid").val != "") {
-            alert($("#relatedgroupid").val);
-            $.ajax({
-              type : "post",
-              url : "GetGroupInfo.action",
-              data : {
-                groupid : $("#relatedgroupid").val()
-              },
-              dataType : "json",
-              success : function(data) {
-                var d = eval("(" + data + ")");
-                // if (d.LoginResult == 1) {
-                //   location.reload();
-                // } else if (d.LoginResult == 2) {
-                //   $("LoginError").html("密码错误!");
-                //   alert("密码错误!");
-                // }
+    });
+  </script>
+  <!-- <script type="text/javascript">
+    $(document).ready(function() {
+      $("#relatedgroupid").blur(function() {
+        if ($("#relatedgroupid").val != "") {
+          alert($("#relatedgroupid").val);
+          $.ajax({
+            type : "post",
+            url : "GetGroupInfo.action",
+            data : {
+              groupid : $("#relatedgroupid").val()
+            },
+            dataType : "json",
+            success : function(data) {
+              var d = eval("(" + data + ")");
+              // if (d.LoginResult == 1) {
+              //   location.reload();
+              // } else if (d.LoginResult == 2) {
+              //   $("LoginError").html("密码错误!");
+              //   alert("密码错误!");
+              // }
 
-              },
-              error : function() {
-              }
-            });
-          }
-        });
+            },
+            error : function() {
+            }
+          });
+        }
       });
-    </script>
+    });
+  </script> -->
    
-    <script type="text/javascript">
-      $(document).ready(CreateProvinceCity);
-    </script>
+  <script type="text/javascript">
+    $(function() {
+      CreateProvinceCity('departureprovince', 'departurecity');
+    	CreateProvinceCity('destprovince', 'destcity');
+    });
+  </script>
 </body>
 
 </html>

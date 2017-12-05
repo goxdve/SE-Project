@@ -37,12 +37,16 @@ public class NewScheme extends ActionSupport {
          String beginDate = request.getParameter("beginDate");
          String description = URLDecoder.decode(request.getParameter("description"), "UTF-8");
          String relatedgroupid = URLDecoder.decode(request.getParameter("relatedgroupid"), "UTF-8");
+         String departureprovince = URLDecoder.decode(request.getParameter("departureprovince"), "UTF-8");
+         String departurecity = URLDecoder.decode(request.getParameter("departurecity"), "UTF-8");
          int duration = Integer.parseInt(request.getParameter("duration"));
          int expenses = Integer.parseInt(request.getParameter("expenses"));
 
          scheme.setSchemeTitle(schemeTitle);
          scheme.setDestprovince(destprovince);
          scheme.setDestcity(destcity);
+         scheme.setDepartureprovince(departureprovince);
+         scheme.setDeparturecity(departurecity);
          scheme.setBeginDate(beginDate);
          scheme.setDuration(duration);
          scheme.setDescription(description);

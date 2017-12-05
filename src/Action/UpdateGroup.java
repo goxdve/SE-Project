@@ -32,7 +32,10 @@ public class UpdateGroup extends ActionSupport {
 //            System.out.println("UpdateGroup.java: hello bug");
             request = ServletActionContext.getRequest();
             String groupname = URLDecoder.decode(request.getParameter("groupname"), "UTF-8");
-            String destination = URLDecoder.decode(request.getParameter("destination"), "UTF-8");
+            String destprovince = URLDecoder.decode(request.getParameter("destprovince"), "UTF-8");
+            String destcity = URLDecoder.decode(request.getParameter("destcity"), "UTF-8");
+            String departureprovince = URLDecoder.decode(request.getParameter("departureprovince"), "UTF-8");
+            String departurecity = URLDecoder.decode(request.getParameter("departurecity"), "UTF-8");
             String begindate = request.getParameter("begindate");
             int maxmembercount = Integer.parseInt(request.getParameter("maxmembercount"));
             String groupid = request.getParameter("groupid");
@@ -41,12 +44,17 @@ public class UpdateGroup extends ActionSupport {
 //            System.out.println("UpdateGroup.java: destination = " + destination);
 //            System.out.println("UpdateGroup.java: beginDate = " + begindate);
 //            System.out.println("UpdateGroup.java: maxmembercount = " + maxmembercount);
+            System.out.println("UpdateGroup.java: destprovince =  " + destprovince);
+            System.out.println("UpdateGroup.java: destcity = " + destcity);
 
             GroupRepository grouprepository = new GroupRepository();
             Group group = grouprepository.getgroup(groupid);
 //            System.out.println(group);
             group.setGroupname(groupname);
-            group.setDestination(destination);
+            group.setDestprovince(destprovince);
+            group.setDestcity(destcity);
+            group.setDepartureprovince(departureprovince);
+            group.setDeparturecity(departurecity);
             group.setBegindate(begindate);
             group.setMaxmembercount(maxmembercount);
             grouprepository.updateGroup(group);

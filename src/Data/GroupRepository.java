@@ -35,17 +35,21 @@ public class GroupRepository {
     public void addGroup(Group group) throws SQLException {
         String groupid = group.getGroupid();
         String groupname = group.getGroupname();
-        String destination = group.getDestination();
+        String destprovince = group.getDestprovince();
+        String destcity = group.getDestcity();
+        String departureprovince = group.getDepartureprovince();
+        String departurecity = group.getDeparturecity();
         String begindate = group.getBegindate();
         int membercount = group.getMembercount();
         int maxmembercount = group.getMaxmembercount();
         String manager = group.getManager();
         long timestamp = group.getTimestamp();
         String sql = String.format( "insert into tourgroup(groupid,groupname,"
-                + "destination,begindate,membercount,maxmembercount,manager,"
-                + "timestamp)values(\"%s\",\"%s\",\"%s\",\"%s\",%d,%d,\"%s\",%d)",
-                groupid, groupname, destination, begindate, membercount,
-                maxmembercount, manager, timestamp);
+                + "destprovince,destcity,begindate,membercount,maxmembercount,"
+                + "manager,timestamp,departureprovince,departurecity)values"
+                + "(\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%d,%d,\"%s\",%d,\"%s\",\"%s\")",
+                groupid, groupname, destprovince, destcity, begindate, membercount,
+                maxmembercount, manager, timestamp, departureprovince, departurecity);
         System.out.println("GroupRepository.java: sql = " + sql);
         stat.execute(sql);
     }
@@ -53,20 +57,28 @@ public class GroupRepository {
     public ArrayList<Group> getGroups(int offset, int num) throws SQLException {
         ArrayList<Group> ret = new ArrayList<Group>();
         ResultSet rs = stat.executeQuery(
-                "select * from tourgroup" + " order by timestamp desc limit " + (offset - 1) + ", " + num);
+                "select * from tourgroup order by timestamp desc limit " + (offset - 1) + ", " + num);
         while (rs.next()) {
             String groupid = rs.getString("groupid");
             String groupname = rs.getString("groupname");
-            String destination = rs.getString("destination");
+            String destprovince = rs.getString("destprovince");
+            String destcity = rs.getString("destcity");
+            String departureprovince = rs.getString("departureprovince");
+            String departurecity = rs.getString("departurecity");
             String begindate = rs.getString("begindate");
             int membercount = rs.getInt("membercount");
             int maxmembercount = rs.getInt("maxmembercount");
             String manager = rs.getString("manager");
             long timestamp = rs.getLong("timestamp");
+            
+            
             Group group = new Group();
             group.setGroupid(groupid);
             group.setGroupname(groupname);
-            group.setDestination(destination);
+            group.setDestcity(destcity);
+            group.setDestprovince(destprovince);
+            group.setDepartureprovince(departureprovince);
+            group.setDeparturecity(departurecity);
             group.setBegindate(begindate);
             group.setMembercount(membercount);
             group.setMaxmembercount(maxmembercount);
@@ -105,12 +117,15 @@ public class GroupRepository {
         if (rs.next()) {
             ret.setGroupid(rs.getString("groupid"));
             ret.setGroupname(rs.getString("groupname"));
-            ret.setDestination(rs.getString("destination"));
+            ret.setDestprovince(rs.getString("destprovince"));
+            ret.setDestcity(rs.getString("destcity"));
             ret.setBegindate(rs.getString("begindate"));
             ret.setMembercount(rs.getInt("membercount"));
             ret.setMaxmembercount(rs.getInt("maxmembercount"));
             ret.setManager(rs.getString("manager"));
             ret.setTimestamp(rs.getInt("timestamp"));
+            ret.setDepartureprovince(rs.getString("departureprovince"));
+            ret.setDeparturecity(rs.getString("departurecity"));
         }
         return ret;
     }
@@ -129,15 +144,22 @@ public class GroupRepository {
     public void updateGroup(Group group) throws Exception {
         String groupid = group.getGroupid();
         String groupname = group.getGroupname();
-        String destination = group.getDestination();
+        String destprovince = group.getDestprovince();
+        String destcity = group.getDestcity();
+        String departureprovince = group.getDepartureprovince();
+        String departurecity = group.getDeparturecity();
         String begindate = group.getBegindate();
         int membercount = group.getMembercount();
         int maxmembercount = group.getMaxmembercount();
         String manager = group.getManager();
         String sql = String.format(
-                "update tourgroup set groupname=\"%s\"," + "destination=\"%s\",begindate=\"%s\",membercount=%d,"
-                        + "maxmembercount=%d,manager=\"%s\" where groupid=\"%s\";",
-                groupname, destination, begindate, membercount, maxmembercount, manager, groupid);
+                "update tourgroup set groupname=\"%s\"," + "destprovince=\"%s\","
+                        + "destcity=\"%s\",begindate=\"%s\",membercount=%d,"
+                        + "maxmembercount=%d,manager=\"%s\",departureprovince=\"%s\","
+                        + "departurecity=\"%s\" where groupid=\"%s\";",
+                groupname, destprovince, destcity, begindate, membercount,
+                maxmembercount, manager, departureprovince, departurecity, groupid);
+        System.out.println("GroupRepository.java: sql = " + sql);
         stat.executeUpdate(sql);
     }
 }

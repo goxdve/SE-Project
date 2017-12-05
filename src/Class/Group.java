@@ -1,14 +1,17 @@
 package Class;
 
 public class Group {
-    private String groupid;         // 小組ID
-    private String groupname;       // 组名
-    private String destination;     // 目的地
-    private String begindate;       // 出发日期
-    private int membercount;        // 人数
-    private int maxmembercount;     // 人数上限
-    private String manager;         // 管理员
-    private long timestamp;         // 时间戳
+    private String groupid;             // 小組ID
+    private String groupname;           // 组名
+    private String destprovince;        // 目的地(省份)
+    private String destcity;            // 目的地(地市)
+    private String departureprovince;   // 出发地(省份)
+    private String departurecity;       // 出发地(地市)
+    private String begindate;           // 出发日期
+    private int membercount;            // 人数
+    private int maxmembercount;         // 人数上限
+    private String manager;             // 管理员
+    private long timestamp;             // 时间戳
     public String getGroupid() {
         return groupid;
     }
@@ -21,11 +24,29 @@ public class Group {
     public void setGroupname(String groupname) {
         this.groupname = groupname;
     }
-    public String getDestination() {
-        return destination;
+    public String getDestprovince() {
+        return destprovince;
     }
-    public void setDestination(String destination) {
-        this.destination = destination;
+    public void setDestprovince(String destprovince) {
+        this.destprovince = destprovince;
+    }
+    public String getDestcity() {
+        return destcity;
+    }
+    public void setDestcity(String destcity) {
+        this.destcity = destcity;
+    }
+    public String getDepartureprovince() {
+        return departureprovince;
+    }
+    public void setDepartureprovince(String departureprovince) {
+        this.departureprovince = departureprovince;
+    }
+    public String getDeparturecity() {
+        return departurecity;
+    }
+    public void setDeparturecity(String departurecity) {
+        this.departurecity = departurecity;
     }
     public String getBegindate() {
         return begindate;

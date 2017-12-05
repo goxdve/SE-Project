@@ -2,7 +2,8 @@ package Action;
 
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.struts2.interceptor.ServletRequestAware;
+
+import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.net.URLDecoder;
@@ -21,10 +22,6 @@ public class NewGroup extends ActionSupport{
     private HttpServletRequest request;
     private String result;
 
-    public void setServletRequest(HttpServletRequest arg) {
-        this.request = arg;
-    }
-
     public String getResult() {
         return result;
     }
@@ -36,8 +33,12 @@ public class NewGroup extends ActionSupport{
     public String execute() {
         try {
 //            System.out.println("NewGroup.java: hello bug");
+            request = ServletActionContext.getRequest();
             String groupname = URLDecoder.decode(request.getParameter("groupname"), "UTF-8");
-            String destination = URLDecoder.decode(request.getParameter("destination"), "UTF-8");
+            String destprovince = URLDecoder.decode(request.getParameter("destprovince"), "UTF-8");
+            String destcity = URLDecoder.decode(request.getParameter("destcity"), "UTF-8");
+            String departureprovince = URLDecoder.decode(request.getParameter("departureprovince"), "UTF-8");
+            String departurecity = URLDecoder.decode(request.getParameter("departurecity"), "UTF-8");
             String begindate = request.getParameter("begindate");
             int maxmembercount = Integer.parseInt(request.getParameter("maxmembercount"));
 
@@ -57,13 +58,16 @@ public class NewGroup extends ActionSupport{
 
             Group group = new Group();
             group.setGroupname(groupname);
-            group.setDestination(destination);
+            group.setDestprovince(destprovince);
+            group.setDestcity(destcity);
             group.setBegindate(begindate);
             group.setMaxmembercount(maxmembercount);
             group.setGroupid(groupid);
             group.setMembercount(membercount);
             group.setManager(manager);
             group.setTimestamp(timestamp);
+            group.setDepartureprovince(departureprovince);
+            group.setDeparturecity(departurecity);
 
             GroupRepository grouprepository = new GroupRepository();
             grouprepository.addGroup(group);

@@ -125,32 +125,51 @@
 
         <div id="GroupInfo" class="panel-collapse collapse">
           <div class="panel-body">
-
             <form class="form-horizontal" role="form" method="post">
-              <input type="hidden" name="groupid" 
-              value="<s:property value="#parameters.groupid"/>"/>
+              <input type="hidden" name="groupid" value="<s:property value="#parameters.groupid"/>" />
               <div class="form-group">
                 <label for="groupname" class="col-sm-2 control-label">组名</label>
                 <div class="col-sm-4">
-                  <input type="text" class="form-control" name="groupname"
-                   value="<s:property value="#content.group.groupname"/>" required />
+                  <input type="text" class="form-control" name="groupname" style="height:33px; width:210px"
+                   value="<s:property value="#content.group.groupname" />" required />
                 </div>
               </div>
+
+              <!-- 出发地 -->
               <div class="form-group">
-                <label for="destination" class="col-sm-2 control-label">目的地</label>
+                <label class="col-sm-2 control-label">出发地</label>
                 <div class="col-sm-4">
-                  <input type="text" class="form-control" name="destination"
-                   value="<s:property value="#content.group.destination"/>" required />
+                  <label for="departureprovince"></label>
+                  <select class="form-control" id="departureprovince" name="departureprovince" style="height:33px; width:210px" required></select>
+                </div>
+                <div class="col-sm-4">
+                  <label for="departurecity"></label>
+                  <select class="form-control" id="departurecity" name="departurecity" style="height:33px; width:210px" required></select>
                 </div>
               </div>
+
+              <!-- 目的地 -->
+              <div class="form-group">
+                <label class="col-sm-2 control-label">目的地</label>
+                <div class="col-sm-4">
+                  <label for="destprovince"></label>
+                  <select class="form-control" id="destprovince" name="destprovince" style="height:33px; width:210px" required></select>
+                </div>
+                <div class="col-sm-4">
+                  <label for="destcity"></label>
+                  <select class="form-control" id="destcity" name="destcity" style="height:33px; width:210px" required></select>
+                </div>
+              </div>
+
 
               <div class="form-group">
                 <label for="begindate" class="col-sm-2 control-label">出发日期</label>
                 <div class="col-sm-4">
                   <div class='input-group date' id='datetimepicker'>
-                    <input type="text" class="form-control" name="begindate"
-                     value="<s:property value="#content.group.begindate"/>" required> <span class="input-group-addon"> <span
-                      class="glyphicon glyphicon-calendar"></span>
+                    <input type="text" class="form-control" name="begindate" style="height:33px; width:210px"
+                     value="<s:property value="#content.group.begindate"/>" required>
+                    <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar"></span>
                     </span>
                   </div>
                 </div>
@@ -159,9 +178,9 @@
               <div class="form-group">
                 <label for="maxmembercount" class="col-sm-2 control-label">人数上限</label>
                 <div class="col-sm-4">
-                  <input class="input" type="number" min="1" step="1" max="1000"
-                  name="maxmembercount" pattern="^[0-9]*[1-9][0-9]*$"
-                  value="<s:property value="#content.maxmembercount"/>" required />
+                  <input class="input" type="number" min="<s:property value="#content.group.membercount"/>" step="1" max="1000"
+                  name="maxmembercount" style="height:33px; width:210px" pattern="^[0-9]*[1-9][0-9]*$"
+                  value="<s:property value="#content.group.maxmembercount"/>" required />
                 </div>
               </div>
 
@@ -198,10 +217,8 @@
                   <li style="height: 33px">
                     <form action="QuitGroup">
                       <s:property value="#u.username" />
-                      <input type="hidden" name="groupid" 
-                      value="<s:property value="#parameters.groupid"/>"/>
-                      <input type="hidden" name="username"
-                      value="<s:property value="#u.username"/>"/>
+                      <input type="hidden" name="groupid" value="<s:property value="#parameters.groupid"/>"/>
+                      <input type="hidden" name="username" value="<s:property value="#u.username"/>"/>
                       <button type="submit" class="btn btn-primary pull-right btn-sm">请他/她离开</button>
                     </form>
                   </li>
@@ -219,6 +236,7 @@
   <script src="<%=request.getContextPath()%>/js/time/bootstrap-datetimepicker.js"></script>
   <script src="<%=request.getContextPath()%>/js/time/moment-with-locales.js"></script>
   <script src="<%=request.getContextPath()%>/js/time/bootstrap-datetimepicker.zh-CN.js"></script>
+  <script src="<%=request.getContextPath()%>/js/provincecity.js"></script>
   <script type="text/javascript">
       $(function() {
         $('#GroupInfo').collapse('toggle')
@@ -226,7 +244,7 @@
       $(function() {
         $('#GroupMembers').collapse('toggle')
       })
-    </script>
+  </script>
   <script type="text/javascript">
       $(function() {
         $('#datetimepicker').datetimepicker({
@@ -267,7 +285,6 @@
       });
     });
   </script>
-
   <script type="text/javascript">
     $(document).ready(function() {
       $("#ReviseGroupInfoButton").bind("click", function() {
@@ -294,6 +311,22 @@
           }
         });
       });
+    });
+  </script>
+  <script type="text/javascript">
+    $(function() {
+      CreateProvinceCity('departureprovince', 'departurecity');
+      CreateProvinceCity('destprovince', 'destcity');
+    });
+  </script>
+  <script type="text/javascript">
+    $(function() {
+      SetProvinceCityValue('destprovince', 'destcity',
+      '<s:property value="#content.group.destprovince" />',
+      '<s:property value="#content.group.destcity" />');
+      SetProvinceCityValue('departureprovince', 'departurecity', 
+      '<s:property value="#content.group.departureprovince" />',
+      '<s:property value="#content.group.departurecity" />');
     });
   </script>
 </body>

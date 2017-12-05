@@ -1,19 +1,21 @@
 package Class;
 
 public class Scheme {
-    private String schemeID; // 编号
-    private String schemeTitle; // 标题
-    private String postDate; // 发布日期
-    private String postTime; // 发布时间
+    private String schemeID;        // 编号
+    private String schemeTitle;     // 标题
+    private String postDate;        // 发布日期
+    private String postTime;        // 发布时间
     private String destprovince;    // 目的地省份
     private String destcity;        // 目的地地市
-    private String beginDate; // 起始日期
-    private int duration; // 持续时间: 1. 1-3天   2. 4-7天    3. 7天以上
-    private String description; // 详情
-    private String ownerName; // 发帖人用户名
-    private long timestamp; // 时间戳
-    private int expenses;   // 预计开销: 1. 0-500  2. 500-1000   3. 1000-2000   4. 2000以上   
-    private String relatedgroupid;
+    private String departureprovince;    // 目的地省份
+    private String departurecity;        // 目的地地市
+    private String beginDate;       // 起始日期
+    private int duration;           // 持续时间: 1. 1-3天   2. 4-7天    3. 7天以上
+    private String description;     // 详情
+    private String ownerName;       // 发帖人用户名
+    private long timestamp;         // 时间戳
+    private int expenses;           // 预计开销: 1. 0-500  2. 500-1000   3. 1000-2000   4. 2000以上   
+    private String relatedgroupid;  // 关联小组id
     
     public String getSchemeID() {
         return schemeID;
@@ -118,4 +120,21 @@ public class Scheme {
     public void setRelatedgroupid(String relatedgroupid) {
         this.relatedgroupid = relatedgroupid;
     }
+
+    public String getDepartureprovince() {
+        return departureprovince;
+    }
+
+    public void setDepartureprovince(String departureprovince) {
+        this.departureprovince = departureprovince;
+    }
+
+    public String getDeparturecity() {
+        return departurecity;
+    }
+
+    public void setDeparturecity(String departurecity) {
+        this.departurecity = departurecity;
+    }
+    
 }
