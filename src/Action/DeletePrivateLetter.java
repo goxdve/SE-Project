@@ -2,41 +2,33 @@ package Action;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts2.ServletActionContext;
 import Data.PrivateletterRepository;
 import net.sf.json.JSONObject;
 
-public class DeletePrivateLetter 
-{
-	public String privateletterID;
+public class DeletePrivateLetter {
+    private HttpServletRequest request;
+    private String result;
+    public String getResult() {
+        return result;
+    }
+    public void setResult(String result) {
+        this.result = result;
+    }
+    public String execute() {
+       try {
+         request = ServletActionContext.getRequest();
+         String privateletterID = request.getParameter("privateletterID");
+         PrivateletterRepository privateletterDao = new PrivateletterRepository();
+         privateletterDao.DeletePrivateLetter(privateletterID);
 
-	public String getPrivateletterID() {
-		return privateletterID;
-	}
-
-	public void setPrivateletterID(String privateletterID) {
-		this.privateletterID = privateletterID;
-	}
-	public String result;
-	
-	public String getResult() {
-		return result;
-	}
-
-	public void setResult(String result) {
-		this.result = result;
-	}
-
-	public String execute()throws Exception
-	{
-		PrivateletterRepository privateletterRepository = new PrivateletterRepository();
-		privateletterRepository.DeletePrivateLetter(privateletterID);
-		
-		Map map = new HashMap();
-		map.put("result", "success");
-        JSONObject obj = JSONObject.fromObject(map);
-        result = obj.toString();
-		return "success";
-	}
-
+         Map<String, Object> map = new HashMap<String, Object>(); 
+         JSONObject json = JSONObject.fromObject(map);
+         result = json.toString();
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+       return "success";
+    }
 }

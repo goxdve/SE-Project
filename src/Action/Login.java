@@ -1,7 +1,7 @@
 package Action;
 
 import javax.servlet.http.HttpServletRequest;
-import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import java.net.URLDecoder;
@@ -10,16 +10,13 @@ import java.util.Map;
 import Data.UserRepository;
 import net.sf.json.JSONObject;
 
-public class Login extends ActionSupport implements ServletRequestAware {
+public class Login extends ActionSupport {
     /**
      * 
      */
     private static final long serialVersionUID = 6760341805820670987L;
     private HttpServletRequest request;
     private String result;
-    public void setServletRequest(HttpServletRequest arg) {
-        this.request = arg;
-    }
     public String getResult() {
         return result;
     }
@@ -28,12 +25,10 @@ public class Login extends ActionSupport implements ServletRequestAware {
     }
     public String execute() {
        try {
-//         System.out.println("LoginAjax.java: hello bug");
+         request = ServletActionContext.getRequest();
          String username = URLDecoder.decode(request.getParameter("username"), "UTF-8");
          String password = request.getParameter("password");
 
-//         System.out.println("LoginAjax.java:username = " + username);
-//         System.out.println("LoginAjax.java: password = " + password);
 
          UserRepository userrepository = new UserRepository();
          boolean success = false;
@@ -56,7 +51,6 @@ public class Login extends ActionSupport implements ServletRequestAware {
 
          JSONObject json = JSONObject.fromObject(map);
          result = json.toString();
-//         System.out.println("LoginAjax.java result = " + result);
        } catch (Exception e) {
            e.printStackTrace();
        }

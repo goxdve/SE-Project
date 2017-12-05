@@ -159,7 +159,6 @@ public class GroupRepository {
                         + "departurecity=\"%s\" where groupid=\"%s\";",
                 groupname, destprovince, destcity, begindate, membercount,
                 maxmembercount, manager, departureprovince, departurecity, groupid);
-        System.out.println("GroupRepository.java: sql = " + sql);
         stat.executeUpdate(sql);
     }
 }

@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css" />
-<title>收信箱</title>
+<title>查看发送的私信</title>
 </head>
 <body>
 	 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -18,7 +18,7 @@
 	    </div>
 	    <div>
 	      <ul class="nav navbar-nav">
-	        <li class="active"><a href="<%=request.getContextPath() %>/index.jsp">首页</a></li>
+	        <li><a href="<%=request.getContextPath() %>/index.jsp">首页</a></li>
 	        <li><a href="<%=request.getContextPath() %>/Schemes/NewScheme.jsp">寻找旅伴</a></li>
 	        <li><a href="<%=request.getContextPath() %>/PersonalSpace/PersonalSpace.jsp">个人中心</a></li>
 	        <li class="dropdown">
@@ -30,16 +30,21 @@
 	          </ul>
 	        </li>
 	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-	                     出行攻略
-	            <b class="caret"></b>
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">出行攻略<b class="caret"></b>
 	          </a>
 	          <ul class="dropdown-menu">
 	            <li><a href="allTravelNotes">查看所有攻略</a></li>
 	            <li><a href="<%=request.getContextPath() %>/travelNotes/editTravelNotes.jsp">写攻略</a></li>
 	          </ul>
 	        </li>
-	        <li><a href="#">通知</a></li>
+					<li><a href="#">通知</a></li>
+          <li class="dropdown active"><a href="" class="dropdown-toggle" data-toggle="dropdown">私信<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="<%=request.getContextPath()%>/Privateletter/ReceivedPrivateletter.jsp">收信箱</a></li>
+              <li><a href="<%=request.getContextPath()%>/Privateletter/SendedPrivateletter.jsp">已发送</a></li>
+              <li><a href="<%=request.getContextPath()%>/Privateletter/SendPrivateletter.jsp">发私信</a></li>
+            </ul>
+          </li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 	        <% ActionContext ac=ActionContext.getContext();
@@ -98,20 +103,20 @@
 	      </div>
 	    </div>
 	  </div>
-	  <h2>cccc</h2>
 	  
-	  <div class="container">
-	  
+	<div class="container">
       <div style="padding: 5px" class="page-header">
       	<h3 style="font-size: 1em">标题：<s:property value="privateletterTitle" /></h3>
       </div>
-      <div style="padding: 5px" class="page-header">
-      	<h3 style="font-size: 1em">收件人：<s:property value="receiver" />  时间：<s:property value="privateletterTime"/></h3>
+      <div style="padding: 2px">
+				<h3 style="font-size: 1em">发件人：<s:property value="sender" />&nbsp;&nbsp;时间：<s:property value="privateletterTime"/></h3>
+				<hr/>
+			</div>
+			<div style="padding: 2px">
+      	<s:property escape="false" value="content" />
       </div>
-        <s:property escape="false" value="content" />
-        
-  	  </div>
-	  <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
-  	  <script src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
+	</div>
+	<script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+ 	<script src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
 </body>
 </html>

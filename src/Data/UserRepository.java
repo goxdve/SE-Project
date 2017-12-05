@@ -114,4 +114,14 @@ public class UserRepository {
         }
         return ret;
     }
+    
+    public boolean ContainsUser(String username) throws Exception {
+        String sql = String.format("SELECT COUNT(*) FROM user WHERE username = '%s';", username);
+        int rowCount = 0;
+        rs = stat.executeQuery(sql);
+        while (rs.next()) {
+            rowCount = rs.getInt(1);
+        }
+        return rowCount != 0;
+    }
 }

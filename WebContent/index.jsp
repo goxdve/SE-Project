@@ -32,16 +32,21 @@
           </ul>
         </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                     出行攻略
-            <b class="caret"></b>
-          </a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">出行攻略<b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="allTravelNotes">查看所有攻略</a></li>
             <li><a href="<%=request.getContextPath() %>/travelNotes/editTravelNotes.jsp">写攻略</a></li>
           </ul>
         </li>
         <li><a href="#">通知</a></li>
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">私信<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="<%=request.getContextPath() %>/Privateletter/ReceivedPrivateletter.jsp">收信箱</a></li>
+            <li><a href="<%=request.getContextPath() %>/Privateletter/SendedPrivateletter.jsp">已发送</a></li>
+            <li><a href="<%=request.getContextPath() %>/Privateletter/SendPrivateletter.jsp">发私信</a></li>
+          </ul>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% ActionContext ac=ActionContext.getContext();
@@ -114,6 +119,7 @@
       $("#LoginButton").bind("click", function() {
         if ($("#username").val != "") {
           $.ajax({
+            async: false,
             type: "post",
             url: "Login.action",
             data: {

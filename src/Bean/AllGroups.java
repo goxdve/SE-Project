@@ -40,6 +40,8 @@ public class AllGroups {
         GroupRepository grouprepository = new GroupRepository();
         int groupNum = grouprepository.getSize();
         int maxpage = (groupNum + termsPerPage - 1) / termsPerPage;
+        if (maxpage == 0)
+            maxpage = 1;
         int termsPresentPage = termsPerPage;
         if (page >= maxpage) {
             page = maxpage;

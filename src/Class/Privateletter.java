@@ -1,7 +1,6 @@
 package Class;
 
-public class Privateletter 
-{
+public class Privateletter {
 	public String privateletterID;
 	public String username;
 	public String receiver;

@@ -267,6 +267,7 @@
       $("#LoginButton").bind("click", function() {
         if ($("#username").val != "") {
           $.ajax({
+            async: false,
             type : "post",
             url : "Login.action",
             data : {
