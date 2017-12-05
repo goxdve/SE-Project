@@ -38,6 +38,13 @@
             <li><a href="<%=request.getContextPath()%>/travelNotes/editTravelNotes.jsp">写攻略</a></li>
           </ul></li>
         <li><a href="#">通知</a></li>
+        <li class="dropdown"><a href="" class="dropdown-toggle" data-toggle="dropdown">私信<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="<%=request.getContextPath()%>/Privateletter/ReceivedPrivateletter.jsp">收信箱</a></li>
+            <li><a href="<%=request.getContextPath()%>/Privateletter/SendedPrivateletter.jsp">已发送</a></li>
+            <li><a href="<%=request.getContextPath()%>/Privateletter/SendPrivateletter.jsp">发私信</a></li>
+          </ul>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <%
@@ -236,31 +243,31 @@
       });
     </script>
   <script type="text/javascript">
-      $(document).ready(function() {
-        $("#NewSchemeButton").bind("click", function() {
-          var submitdata = $("form").serialize();
-          submitdata = decodeURIComponent(submitdata, true);
-          submitdata = encodeURI(encodeURI(submitdata));
-          $.ajax({
-            async : false,
-            type : "post",
-            url : "NewScheme.action",
-            data : submitdata,
-            dataType : "json",
-            success : function(data) {
-              var d = eval("(" + data + ")");
-              if (d.success == "true") {
-                alert("提交成功");
-              } else {
-                window.alert("提交失败，请重新提交");
-              }
-            },
-            error : function() {
-              window.alert("系统异常，请稍后重试");
+    $(document).ready(function() {
+      $("#NewSchemeButton").bind("click", function() {
+        var submitdata = $("form").serialize();
+        submitdata = decodeURIComponent(submitdata, true);
+        submitdata = encodeURI(encodeURI(submitdata));
+        $.ajax({
+          async : false,
+          type : "post",
+          url : "NewScheme.action",
+          data : submitdata,
+          dataType : "json",
+          success : function(data) {
+            var d = eval("(" + data + ")");
+            if (d.success == "true") {
+              alert("提交成功");
+            } else {
+              window.alert("提交失败，请重新提交");
             }
-          });
+          },
+          error : function() {
+            window.alert("系统异常，请稍后重试");
+          }
         });
       });
+    });
   </script>
   <script type="text/javascript">
     $(document).ready(function() {
