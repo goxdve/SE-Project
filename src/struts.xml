@@ -145,13 +145,6 @@
   	
   </package>
   
-  <package name="Route" extends="struts-default,json-default">
-  	<action name="GetRoute" class="Action.GetRoute" method="execute">
-  	    <interceptor-ref name="basicStack"/>
-  		<result name="success">/Route/GetRoute.jsp</result>
-  	</action>
-  </package>
-  
   <package name="Messages" extends="struts-default,json-default">
   	<action name="AcceptMemberMessage" class="Action.AcceptMemberMessage">
 	  <interceptor-ref name="basicStack" />
