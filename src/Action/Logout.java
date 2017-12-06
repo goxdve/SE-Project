@@ -1,10 +1,7 @@
 package Action;
 
-import Data.UserRepository;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-
-import Class.User;
 import java.util.Map;
 
 public class Logout extends ActionSupport {

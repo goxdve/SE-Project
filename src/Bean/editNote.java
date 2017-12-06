@@ -19,8 +19,5 @@ public class editNote {
 			return;
 		}
 		loggedin=true;
-		String username=(String)session1.get("username");
-		
-		
 	}
 }

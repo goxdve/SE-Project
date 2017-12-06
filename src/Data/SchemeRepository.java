@@ -5,7 +5,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import Class.Scheme;
 
 public class SchemeRepository {
@@ -34,30 +38,34 @@ public class SchemeRepository {
     public void addScheme(Scheme scheme) throws SQLException {
         stat.execute("INSERT INTO scheme(schemeID,schemeTitle,postDate,"
                 + "postTime,destprovince,destcity,beginDate,duration,description,"
-                + "ownerName,timestamp,expenses,relatedgroupid,departureprovince,"
-                + "departurecity) VALUES('"
-                + scheme.getSchemeID() + "', '"
-                + scheme.getSchemeTitle() + "', '"
-                + scheme.getPostDate() + "', '"
-                + scheme.getPostTime() + "', '"
-                + scheme.getDestprovince() + "', '"
-                + scheme.getDestcity() + "', '"
-                + scheme.getBeginDate() + "', "
-                + scheme.getDuration() + ", '"
-                + scheme.getDescription() + "', '"
-                + scheme.getOwnerName() + "', "
-                + scheme.getTimestamp() + ", "
-                + scheme.getExpenses() + ", '"
-                + scheme .getRelatedgroupid() + "', '"
-                + scheme.getDepartureprovince() + "', '"
+                + "ownerName,timestamp,expenses,relatedgroupid,departureprovince," + "departurecity) VALUES('"
+                + scheme.getSchemeID() + "', '" + scheme.getSchemeTitle() + "', '" + scheme.getPostDate() + "', '"
+                + scheme.getPostTime() + "', '" + scheme.getDestprovince() + "', '" + scheme.getDestcity() + "', '"
+                + scheme.getBeginDate() + "', " + scheme.getDuration() + ", '" + scheme.getDescription() + "', '"
+                + scheme.getOwnerName() + "', " + scheme.getTimestamp() + ", " + scheme.getExpenses() + ", '"
+                + scheme.getRelatedgroupid() + "', '" + scheme.getDepartureprovince() + "', '"
                 + scheme.getDeparturecity() + "');");
     }
-    
-    public ArrayList<Scheme> getSchemes(int offset, int num) throws SQLException {
+
+    public ArrayList<Scheme> getSchemes(String dest, String departure, String beginDate) throws SQLException, ParseException {
         ArrayList<Scheme> ret = new ArrayList<Scheme>();
-        rs = stat.executeQuery("select * from scheme"
-                + " order by timestamp desc limit " +  (offset - 1) +
-                ", " + num + "");
+        String sql = "select * from scheme";
+        if (dest != "" || departure != "" || beginDate != "") {
+		    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		    Date date = sdf.parse(beginDate);
+		    Date date1 = new Date(date.getTime() - 24 * 60 * 60 * 1000);
+		    Date date2 = new Date(date.getTime() + 24 * 60 * 60 * 1000);
+		    String beginDate1 = sdf.format(date1);
+		    String beginDate2 = sdf.format(date2);
+            sql = sql + String.format(" where destprovince = '%s' and "
+                            + "departureprovince = '%s' and "
+                            + "(beginDate = '%s' or beginDate = '%s'"
+                            + " or beginDate = '%s')", dest, departure, beginDate,
+                            beginDate1, beginDate2);
+        }
+        sql = sql + " order by timestamp desc;";
+        System.out.println("SchemeRepository.java: sql = " + sql);
+        rs = stat.executeQuery(sql);
         while (rs.next()) {
             String schemeid = rs.getString("schemeID");
             String schemetitle = rs.getString("schemeTitle");
@@ -95,14 +103,14 @@ public class SchemeRepository {
         }
         return ret;
     }
-    
-    public int getSize() throws SQLException{
+
+    public int getSize() throws SQLException {
         int rowCount = 0;
-        String sql = "SELECT COUNT(*) FROM scheme;";  
+        String sql = "SELECT COUNT(*) FROM scheme;";
         rs = stat.executeQuery(sql);
         while (rs.next()) {
             rowCount = rs.getInt(1);
         }
-        return rowCount;  
-    }  
+        return rowCount;
+    }
 }

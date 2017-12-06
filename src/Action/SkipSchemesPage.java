@@ -15,9 +15,9 @@ public class SkipSchemesPage {
     }
 
     public String execute() {
-        ActionContext ac = ActionContext.getContext();
-        Map<String, Object> session1 = ac.getSession();
+        Map<String, Object> session1 = ActionContext.getContext().getSession();
         session1.put("schemepage", topage);
+        session1.put("ConditionExists", 1);
         return "success";
     }
 }

@@ -15,7 +15,13 @@
     </action>
     <action name="SkipSchemesPage" class="Action.SkipSchemesPage" method="execute">
       <interceptor-ref name="basicStack" />
-      <result name="success">/Schemes/AllSchemes.jsp</result>
+      <result name="success">/index.jsp</result>
+    </action>
+    <action name="SearchScheme" class="Action.SearchScheme">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
     </action>
   </package>
 
