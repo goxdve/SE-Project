@@ -113,6 +113,12 @@
         <param name="root">result</param>
       </result>
     </action>
+    <action name="deleteNote" class="Action.DeleteNote">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
+    </action>
   </package>
   
   <package name="Privateletters" extends="struts-default,json-default">
@@ -143,10 +149,18 @@
   	
   </package>
   
-  <package name="Route" extends="struts-default,json-default">
-  	<action name="GetRoute" class="Action.GetRoute" method="execute">
-  	    <interceptor-ref name="basicStack"/>
-  		<result name="success">/Route/GetRoute.jsp</result>
-  	</action>
+  <package name="Messages" extends="struts-default,json-default">
+  	<action name="AcceptMemberMessage" class="Action.AcceptMemberMessage">
+	  <interceptor-ref name="basicStack" />
+	      <result type="json">
+	        <param name="root">result</param>
+	      </result>
+ 	</action>
+ 	<action name="RefuseMemberMessage" class="Action.RefuseMemberMessage">
+	  <interceptor-ref name="basicStack" />
+	      <result type="json">
+	        <param name="root">result</param>
+	      </result>
+ 	</action>
   </package>
 </struts>
