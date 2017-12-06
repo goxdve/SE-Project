@@ -305,8 +305,6 @@
       });
     });
   </script>
-  <script>
-  </script>
   <script type="text/javascript">
     function getgroupinfo() {
       if ($("#relatedgroupid").val != "") {

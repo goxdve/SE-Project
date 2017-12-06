@@ -93,57 +93,121 @@
     <div style="padding: 5px" class="page-header">
       <h1 style="font-size: 2em">注册</h1>
     </div>
-    <div class="row"></div>
-    <form class="form-horizontal" role="form" action="register" method="post">
-      <div class="form-group">
-        <label for="username" class="col-lg-1 control-label">用户名</label>
-        <div class="col-lg-3">
-          <input type="text" class="form-control" name="username" placeholder="请输入用户名" required>
-        </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        基本信息
       </div>
-      <div class="form-group">
-        <label for="password1" class="col-lg-1 control-label">密码</label>
-        <div class="col-lg-3">
-          <input type="password" class="form-control" name="password1" required>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="password2" class="col-lg-1 control-label">确认密码</label>
-        <div class="col-lg-3">
-          <input type="password" class="form-control" name="password2" required>
-        </div>
-      </div>
+      <div class="panel-body">
+        <form class="form-horizontal" role="form" action="register" method="post">
+          <div class="form-group">
+            <label for="username" class="col-lg-1 control-label">用户名</label>
+            <div class="col-lg-3">
+              <input type="text" class="form-control" name="username" placeholder="请输入用户名" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password1" class="col-lg-1 control-label">密码</label>
+            <div class="col-lg-3">
+              <input type="password" class="form-control" name="password1" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password2" class="col-lg-1 control-label">确认密码</label>
+            <div class="col-lg-3">
+              <input type="password" class="form-control" name="password2" required>
+            </div>
+          </div>
 
-      <div class="form-group">
-        <label for="sex" class="col-lg-1 control-label">性别</label>
-        <div class="col-lg-3">
-          <input type="radio" name="sex" value=0 />男 &nbsp;&nbsp; <input type="radio" name="sex" value=1 />女
-        </div>
-      </div>
+          <div class="form-group">
+            <label for="sex" class="col-lg-1 control-label">性别</label>
+            <div class="col-lg-3">
+              <input type="radio" name="sex" value=0 />男 &nbsp;&nbsp; <input type="radio" name="sex" value=1 />女
+            </div>
+          </div>
 
-      <div class="form-group">
-        <label for="birthday" class="col-lg-1 control-label">出生日期</label>
-        <div class="col-lg-3">
-          <div class='input-group date' id='datetimepicker'>
-            <input type="text" class="form-control" name="birthday" placeholder="出生日期" required/> <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span>
-            </span>
+          <div class="form-group">
+            <label for="birthday" class="col-lg-1 control-label">出生日期</label>
+            <div class="col-lg-3">
+              <div class='input-group date' id='datetimepicker'>
+                <input type="text" class="form-control" name="birthday" placeholder="出生日期" required/> <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 按钮 -->
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-1">
+              <button type="submit" class="btn btn-block">提交</button>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-1">
+              <button type="reset" class="btn btn-block">重置</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div> 
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      详细资料
+    </div>
+    <div class="panel-body">
+      <form class="form-horizontal" role="form" action="register" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="username" class="col-md-1 control-label">用户名</label>
+          <div class="col-lg-3">
+            <input type="text" class="form-control" name="username" placeholder="请输入用户名" required>
           </div>
         </div>
-      </div>
+        <div class="form-group">
+          <label for="password1" class="col-lg-1 control-label">密码</label>
+          <div class="col-lg-3">
+            <input type="password" class="form-control" name="password1" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password2" class="col-lg-1 control-label">确认密码</label>
+          <div class="col-lg-3">
+            <input type="password" class="form-control" name="password2" required>
+          </div>
+        </div>
 
-      <!-- 按钮 -->
-      <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-1">
-          <button type="submit" class="btn btn-block">提交</button>
+        <div class="form-group">
+          <label for="sex" class="col-lg-1 control-label">性别</label>
+          <div class="col-lg-3">
+            <input type="radio" name="sex" value=0 />男 &nbsp;&nbsp; <input type="radio" name="sex" value=1 />女
+          </div>
         </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-1">
-          <button type="reset" class="btn btn-block">重置</button>
+
+        <div class="form-group">
+          <label for="birthday" class="col-lg-1 control-label">出生日期</label>
+          <div class="col-lg-3">
+            <div class='input-group date' id='datetimepicker'>
+              <input type="text" class="form-control" name="birthday" placeholder="出生日期" required/> <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
-    </form>
-  </div>  
+
+        <!-- 按钮 -->
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-1">
+            <button type="submit" class="btn btn-block">提交</button>
+          </div>
+          <div class="col-md-1"></div>
+          <div class="col-md-1">
+            <button type="reset" class="btn btn-block">重置</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  
 
 
   <script src="../js/jquery.min.js"></script>

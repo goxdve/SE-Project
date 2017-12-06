@@ -1,7 +1,6 @@
 package Bean;
 
 import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
 import Class.Group;

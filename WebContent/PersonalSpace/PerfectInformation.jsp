@@ -1,11 +1,4 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: wandi
-  Date: 2017/11/1
-  Time: 20:02
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.opensymphony.xwork2.ActionContext"%>
 <%@ page import="java.util.Map"%>
@@ -95,9 +88,7 @@
     </div>
   </div>
   <h2>cccc</h2>
-  <s:bean name="Bean.PersonalInformation" var="Information">
-  
-  </s:bean>
+  <s:bean name="Bean.PersonalInformation" var="Information"></s:bean>
 
   <s:form action="PerfectInformation">
       <s:textfield value="%{#Information.password}" name ="newpassword" label="密码"></s:textfield>
@@ -105,6 +96,14 @@
       <s:radio value="%{#Information.sex}"  name="newsex" label="性别" list="%{#{'0':'男','1':'女'}}"></s:radio>
       <s:submit value="修改个人信息"></s:submit>
   </s:form>
+  <div class="col-md-2">
+    <h2>Sidebar</h2>
+    <ul class="nav nav-tabs nav-stacked">
+        <li><a href='#'>Another Link 1</a></li>
+        <li><a href='#'>Another Link 2</a></li>
+        <li><a href='#'>Another Link 3</a></li>
+    </ul>    
+  </div> 
   <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
   <script src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
 </body>
