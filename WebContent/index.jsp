@@ -184,7 +184,7 @@
             </td>
             <td style="width: 200px;"></td>
             <td style="width: 125px;"><s:property value="ownerName" /></td>
-            <td style="width: 125px;"><s:property value="postDate" /><s:property value="postTime" /></td>
+            <td style="width: 125px;"><s:property value="postDate" /> <s:property value="postTime" /></td>
           </tr>
         </s:iterator>
       </tbody>

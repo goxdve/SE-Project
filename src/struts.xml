@@ -70,6 +70,12 @@
       <interceptor-ref name="basicStack" />
       <result name="success">/Groups/AllGroups.jsp</result>
     </action>
+    <action name="GetGroupInfo" class="Action.GetGroupInfo">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
+    </action>
     <action name="DismissGroup" class="Action.DismissGroup" method="execute">
       <interceptor-ref name="basicStack" />
       <result name="success">/Groups/MyGroups.jsp</result>

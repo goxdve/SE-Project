@@ -126,14 +126,15 @@
         <div class="form-group">
           <label for="schemeTitle" class="col-lg-1 control-label">标题</label>
           <div class="col-lg-3">
-            <input type="text" class="form-control" name="schemeTitle" placeholder="请输入标题" style="height:33px; width:260px" required />
+            <input type="text" class="form-control" name="schemeTitle" style="height:33px; width:260px" required />
           </div>
         </div>
         <!-- 关联小组 -->
         <div class="form-group">
           <label for="relatedgroupid" class="col-lg-1 control-label">关联小组</label>
           <div class="col-lg-3">
-            <select class="fomr-control" name="relatedgroupid" id="relatedgroupid" style="height:33px; width:260px" required>
+            <select class="fomr-control" name="relatedgroupid" id="relatedgroupid" style="height:33px; width:260px" 
+              onchange="getgroupinfo()" required>
               <option value=""></option>
               <s:iterator value="%{#mygroups.allmygroups}" var="iter">
                 <option value="<s:property value="#iter.groupid" />"><s:property value="#iter.groupname" /></option>
@@ -149,11 +150,13 @@
           <label class="col-lg-1 control-label">出发地</label>
           <div class="col-lg-3">
             <label for="departureprovince"></label>
-            <select class="form-control" id="departureprovince" name="departureprovince" style="height:33px; width:260px" required></select>
+            <select class="form-control" id="departureprovince" name="departureprovince" style="height:33px; width:260px"
+            readonly="readonly" required></select>
           </div>
           <div class="col-lg-3">
             <label for="departurecity"></label>
-            <select class="form-control" id="departurecity" name="departurecity" style="height:33px; width:260px" required></select>
+            <select class="form-control" id="departurecity" name="departurecity" style="height:33px; width:260px"
+            readonly="readonly" required></select>
           </div>
         </div>
         <!-- 目的地 -->
@@ -161,22 +164,25 @@
           <label class="col-lg-1 control-label">目的地</label>
           <div class="col-lg-3">
             <label for="destprovince"></label>
-            <select class="form-control" id="destprovince" name="destprovince" style="height:33px; width:260px" required></select>
+            <select class="form-control" id="destprovince" name="destprovince" style="height:33px; width:260px"
+              readonly="readonly" required></select>
           </div>
           <div class="col-lg-3">
             <label for="destcity"></label>
-            <select class="form-control" id="destcity" name="destcity" style="height:33px; width:260px" required></select>
+            <select class="form-control" id="destcity" name="destcity" style="height:33px; width:260px"
+              readonly="readonly" required></select>
           </div>
         </div>
         <!-- 起始日期 -->
         <div class="form-group">
-          <label for="beginDate" class="col-lg-1 control-label">起始日期</label>
+          <label for="beginDate" class="col-lg-1 control-label">出发日期</label>
           <div class="col-lg-3">
             <div class='input-group date' id='datetimepicker'>
-              <input type="text" class="form-control" id="beginDate" style="height:33px; width:260px" name="beginDate"
-              placeholder="请选择起始日期" pattern="^\d{4}-\d{1,2}-\d{1,2}" required /> <span class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar"></span>
-              </span>
+              <input type="text" class="form-control" id="beginDate" style="height:33px; width:260px" name="beginDate" readonly="readonly"
+              placeholder="请选择起始日期" pattern="^\d{4}-\d{1,2}-\d{1,2}" required />
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+            </span>
             </div>
           </div>
         </div>
@@ -301,35 +307,33 @@
   </script>
   <script>
   </script>
-  <!-- <script type="text/javascript">
-    $(document).ready(function() {
-      $("#relatedgroupid").blur(function() {
-        if ($("#relatedgroupid").val != "") {
-          alert($("#relatedgroupid").val);
-          $.ajax({
-            type : "post",
-            url : "GetGroupInfo.action",
-            data : {
-              groupid : $("#relatedgroupid").val()
-            },
-            dataType : "json",
-            success : function(data) {
-              var d = eval("(" + data + ")");
-              // if (d.LoginResult == 1) {
-              //   location.reload();
-              // } else if (d.LoginResult == 2) {
-              //   $("LoginError").html("密码错误!");
-              //   alert("密码错误!");
-              // }
-
-            },
-            error : function() {
-            }
-          });
-        }
-      });
-    });
-  </script> -->
+  <script type="text/javascript">
+    function getgroupinfo() {
+      if ($("#relatedgroupid").val != "") {
+        $.ajax({
+          async: false,
+          type : "post",
+          url : "GetGroupInfo.action",
+          data : {
+            groupid : $("#relatedgroupid").val()
+          },
+          dataType : "json",
+          success : function(data) {
+            var d = eval("(" + data + ")");
+            var departureprovince = d.departureprovince.toString();
+            var departurecity = d.departurecity.toString();
+            var destprovince = d.destprovince.toString();
+            var destcity = d.destcity.toString();
+            SetProvinceCityValue("departureprovince", "departurecity", departureprovince, departurecity);
+            SetProvinceCityValue("destprovince", "destcity", destprovince, destcity);
+            $('#beginDate').val(d.beginDate.toString());
+          },
+          error : function() {
+          }
+        });
+      }
+    }
+  </script>
    
   <script type="text/javascript">
     $(function() {
