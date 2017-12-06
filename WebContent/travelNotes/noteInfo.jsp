@@ -108,10 +108,6 @@
   </div>
   
   <div class="container">
-    <s:iterator value="aNote" status="st">
-    <div style="padding: 5px" class="page-header">
-      <h1 style="font-size: 2em"><s:property value="noteTitle" /></h1>
-    </div>
       <s:iterator value="aNote" status="st">
         <form class="form-horizontal" role="form" method="post">
           <div style="padding: 5px" class="page-header">

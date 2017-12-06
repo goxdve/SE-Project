@@ -80,6 +80,10 @@
         <param name="root">result</param>
       </result>
     </action>
+    <action name="GroupInfo" class="Action.GroupInfo" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Groups/GroupInfo.jsp</result>
+    </action>
     <action name="DismissGroup" class="Action.DismissGroup" method="execute">
       <interceptor-ref name="basicStack" />
       <result name="success">/Groups/MyGroups.jsp</result>

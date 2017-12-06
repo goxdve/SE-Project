@@ -164,7 +164,7 @@
               <s:iterator value="%{#content.allmygroups}" var="var">
                 <s:if test="%{#var.isManaged==false}">
                   <li>
-                    <s:a href="ManageGroup.action?groupid=%{#var.groupid}">
+                    <s:a href="GroupInfo.action?groupid=%{#var.groupid}">
                       <s:property value="#var.groupname" />
                     </s:a>
                   </li>
