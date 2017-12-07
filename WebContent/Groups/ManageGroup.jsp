@@ -227,6 +227,7 @@
                       <s:property value="#u.username" />
                       <input type="hidden" name="groupid" value="<s:property value="#parameters.groupid"/>"/>
                       <input type="hidden" name="username" value="<s:property value="#u.username"/>"/>
+                      <input type="hidden" name="managername" value="<s:property value="#session.username"/>"/>
                       <button type="submit" class="btn btn-primary pull-right btn-sm">请他/她离开</button>
                     </form>
                   </li>

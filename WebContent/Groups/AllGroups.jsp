@@ -141,7 +141,12 @@
             <td style="width: 150px">
               <form action="JoinGroup">
                 <input type="hidden" value="${var.groupid}" name="joingroupid" />
-                <button type="submit" class="btn btn-primary">申请加入</button>
+                <s:if test="%{#var.membercount<#var.maxmembercount}">
+                  <button type="submit" class="btn btn-primary">申请加入</button>
+                </s:if>
+                <s:else>
+                  <button type="submit" class="btn btn-primary" disabled>申请加入</button>
+                </s:else>
               </form>
             </td>
           </tr>

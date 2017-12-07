@@ -133,34 +133,45 @@
           <s:property value="#var.sender" />请求加入你的小组
           <s:a href="ManageGroup.action?groupid=%{#var.groupid}">
           <s:property value="#var.groupname" /></s:a>
+          <s:if test="%{#var.state==0}">
           <button onclick="AcceptMember(<%=i %>)">同意</button><button onclick="RefuseMember(<%=i %>)">拒绝</button>
+          </s:if>
           <br>
         </s:if>
         <s:if test="%{#var.type==1}">
           <s:property value="#var.sender" />同意了你加入
           <s:a href="ManageGroup.action?groupid=%{#var.groupid}">
           <s:property value="#var.groupname" /></s:a>的申请
+          <s:if test="%{#var.state==0}">
           <button onclick="isRead(<%=i %>)">我知道了</button>
+          </s:if>
           <br>
         </s:if>
         <s:if test="%{#var.type==2}">
           <s:property value="#var.sender" />拒绝了你加入
           <s:a href="ManageGroup.action?groupid=%{#var.groupid}">
           <s:property value="#var.groupname" /></s:a>的申请
+          <s:if test="%{#var.state==0}">
           <button onclick="isRead(<%=i %>)">我知道了</button>
+          </s:if>
           <br>
         </s:if>
         <s:if test="%{#var.type==3}">
           <s:property value="#var.sender" />的小组
           <s:a href="ManageGroup.action?groupid=%{#var.groupid}">
-          <s:property value="#var.groupname" /></s:a>行程已结束，请您点击<s:a href="CommentGroup.action?groupid=%{#var.groupid}">这里</s:a>对本次行程做出评价
+          <s:property value="#var.groupname" /></s:a>行程已结束
+          <s:if test="%{#var.state==0}">
+                  ，请您点击<s:a href="CommentGroup.action?groupid=%{#var.groupid}&messageid=%{#var.messageid}">这里</s:a>对本次行程做出评价
+          </s:if>
           <br>
         </s:if>
         <s:if test="%{#var.type==4}">
           <s:property value="#var.sender" />的小组
           <s:a href="ManageGroup.action?groupid=%{#var.groupid}">
           <s:property value="#var.groupname" /></s:a>已将您移出
+          <s:if test="%{#var.state==0}">
           <button onclick="isRead(<%=i %>)">我知道了</button>
+          </s:if>
           <br>
         </s:if>
         <% ++i; %>
@@ -248,6 +259,37 @@
   				}
   		)
   	}
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#LoginButton").bind("click", function() {
+        if ($("#username").val != "") {
+          $.ajax({
+            async: false,
+            type: "post",
+            url: "Login.action",
+            data: {
+              username: $("#username").val(),
+              password: $("#password").val()
+            },
+            dataType: "json",
+            success: function(data) {
+              var d = eval("(" + data + ")");
+              if (d.LoginResult == 1) {
+                location.reload();
+              }
+              else if (d.LoginResult == 2) {
+                $("LoginError").html("密码错误!");
+                alert("密码错误!");
+              }
+            },
+            error: function() {
+              alert("系统异常，请稍后再试");
+            }
+          });
+        }
+      });
+    });
   </script>
 </body>
 </html>

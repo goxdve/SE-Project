@@ -32,6 +32,7 @@ public class CommentGroup {
     public CommentGroup() throws Exception {
     	HttpServletRequest request=ServletActionContext.getRequest();
     	String groupid=request.getParameter("groupid");
+    	String messageid=request.getParameter("messageid");
     	
     	GroupRepository groupRepository=new GroupRepository();
     	group=groupRepository.getgroup(groupid);
@@ -48,5 +49,6 @@ public class CommentGroup {
             users.add(user);
         }
         userDao.close();
+        
     }
 }

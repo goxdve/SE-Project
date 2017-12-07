@@ -5,6 +5,7 @@ import Data.GroupUserRepository;
 
 public class QuitGroup {
     public String username;
+    private String managername;
     public String groupid;
 
     public String getUsername() {
@@ -22,12 +23,21 @@ public class QuitGroup {
     public void setGroupid(String groupid) {
         this.groupid = groupid;
     }
-
+    
+    public void setManagername(String managername) {
+		this.managername=managername;
+	}
+    
+    public String getManagername() {
+		return this.managername;
+	}
+    
     public String execute() throws Exception {
         GroupUserRepository groupUserDao = new GroupUserRepository();
         System.err.println(username);
         System.err.println(groupid);
-        groupUserDao.quitgroup(username, groupid);
+        System.err.println(managername);
+        groupUserDao.quitgroup(username, managername, groupid);
         groupUserDao.close();
         return "success";
     }

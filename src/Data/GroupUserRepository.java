@@ -73,10 +73,21 @@ public class GroupUserRepository {
         return ret;
     }
 
-    public void quitgroup(String username, String groupid) throws Exception {
+    public void quitgroup(String username, String managername, String groupid) throws Exception {
         String sql = String.format("delete from groupuser WHERE username = \"%s\""
                 + " and groupid = \"%s\";", username, groupid);
         stat.executeUpdate(sql);
+        Groupmessage message=new Groupmessage();
+        GroupRepository groupRepository=new GroupRepository();
+        message.setGroupid(groupid);
+        message.setGroupname(groupRepository.getgroup(groupid).getGroupname());
+        message.setMessageid(UUID.randomUUID().toString().replace("-", ""));
+        message.setSender(managername);
+        message.setReceiver(username);
+        message.setType(4);
+        message.setState(0);
+        MessageRepository messageRepository=new MessageRepository();
+        messageRepository.addMessage(message);
     }
 
     public void dismissgroup(String groupid) throws Exception {
