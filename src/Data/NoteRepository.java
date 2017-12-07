@@ -84,5 +84,24 @@ public class NoteRepository {
 		PreparedStatement pst=con.prepareStatement(sql);
 		pst.executeUpdate();
     }
+	public ArrayList<Note> myNotes(String username) throws Exception
+    {
+    	ArrayList<Note> allmynotes = new ArrayList<Note>();
+    	String SearchString = String.format("SELECT * from note WHERE ownerName = \"%s\";", username);
+    	rs=stat.executeQuery(SearchString);
+    	int mark;
+    	while(rs.next())
+    	{
+    		allmynotes.add(new Note());
+    		mark=allmynotes.size()-1;
+    		allmynotes.get(mark).setNoteID(rs.getString("noteID"));
+    		allmynotes.get(mark).setNoteTitle(rs.getString("noteTitle"));
+    		allmynotes.get(mark).setTravelNote(rs.getString("travelNote"));
+    		allmynotes.get(mark).setOwnerName(rs.getString("ownerName"));
+    		allmynotes.get(mark).setNoteTime(rs.getString("noteTime"));
+    	}
+    	close();
+    	return allmynotes;
+    }
 }
 
