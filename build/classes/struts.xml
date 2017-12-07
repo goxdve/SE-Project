@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+  "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+  "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+  <constant name="struts.i18n.encoding" value="UTF-8" />
+  <include file="struts-default.xml" />
+
+  <package name="Schemes" extends="struts-default,json-default">
+    <action name="NewScheme" class="Action.NewScheme">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
+    </action>
+    <action name="SkipSchemesPage" class="Action.SkipSchemesPage" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/index.jsp</result>
+    </action>
+    <action name="SearchScheme" class="Action.SearchScheme">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
+    </action>
+  </package>
+
+
+  <package name="Users" extends="struts-default,json-default">
+    <action name="Login" class="Action.Login">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
+    </action>
+    <action name="register" class="Action.Register" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Other/RegisterSuccess.jsp</result>
+      <result name="error">/Other/RegisterError.jsp</result>
+    </action>
+    <action name="Logout" class="Action.Logout" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success" type="redirect">
+      	<param name="location">
+      	  /index.jsp
+      	</param>
+  	  </result>
+    </action>
+  </package>
+
+  <package name="Groups" extends="struts-default,json-default">
+    <action name="NewGroup" class="Action.NewGroup">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
+    </action>
+    <action name="JoinGroup" class="Action.JoinGroup" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Groups/AllGroups.jsp</result>
+      <result name="error">/Groups/error.jsp</result>
+    </action>
+    <action name="UpdateGroup" class="Action.UpdateGroup">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
+    </action>
+    <action name="SkipGroupsPage" class="Action.SkipGroupsPage" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Groups/AllGroups.jsp</result>
+    </action>
+    <action name="GetGroupInfo" class="Action.GetGroupInfo">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
+    </action>
+    <action name="DismissGroup" class="Action.DismissGroup" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Groups/MyGroups.jsp</result>
+    </action>
+    <action name="QuitGroup" class="Action.QuitGroup" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Groups/MyGroups.jsp</result>
+    </action>
+    <action name="ManageGroup" class="Action.ManageGroup" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Groups/ManageGroup.jsp</result>
+    </action>
+	<action name="CommentGroup" class="Action.CommentGroup" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Groups/CommentGroup.jsp</result>
+    </action>
+  </package>
+  
+  <package name="Notes" extends="struts-default,json-default">
+  	<action name="allTravelNotes" class="Action.AllNotes" method="execute">
+  	  <interceptor-ref name="basicStack"/>
+  	  <result name="success">/travelNotes/allTravelNotes.jsp</result>
+  	  <result name="error">/Other/RegisterError.jsp</result>
+  	</action>
+  	<action name="noteInfo" class="Action.noteInfo" method="execute">
+  	  <interceptor-ref name="basicStack"/>
+  	  <result name="success">/travelNotes/noteInfo.jsp</result>
+  	  <result name="error">/Other/RegisterError.jsp</result>
+  	</action>
+ 	
+    <action name="SaveNote" class="Action.SaveNote">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
+    </action>
+    <action name="deleteNote" class="Action.DeleteNote">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
+    </action>
+  </package>
+  
+  <package name="Privateletters" extends="struts-default,json-default">
+
+    <action name="SendPrivateLetter" class="Action.SendPrivateLetter" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
+    </action>
+
+  	<action name="SendedPrivateLetterInfo" class="Action.SendedPrivateLetterInfo" method="execute">
+  		<interceptor-ref name="basicStack"/>
+  		<result name="success">/Privateletter/SendedPrivateletterInfo.jsp</result>
+  	</action>
+  	
+  	<action name="ReceivedPrivateLetterInfo" class="Action.ReceivedPrivateLetterInfo" method="execute">
+  		<interceptor-ref name="basicStack"/>
+  		<result name="success">/Privateletter/ReceivedPrivateletterInfo.jsp</result>
+  	</action>
+  	
+  	<action name="DeletePrivateLetter" class="Action.DeletePrivateLetter" method="execute">
+  		<interceptor-ref name="basicStack"/>
+     	<result type="json">
+      		<param name="root">result</param>
+     	</result>
+  	</action>
+  	
+  </package>
+  
+  <package name="Messages" extends="struts-default,json-default">
+  	<action name="AcceptMemberMessage" class="Action.AcceptMemberMessage">
+	  <interceptor-ref name="basicStack" />
+	      <result type="json">
+	        <param name="root">result</param>
+	      </result>
+ 	</action>
+ 	<action name="RefuseMemberMessage" class="Action.RefuseMemberMessage">
+	  <interceptor-ref name="basicStack" />
+	      <result type="json">
+	        <param name="root">result</param>
+	      </result>
+ 	</action>
+ 	<action name="EndTravel" class="Action.EndTravel">
+	  <interceptor-ref name="basicStack" />
+	      <result type="json">
+	        <param name="root">result</param>
+	      </result>
+ 	</action>
+ 	<action name="IsRead" class="Action.IsRead">
+	  <interceptor-ref name="basicStack" />
+	      <result type="json">
+	        <param name="root">result</param>
+	      </result>
+ 	</action>
+  </package>
+</struts>
