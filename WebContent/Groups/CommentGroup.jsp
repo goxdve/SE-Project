@@ -7,9 +7,9 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="../css/bootstrap.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/time/bootstrap-datetimepicker.min.css" />
-<title>驴吧</title>
+<title>小组评价</title>
 <style>
 .table th, .table td {
   text-align: center;
@@ -128,7 +128,7 @@
           </h4>
         </div>
         
-        <div id="GroupInfo" class="panel-collapse collapse">
+        <div class="panel-collapse collapse">
           <div class="panel-body">
             <form class="form-horizontal" role="form" method="post">
               <input type="hidden" id="groupid" name="groupid" value="<s:property value="#parameters.groupid"/>" />

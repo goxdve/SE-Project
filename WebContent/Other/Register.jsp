@@ -7,8 +7,8 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="../css/bootstrap.min.css" />
-<link rel="stylesheet" href="../css/time/bootstrap-datetimepicker.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/time/bootstrap-datetimepicker.min.css" />
 <title>驴吧</title>
 </head>
 
@@ -17,12 +17,12 @@
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand brand-lg" href="../index.jsp">驴吧</a>
+      <a class="navbar-brand brand-lg" href="<%=request.getContextPath() %>/index.jsp">驴吧</a>
     </div>
     <div>
       <ul class="nav navbar-nav">
         <li><a href="#">首页</a></li>
-        <li><a href="../Schemes/NewScheme.jsp">寻找旅伴</a></li>
+        <li><a href="<%=request.getContextPath() %>/Schemes/NewScheme.jsp">寻找旅伴</a></li>
         <li><a href="#">个人中心</a></li>
         <li><a href="#">旅游小组</a></li>
         <li><a href="#">出行攻略</a></li>
@@ -210,11 +210,11 @@
   
 
 
-  <script src="../js/jquery.min.js"></script>
-  <script src="../js/bootstrap.min.js"></script>
-  <script src="../js/time/bootstrap-datetimepicker.js"></script>
-  <script src="../js/time/moment-with-locales.js"></script>
-  <script src="../js/time/bootstrap-datetimepicker.zh-CN.js"></script>
+  <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+  <script src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
+  <script src="<%=request.getContextPath() %>/js/time/bootstrap-datetimepicker.js"></script>
+  <script src="<%=request.getContextPath() %>/js/time/moment-with-locales.js"></script>
+  <script src="<%=request.getContextPath() %>/js/time/bootstrap-datetimepicker.zh-CN.js"></script>
   <script type="text/javascript">
     $(function() {
       $('#datetimepicker').datetimepicker({

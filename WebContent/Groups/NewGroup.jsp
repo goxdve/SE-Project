@@ -7,8 +7,8 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" href="../css/bootstrap.min.css" />
-  <link rel="stylesheet" href="../css/time/bootstrap-datetimepicker.min.css" />
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/css/time/bootstrap-datetimepicker.min.css" />
   <title>驴吧</title>
 </head>
 
@@ -113,8 +113,8 @@
         <p>您尚未登录</p>
         <ul>
           <li><a data-toggle="modal" data-target="#login" href=""> 登录</a></li>
-          <li><a href="../Other/Register.jsp">还没有账号？点击此处注册</a></li>
-          <li><a href="../index.jsp">再看看</a></li>
+          <li><a href="<%=request.getContextPath() %>/Other/Register.jsp">还没有账号？点击此处注册</a></li>
+          <li><a href="<%=request.getContextPath() %>/index.jsp">再看看</a></li>
         </ul>
       </div>
     </s:if>
@@ -188,11 +188,11 @@
     </s:else>
   </div>
 
-  <script src="../js/jquery.min.js"></script>
-  <script src="../js/bootstrap.min.js"></script>
-  <script src="../js/time/bootstrap-datetimepicker.js"></script>
-  <script src="../js/time/moment-with-locales.js"></script>
-  <script src="../js/time/bootstrap-datetimepicker.zh-CN.js"></script>
+  <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+  <script src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
+  <script src="<%=request.getContextPath() %>/js/time/bootstrap-datetimepicker.js"></script>
+  <script src="<%=request.getContextPath() %>/js/time/moment-with-locales.js"></script>
+  <script src="<%=request.getContextPath() %>/js/time/bootstrap-datetimepicker.zh-CN.js"></script>
   <script src="<%=request.getContextPath()%>/js/provincecity.js"></script>
   <script type="text/javascript">
       $(function() {
