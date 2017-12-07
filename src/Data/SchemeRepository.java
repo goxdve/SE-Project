@@ -9,7 +9,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import Class.Scheme;
 
 public class SchemeRepository {
@@ -185,20 +184,9 @@ public class SchemeRepository {
     	close();
     	return mySchemes;
     }
-    public boolean cancelscheme(String schemeID)throws Exception //撤销一个计划
-    {
-    	stat=con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-    	String SearchString = String.format("SELECT * from scheme WHERE schemeID = \"%s\";", schemeID);
-    	rs = stat.executeQuery(SearchString);
-    	if(rs.first())
-    	{
-    		rs.deleteRow();
-            rs.refreshRow();
-    		close();
-    		return true;
-    	}
-    	close();
-	    return false;
+    public void cancelscheme(String schemeID)throws Exception {
+		String sql="delete from scheme where schemeID = '" + schemeID + "';";
+		stat.execute(sql);
     }
 }
 
