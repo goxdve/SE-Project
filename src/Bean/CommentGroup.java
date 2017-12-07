@@ -13,7 +13,8 @@ public class CommentGroup {
 	private Group group;
     private ArrayList<User> users;
     private ArrayList<String> usernames;
-
+    private String messageid;
+    
     public Group getGroup() {
         return group;
     }
@@ -29,10 +30,18 @@ public class CommentGroup {
     public void setUsers(ArrayList<User> users) {
         this.users = users;
     }
+    
+    public void setMessageid(String messageid) {
+		this.messageid=messageid;
+	}
+    
+    public String getMessageid() {
+		return this.messageid;
+	}
     public CommentGroup() throws Exception {
     	HttpServletRequest request=ServletActionContext.getRequest();
     	String groupid=request.getParameter("groupid");
-    	String messageid=request.getParameter("messageid");
+    	messageid=request.getParameter("messageid");
     	
     	GroupRepository groupRepository=new GroupRepository();
     	group=groupRepository.getgroup(groupid);

@@ -18,7 +18,6 @@
 </style>
 </head>
 <body>
-  <s:bean name="Bean.CommentGroup" var="content"></s:bean>
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -113,64 +112,138 @@
       </div>
     </div>
   </div>
-
+  <s:bean name="Bean.CommentGroup" var="content"></s:bean>
   <div class="container">
-    <div style="padding: 5px" class="page-header">
-      <h1 style="font-size: 2em">小组评价</h1>
-    </div>
-    <div class="row"></div>
+  
+    <div style="padding: 5px" class="page-header"></div>
     
-    <div class="panel-group col-sm-8" id="accordion">
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#GroupInfo"> 小组整体评价</a>
-          </h4>
-        </div>
-        
-        <div class="panel-collapse collapse">
-          <div class="panel-body">
-            <form class="form-horizontal" role="form" method="post">
-              <input type="hidden" id="groupid" name="groupid" value="<s:property value="#parameters.groupid"/>" />
-              
-              <!-- 组名 -->
-              <div class="form-group">
-                <label for="groupname" class="col-sm-2 control-label">组名</label>
-                <div class="col-sm-4">
-<!--                   <input type="text" class="form-control" name="groupname" style="height:33px; width:210px" -->
-<%--                    value="<s:property value="#content.group.groupname" />" required /> --%>
-                  <label class="col-sm-2 control-label"><s:property value="#content.group.groupname" /></label>
-                </div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">组员评价</div>
+      <div class="panel-body">
+        <s:iterator value="%{#content.users}" var="u">
+          <s:if test="%{#u.username!=#session.username}">
+            <div class="row">
+              <div class="col-sm-2">
+                <input type="hidden" name="membername" value="<s:property value="#u.username" />"/>
+                  <s:property value="#u.username" />
               </div>
-              <!-- 打分 -->
-              <div class="form-group">
-                <label class="col-sm-2 control-label">为您的本次出行打分</label>
-                <div class="col-sm-4">
-                  <label for="departureprovince"></label>
-                  <select class="form-control" id="departureprovince" name="departureprovince" style="height:33px; width:210px" required></select>
-                </div>
-                <div class="col-sm-4">
-                  <label for="departurecity"></label>
-                  <select class="form-control" id="departurecity" name="departurecity" style="height:33px; width:210px" required></select>
-                </div>
-              </div>
-              <!-- 评价 -->
-              <div class="form-group">
-                <label class="col-sm-2 control-label">朋友一生一起走</label>
-                <div class="col-sm-4">
-                  <label for="departureprovince"></label>
-                  <select class="form-control" id="departureprovince" name="departureprovince" style="height:33px; width:210px" required></select>
-                </div>
-                <div class="col-sm-4">
-                  <label for="departurecity"></label>
-                  <select class="form-control" id="departurecity" name="departurecity" style="height:33px; width:210px" required></select>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>  
-      </div>    
+              <div class="col-sm-2"><button id="GreatButton" class="btn btn-block">给ta点赞</button></div>
+            </div>
+            <hr/>
+          </s:if>
+        </s:iterator>
+      </div>
     </div>
+    
+    <div class="panel panel-primary">
+      <div class="panel-heading">小组评价</div>
+      <div class="panel-body">
+      
+        <div class="row">
+          <div class="col-sm-2">小组:</div>
+          <div class="col-sm-5"><s:property value="#content.group.groupname" /></div>
+        </div>
+        <hr/>
+        
+        <form class="form-horizontal" role="form" method="post">
+          <div class="row">
+            <div class="col-sm-2">对小组进行评分:</div>
+            <div class="col-sm-5">
+              <select>
+                <option value="5">★★★★★</option>
+                <option value="4">★★★★</option>
+                <option value="3">★★★</option>
+                <option value="2">★★</option>
+                <option value="1">★</option>
+              </select>
+            </div>
+          </div>
+          <hr/>
+          
+          <div class="row">
+            <div class="col-sm-2">评价:</div>
+            <div class="col-sm-5">
+              <textarea rows="5" cols="100"></textarea>
+            </div>
+          </div>
+          <hr/>
+          
+          <!-- 按钮 -->
+          <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-1">
+              <button id="NewCommentButton" class="btn btn-block">提交</button>
+            </div>
+            <div class="col-lg-1"></div>
+            <div class="col-lg-1">
+              <button type="reset" class="btn btn-block">重置</button>
+            </div>
+          </div>
+        </form>
+        
+      </div>
+    </div>
+    
   </div>
+  
+  <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
+  <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#NewCommentButton").bind("click", function() {
+        var submitdata = $("form").serialize();
+        submitdata = decodeURIComponent(submitdata, true);
+        submitdata = encodeURI(encodeURI(submitdata));
+        $.ajax({
+          async : false,
+          type : "post",
+          url : "NewComment.action",
+          data : submitdata,
+          dataType : "json",
+          success : function(data) {
+            var d = eval("(" + data + ")");
+            if (d.success == "true") {
+              alert("提交成功");
+            } else {
+              window.alert("提交失败，请重新提交");
+            }
+          },
+          error : function() {
+            window.alert("系统异常，请稍后重试");
+          }
+        });
+      });
+    });
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#LoginButton").bind("click", function() {
+        if ($("#username").val != "") {
+          $.ajax({
+            async: false,
+            type : "post",
+            url : "Login.action",
+            data : {
+              username : $("#username").val(),
+              password : $("#password").val()
+            },
+            dataType : "json",
+            success : function(data) {
+              var d = eval("(" + data + ")");
+              if (d.LoginResult == 1) {
+                location.reload();
+              } else if (d.LoginResult == 2) {
+                $("LoginError").html("密码错误!");
+                alert("密码错误!");
+              }
+            },
+            error : function() {
+              alert("系统异常，请稍后再试");
+            }
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
