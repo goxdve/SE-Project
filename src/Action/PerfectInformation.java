@@ -20,14 +20,17 @@ public class PerfectInformation
         newinformation.put("newpassword",newpassword);
         newinformation.put("newage",newage);
         newinformation.put("newsex",newsex);
+        newinformation.put("newtelephone",newtelephone);
+        newinformation.put("newsignature",newsignature);
         (new UserRepository()).UpdateInformation(newinformation);
-        System.out.println(newpassword+newage+newsex);
         return ret;
     }
     public String newpassword;
     public int newage;
     public int newsex;
-
+    public String newtelephone;
+    public String newsignature;
+    
     public String getNewpassword() {
         return newpassword;
     }
@@ -51,4 +54,22 @@ public class PerfectInformation
     public void setNewsex(int newsex) {
         this.newsex = newsex;
     }
+
+	public String getNewtelephone() {
+		return newtelephone;
+	}
+
+	public void setNewtelephone(String newtelephone) {
+		this.newtelephone = newtelephone;
+	}
+
+	public String getNewsignature() {
+		return newsignature;
+	}
+
+	public void setNewsignature(String newsignature) {
+		this.newsignature = newsignature;
+	}
+    
 }
+

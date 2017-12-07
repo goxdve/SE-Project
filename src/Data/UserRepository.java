@@ -38,13 +38,15 @@ public class UserRepository {
         String password = user.getPassword();
         int age = user.getAge();
         int sex = user.getSex();
+        String telephone = "";
+        String signature = "";
         ResultSet result = stat.executeQuery("select * from user where username='" + username + "'");
         if (result.next()) {
             close();
             return false;
         }
-        String sql = "insert into user(username,password,age,sex)values('" + username + "','" + password + "'," + age
-                + "," + sex + ")";
+        String sql = "insert into user(username,password,age,sex,telephone,signature)values('" + username + "','" + password + "'," + age
+                + "," + sex +",'"+telephone+"','"+signature+"'"+")";
         stat.executeUpdate(sql);
         close();
 
@@ -76,9 +78,11 @@ public class UserRepository {
         String SearchString = String.format("SELECT * from user WHERE username = \"%s\";", username);
         rs = stat.executeQuery(SearchString);
         rs.first();
-        ret.put("password", rs.getString(2));
-        ret.put("age", rs.getInt(3));
-        ret.put("sex", rs.getInt(4));
+        ret.put("password", rs.getString("password"));
+        ret.put("age", rs.getInt("age"));
+        ret.put("sex", rs.getInt("sex"));
+        ret.put("telephone", rs.getString("telephone"));
+        ret.put("signature", rs.getString("signature"));
         rs.close();
         stat.close();
         close();
@@ -93,9 +97,11 @@ public class UserRepository {
         String SearchString = String.format("SELECT * from user WHERE username = \"%s\";", username);
         rs = stat.executeQuery(SearchString);
         rs.first();
-        rs.updateString(2, (String) newinformation.get("newpassword"));
-        rs.updateInt(3, (int) newinformation.get("newage"));
-        rs.updateInt(4, (int) newinformation.get("newsex"));
+        rs.updateString("password", (String) newinformation.get("newpassword"));
+        rs.updateInt("age", (int) newinformation.get("newage"));
+        rs.updateInt("sex", (int) newinformation.get("newsex"));
+        rs.updateString("telephone", (String) newinformation.get("newtelephone"));
+        rs.updateString("signature", (String) newinformation.get("newsignature"));
         rs.updateRow();
         rs.close();
         stat.close();
@@ -111,10 +117,11 @@ public class UserRepository {
             ret.setPassword(rs.getString("password"));
             ret.setAge(rs.getInt("age"));
             ret.setSex(rs.getInt("sex"));
+            ret.setTelephone(rs.getString("telephone"));
+            ret.setSignature(rs.getString("signature"));
         }
         return ret;
     }
-    
     public boolean ContainsUser(String username) throws Exception {
         String sql = String.format("SELECT COUNT(*) FROM user WHERE username = '%s';", username);
         int rowCount = 0;
