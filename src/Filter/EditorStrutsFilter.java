@@ -24,4 +24,5 @@ public class EditorStrutsFilter extends StrutsPrepareAndExecuteFilter{
            super.doFilter(req, res, chain);        
        }
    }
+
 }

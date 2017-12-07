@@ -41,16 +41,19 @@ public class GroupRepository {
         String departurecity = group.getDeparturecity();
         String begindate = group.getBegindate();
         int completed=group.getCompleted();
+
         int membercount = group.getMembercount();
         int maxmembercount = group.getMaxmembercount();
         String manager = group.getManager();
         long timestamp = group.getTimestamp();
         String sql = String.format( "insert into tourgroup(groupid,groupname,"
                 + "destprovince,destcity,begindate,membercount,maxmembercount,"
+
                 + "manager,timestamp,departureprovince,departurecity,completed)values"
                 + "(\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%d,%d,\"%s\",%d,\"%s\",\"%s\",%d)",
                 groupid, groupname, destprovince, destcity, begindate, membercount,
                 maxmembercount, manager, timestamp, departureprovince, departurecity,completed);
+
         System.out.println("GroupRepository.java: sql = " + sql);
         stat.execute(sql);
     }
@@ -72,6 +75,7 @@ public class GroupRepository {
             String manager = rs.getString("manager");
             long timestamp = rs.getLong("timestamp");
             int completed = rs.getInt("completed");
+
             
             
             Group group = new Group();
@@ -86,7 +90,9 @@ public class GroupRepository {
             group.setMaxmembercount(maxmembercount);
             group.setManager(manager);
             group.setTimestamp(timestamp);
+
             group.setCompleted(completed);
+
             ret.add(group);
         }
         return ret;
@@ -129,7 +135,9 @@ public class GroupRepository {
             ret.setTimestamp(rs.getInt("timestamp"));
             ret.setDepartureprovince(rs.getString("departureprovince"));
             ret.setDeparturecity(rs.getString("departurecity"));
+
             ret.setCompleted(rs.getInt("completed"));
+
         }
         return ret;
     }
@@ -155,12 +163,15 @@ public class GroupRepository {
         String begindate = group.getBegindate();
         int membercount = group.getMembercount();
         int maxmembercount = group.getMaxmembercount();
+
         int completed = group.getCompleted();
+
         String manager = group.getManager();
         String sql = String.format(
                 "update tourgroup set groupname=\"%s\"," + "destprovince=\"%s\","
                         + "destcity=\"%s\",begindate=\"%s\",membercount=%d,"
                         + "maxmembercount=%d,manager=\"%s\",departureprovince=\"%s\","
+
                         + "departurecity=\"%s\" ,completed= %d ,where groupid=\"%s\";",
                 groupname, destprovince, destcity, begindate, membercount,
                 maxmembercount, manager, departureprovince, departurecity, completed, groupid);

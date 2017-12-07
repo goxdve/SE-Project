@@ -64,7 +64,7 @@ public class SchemeRepository {
                             beginDate1, beginDate2);
         }
         sql = sql + " order by timestamp desc;";
-        System.out.println("SchemeRepository.java: sql = " + sql);
+
         rs = stat.executeQuery(sql);
         while (rs.next()) {
             String schemeid = rs.getString("schemeID");
@@ -113,4 +113,87 @@ public class SchemeRepository {
         }
         return rowCount;
     }
+
+
+
+
+     public Scheme getSchemeByID(String inputschemeid) throws Exception {
+        Scheme scheme = new Scheme();
+        String sql = String.format("SELECT * from scheme WHERE schemeid = \"%s\";", inputschemeid);
+        rs = stat.executeQuery(sql);
+        if (rs.next()) {
+            String schemeid = rs.getString("schemeID");
+            String schemetitle = rs.getString("schemeTitle");
+            String destprovince = rs.getString("destprovince");
+            String destcity = rs.getString("destcity");
+            int duration = rs.getInt("duration");
+            String begindate = rs.getString("beginDate");
+            String postdate = rs.getString("postDate");
+            String posttime = rs.getString("postTime");
+            String description = rs.getString("description");
+            String owner = rs.getString("ownerName");
+            String relatedgroupid = rs.getString("relatedgroupid");
+            long timestamp = rs.getLong("timestamp");
+            int expenses = rs.getInt("expenses");
+            String departureprovince = rs.getString("departureprovince");
+            String departurecity = rs.getString("departurecity");
+
+            scheme.setSchemeID(schemeid);
+            scheme.setSchemeTitle(schemetitle);
+            scheme.setDestprovince(destprovince);
+            scheme.setDestcity(destcity);
+            scheme.setDuration(duration);
+            scheme.setBeginDate(begindate);
+            scheme.setPostDate(postdate);
+            scheme.setPostTime(posttime);
+            scheme.setDescription(description);
+            scheme.setOwnerName(owner);
+            scheme.setTimestamp(timestamp);
+            scheme.setRelatedgroupid(relatedgroupid);
+            scheme.setExpenses(expenses);
+            scheme.setDepartureprovince(departureprovince);
+            scheme.setDeparturecity(departurecity);
+        }
+        return scheme;
+    }   
+//    public ArrayList<Scheme> mySchemes(String username)throws Exception //获得一个人的全部计划
+//    {
+//    	ArrayList<Scheme> mySchemes=new ArrayList<Scheme>();
+//    	String SearchString = String.format("SELECT * from scheme WHERE ownerName = \"%s\";", username);
+//    	rs=stat.executeQuery(SearchString);
+//    	int mark;
+//    	while(rs.next())
+//    	{
+//    		mySchemes.add(new Scheme());
+//    		mark=mySchemes.size()-1;
+//    		mySchemes.get(mark).setSchemeID(rs.getString("schemeID"));
+//    		mySchemes.get(mark).setSchemeTitle(rs.getString("schemeTitle"));
+//    		mySchemes.get(mark).setDestination(rs.getString("destination"));
+//    		mySchemes.get(mark).setDuration(rs.getInt("duration"));
+//    		mySchemes.get(mark).setBeginDate(rs.getString("beginDate"));
+//    		mySchemes.get(mark).setPostDate(rs.getString("postDate"));
+//    		mySchemes.get(mark).setPostTime(rs.getString("postTime"));
+//    		mySchemes.get(mark).setDescription(rs.getString("description"));
+//    		mySchemes.get(mark).setOwnerName(rs.getString("ownerName"));
+//    		mySchemes.get(mark).setTimestamp(rs.getLong("timestamp"));
+//    	}
+//    	close();
+//    	return mySchemes;
+//    }
+    public boolean cancelscheme(String schemeID)throws Exception //撤销一个计划
+    {
+    	stat=con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+    	String SearchString = String.format("SELECT * from scheme WHERE schemeID = \"%s\";", schemeID);
+    	rs = stat.executeQuery(SearchString);
+    	if(rs.first())
+    	{
+    		rs.deleteRow();
+            rs.refreshRow();
+    		close();
+    		return true;
+    	}
+    	close();
+	    return false;
+    }
 }
+

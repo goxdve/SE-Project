@@ -95,9 +95,7 @@
     </div>
   </div>
   <h2>cccc</h2>
-  <s:bean name="Bean.PersonalInformation" var="Information">
-  
-  </s:bean>
+  <s:bean name="Bean.PersonalInformation" var="Information"></s:bean>
 
   <s:form action="PerfectInformation">
       <s:textfield value="%{#Information.password}" name ="newpassword" label="密码"></s:textfield>

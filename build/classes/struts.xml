@@ -23,6 +23,13 @@
         <param name="root">result</param>
       </result>
     </action>
+
+
+    <action name="SchemeInfo" class="Action.SchemeInfo" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Schemes/SchemeInfo.jsp</result>
+    </action>
+
   </package>
 
 
@@ -76,6 +83,12 @@
         <param name="root">result</param>
       </result>
     </action>
+
+    <action name="GroupInfo" class="Action.GroupInfo" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result name="success">/Groups/GroupInfo.jsp</result>
+    </action>
+
     <action name="DismissGroup" class="Action.DismissGroup" method="execute">
       <interceptor-ref name="basicStack" />
       <result name="success">/Groups/MyGroups.jsp</result>
@@ -88,10 +101,14 @@
       <interceptor-ref name="basicStack" />
       <result name="success">/Groups/ManageGroup.jsp</result>
     </action>
+
 	<action name="CommentGroup" class="Action.CommentGroup" method="execute">
       <interceptor-ref name="basicStack" />
       <result name="success">/Groups/CommentGroup.jsp</result>
     </action>
+
+
+
   </package>
   
   <package name="Notes" extends="struts-default,json-default">
@@ -161,6 +178,7 @@
 	        <param name="root">result</param>
 	      </result>
  	</action>
+
  	<action name="EndTravel" class="Action.EndTravel">
 	  <interceptor-ref name="basicStack" />
 	      <result type="json">
@@ -173,5 +191,7 @@
 	        <param name="root">result</param>
 	      </result>
  	</action>
+
+
   </package>
 </struts>

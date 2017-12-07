@@ -1,7 +1,6 @@
 package Bean;
 
 import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
 import Class.Group;
@@ -49,7 +48,6 @@ public class ManageGroup {
         UserRepository userDao = new UserRepository();
         users = new ArrayList<User>();
         for (String s : usernames) {
-        	System.out.println(s);
             User user = userDao.getUser(s);
             users.add(user);
         }

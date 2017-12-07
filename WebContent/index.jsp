@@ -52,6 +52,7 @@
             <li><a href="<%=request.getContextPath() %>/Privateletter/SendPrivateletter.jsp">发私信</a></li>
           </ul>
         </li>
+        <li><a href="<%=request.getContextPath() %>/Route/Route.jsp">路线推荐</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% ActionContext ac=ActionContext.getContext();

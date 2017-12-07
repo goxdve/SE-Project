@@ -4,18 +4,17 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css" />
-<title>所有攻略</title>
-<style>
-.table th, .table td {
-	text-align: center;
-	vertical-align: middle !important;
-}
-</style>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/time/bootstrap-datetimepicker.min.css" />
+<title>驴吧</title>
 </head>
+
 <body>
+  <s:bean name="Bean.CheckLoginState" var="checkloginstate"></s:bean>
+  <s:bean name="Bean.MyGroups" var="mygroups"></s:bean>
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -24,15 +23,15 @@
     <div>
       <ul class="nav navbar-nav">
         <li><a href="<%=request.getContextPath()%>/index.jsp">首页</a></li>
-        <li><a href="<%=request.getContextPath()%>/Schemes/NewScheme.jsp">寻找旅伴</a></li>
+        <li><a href="#">寻找旅伴</a></li>
         <li><a href="#">个人中心</a></li>
-        <li class="dropdown"><a href="" class="dropdown-toggle" data-toggle="dropdown">旅游小组<b class="caret"></b></a>
+        <li class="dropdown active"><a href="" class="dropdown-toggle" data-toggle="dropdown">旅游小组<b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="<%=request.getContextPath()%>/Groups/AllGroups.jsp">所有小组</a></li>
             <li><a href="<%=request.getContextPath()%>/Groups/NewGroup.jsp">创建小组</a></li>
             <li><a href="<%=request.getContextPath()%>/Groups/MyGroups.jsp">我的小组</a></li>
           </ul></li>
-        <li class="dropdown active"><a href="#" class="dropdown-toggle" data-toggle="dropdown">出行攻略 <b class="caret"></b>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> 出行攻略 <b class="caret"></b>
         </a>
           <ul class="dropdown-menu">
             <li><a href="allTravelNotes">查看所有攻略</a></li>
@@ -50,8 +49,8 @@
       <ul class="nav navbar-nav navbar-right">
         <%
             ActionContext ac = ActionContext.getContext();
-            Map<String, Object> session1 = ac.getSession();
-            if (session1.containsKey("username")) {
+              Map<String, Object> session1 = ac.getSession();
+              if (session1.containsKey("username")) {
         %>
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <s:property value="#session.username" /> <b class="caret"></b>
         </a>
@@ -88,84 +87,110 @@
           </div>
           <form class="form-group" method="post">
             <div class="form-group">
-              <label for="username">用户名</label> <input class="form-control" type="text" name="username" id="username" required>
+              <label for="username">用户名</label> <input class="form-control" type="text" id="username" required>
             </div>
             <div class="form-group">
-              <label for="password">密码</label> <input class="form-control" type="password" name="password" id="password" required>
+              <label for="password">密码</label> <input class="form-control" type="password" id="password" required>
             </div>
             <div class="text-right">
               <button class="btn btn-primary" id="LoginButton">登录</button>
               <button class="btn btn-danger" data-dismiss="modal">取消</button>
             </div>
-            <a href="<%=request.getContextPath() %>/Other/Register.jsp">还没有账号？点我注册</a>
+            <a href="<%=request.getContextPath()%>/Other/Register.jsp">还没有账号？点我注册</a>
           </form>
         </div>
       </div>
     </div>
   </div>
 
+  <s:bean name="Bean.ManageGroup" var="managegroup"></s:bean>
   <div class="container">
-    <div style="padding: 5px" class="page-header">
-      <h1 style="font-size: 2em">查看所有攻略</h1>
+    <div style="padding: 5px" class="page-header"></div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        小组信息
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-2">组名:</div>
+          <div class="col-sm-5"><s:property value="#managegroup.group.groupname" /></div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-sm-2">出发地:</div>
+          <div class="col-sm-5"><s:property value="#managegroup.group.departureprovince" /> <s:property value="#managegroup.group.departurecity" /></div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-sm-2">目的地:</div>
+          <div class="col-sm-5"><s:property value="#managegroup.group.destprovince" /> <s:property value="#managegroup.group.destcity" /></div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-sm-2">出发日期:</div>
+          <div class="col-sm-5"><s:property value="#managegroup.group.begindate" /></div>
+        </div>
+      </div>
     </div>
 
-    <table class="table table-striped table-hover cos-sm-9">
-      <thead>
-        <tr>
-          <th style="width: 300px;">标题</th>
-          <th style="width: 150px;"></th>
-          <th style="width: 150px;">作者</th>
-          <th style="width: 150px;">发表时间</th>
-        </tr>
-      </thead>
-      <tbody>
-        <s:iterator value="noteList" status="st">
-          <tr>
-            <td style="width: 300px;">
-              <a href="<s:url action="noteInfo"> <s:param name="name" value="noteID"/></s:url>"> <s:property value="noteTitle" />
-              </a>
-            </td>
-            <td style="width: 150px;"></td>
-            <td style="width: 150px;"><s:property value="ownerName" /></td>
-            <td style="width: 150px;"><s:property value="noteTime" /></td>
-          </tr>
-        </s:iterator>
-      </tbody>
-    </table>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        小组成员
+      </div>
+      <div class="panel-body">
+        <ul>
+          <!-- <li style="height: 33px">
+            <s:a href="UserInfo.action?username=%{#u.username}">
+              <s:property value="#u.username" />
+            </s:a>
+          </li> -->
+          <s:iterator value="%{#managegroup.users}" var="u">
+            <!-- <s:if test="%{#u.username != #session.username}"> -->
+              <li style="height: 33px">
+                <s:a href="UserInfo.action?username=%{#u.username}">
+                  <s:property value="#u.username" />
+                </s:a>
+              </li>
+            <!-- </s:if> -->
+          </s:iterator>
+        </ul>
+      </div>
+    </div>
   </div>
-
 
   <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
   <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
-  <script>
+  <script type="text/javascript">
     $(document).ready(function() {
       $("#LoginButton").bind("click", function() {
-        $.ajax({
-          async: false,
-          type: "post",
-          url: "Login.action",
-          data: {
-            username: $("#username").val(),
-            password: $("#password").val()
-          },
-          dataType: "json",
-          success: function(data) {
-            var d = eval("(" + data + ")");
-            if (d.LoginResult == 1) {
-              location.reload();
+        if ($("#username").val != "") {
+          $.ajax({
+            async: false,
+            type : "post",
+            url : "Login.action",
+            data : {
+              username : $("#username").val(),
+              password : $("#password").val()
+            },
+            dataType : "json",
+            success : function(data) {
+              var d = eval("(" + data + ")");
+              if (d.LoginResult == 1) {
+                location.reload();
+              } else if (d.LoginResult == 2) {
+                $("LoginError").html("密码错误!");
+                alert("密码错误!");
+              }
+            },
+            error : function() {
+              alert("系统异常，请稍后再试");
             }
-            else if (d.LoginResult == 2) {
-              $("LoginError").html("密码错误!");
-              alert("密码错误!");
-            }
-          },
-          error: function() {
-            alert("系统异常，请稍后再试");
-          }
-        });
+          });
+        }
       });
     });
   </script>
-</body>
-</html>
 
+</body>
+
+</html>
