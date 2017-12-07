@@ -164,17 +164,15 @@ public class GroupRepository {
         int membercount = group.getMembercount();
         int maxmembercount = group.getMaxmembercount();
 
-        int completed = group.getCompleted();
-
         String manager = group.getManager();
         String sql = String.format(
                 "update tourgroup set groupname=\"%s\"," + "destprovince=\"%s\","
                         + "destcity=\"%s\",begindate=\"%s\",membercount=%d,"
                         + "maxmembercount=%d,manager=\"%s\",departureprovince=\"%s\","
 
-                        + "departurecity=\"%s\" ,completed= %d ,where groupid=\"%s\";",
+                        + "departurecity=\"%s\" where groupid=\"%s\";",
                 groupname, destprovince, destcity, begindate, membercount,
-                maxmembercount, manager, departureprovince, departurecity, completed, groupid);
+                maxmembercount, manager, departureprovince, departurecity, groupid);
         stat.executeUpdate(sql);
     }
     
