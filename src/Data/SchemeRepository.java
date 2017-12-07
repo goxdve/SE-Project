@@ -153,30 +153,35 @@ public class SchemeRepository {
         }
         return scheme;
     }   
-//    public ArrayList<Scheme> mySchemes(String username)throws Exception //获得一个人的全部计划
-//    {
-//    	ArrayList<Scheme> mySchemes=new ArrayList<Scheme>();
-//    	String SearchString = String.format("SELECT * from scheme WHERE ownerName = \"%s\";", username);
-//    	rs=stat.executeQuery(SearchString);
-//    	int mark;
-//    	while(rs.next())
-//    	{
-//    		mySchemes.add(new Scheme());
-//    		mark=mySchemes.size()-1;
-//    		mySchemes.get(mark).setSchemeID(rs.getString("schemeID"));
-//    		mySchemes.get(mark).setSchemeTitle(rs.getString("schemeTitle"));
-//    		mySchemes.get(mark).setDestination(rs.getString("destination"));
-//    		mySchemes.get(mark).setDuration(rs.getInt("duration"));
-//    		mySchemes.get(mark).setBeginDate(rs.getString("beginDate"));
-//    		mySchemes.get(mark).setPostDate(rs.getString("postDate"));
-//    		mySchemes.get(mark).setPostTime(rs.getString("postTime"));
-//    		mySchemes.get(mark).setDescription(rs.getString("description"));
-//    		mySchemes.get(mark).setOwnerName(rs.getString("ownerName"));
-//    		mySchemes.get(mark).setTimestamp(rs.getLong("timestamp"));
-//    	}
-//    	close();
-//    	return mySchemes;
-//    }
+    public ArrayList<Scheme> mySchemes(String username)throws Exception //获得一个人的全部计划
+    {
+    	ArrayList<Scheme> mySchemes=new ArrayList<Scheme>();
+    	String SearchString = String.format("SELECT * from scheme WHERE ownerName = \"%s\";", username);
+    	rs=stat.executeQuery(SearchString);
+    	int mark;
+    	while(rs.next())
+    	{
+    		mySchemes.add(new Scheme());
+    		mark=mySchemes.size()-1;
+    		mySchemes.get(mark).setSchemeID(rs.getString("schemeID"));
+    		mySchemes.get(mark).setSchemeTitle(rs.getString("schemeTitle"));
+    		mySchemes.get(mark).setDestprovince(rs.getString("destprovince"));
+    		mySchemes.get(mark).setDestcity(rs.getString("destcity"));
+    		mySchemes.get(mark).setDuration(rs.getInt("duration"));
+    		mySchemes.get(mark).setBeginDate(rs.getString("beginDate"));
+    		mySchemes.get(mark).setPostDate(rs.getString("postDate"));
+    		mySchemes.get(mark).setPostTime(rs.getString("postTime"));
+    		mySchemes.get(mark).setDescription(rs.getString("description"));
+    		mySchemes.get(mark).setOwnerName(rs.getString("ownerName"));
+    		mySchemes.get(mark).setTimestamp(rs.getLong("timestamp"));
+    		mySchemes.get(mark).setRelatedgroupid(rs.getString("expenses"));
+    		mySchemes.get(mark).setRelatedgroupid(rs.getString("relatedgroupid"));
+    		mySchemes.get(mark).setDepartureprovince(rs.getString("departureprovince"));
+    		mySchemes.get(mark).setDeparturecity(rs.getString("departurecity"));
+    	}
+    	close();
+    	return mySchemes;
+    }
     public boolean cancelscheme(String schemeID)throws Exception //撤销一个计划
     {
     	stat=con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);

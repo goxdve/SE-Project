@@ -1,11 +1,12 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="com.opensymphony.xwork2.ActionContext"%>
 <%@ page import="java.util.Map"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
-<title>PerfectInformation</title>
+<title>Insert title here</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css" />
 </head>
@@ -92,68 +93,17 @@
         <div class="row">
             <div class="span2  col-xs-12 col-sm-3 col-md-2">
                 <ul class="nav nav-pills nav-stacked">
-                    <li><a href="#">首页</a></li>
-                    <li class="active"><a href="<%=request.getContextPath() %>/PersonalSpace/PerfectInformation.jsp">个人信息</a></li>
+                    <li class="active"><a href="#">首页</a></li>
+                    <li><a href="<%=request.getContextPath() %>/PersonalSpace/PerfectInformation.jsp">个人信息</a></li>
                     <li><a href="<%=request.getContextPath() %>/PersonalSpace/PersonalSchemes.jsp">发布计划</a></li>
                     <li><a href="<%=request.getContextPath() %>/PersonalSpace/PersonalGroups.jsp">参与小组</a></li>
                     <li><a href="<%=request.getContextPath() %>/PersonalSpace/PersonalNotes.jsp">发表攻略</a></li>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-9 col-md-10">
-            	<s:bean name="Bean.PersonalInformation" var="Information">
-  				</s:bean>
-			  	<form class="form-horizontal" role="form" method="post" action="PerfectInformation">
-			        <div class="form-group">
-			          <label for="newpassword" class="col-lg-1 control-label">密码</label>
-			          <div class="col-lg-3">
-			            <input type="text" class="form-control" name="newpassword"
-							value="<s:property value="%{#Information.password}"/>" required />
-			          </div>
-			        </div>
-			        
-			        <div class="form-group">
-			          <label for="newage" class="col-lg-1 control-label">年龄</label>
-			          <div class="col-lg-3">
-			            <input type="text" class="form-control" name="newage" 
-			            value="<s:property value="%{#Information.age}"/>" required>
-			          </div>
-			        </div>
-			
-			        <div class="form-group">
-				        <label for="newsex" class="col-lg-1 control-label">性别</label>
-				        <div class="col-lg-3">
-				          <input type="radio" name="newsex" value=0 />男 &nbsp;&nbsp; <input type="radio" name="newsex" value=1 />女
-				        </div>
-			       </div>
-			        
-			        <div class="form-group">
-			          <label for="newtelephone" class="col-lg-1 control-label">电话号码</label>
-			          <div class="col-lg-3">
-			            <input type="text" class="form-control" name="newtelephone" 
-			            value="<s:property value="%{#Information.telephone}"/>" required>
-			          </div>
-			        </div>
-			        
-					<div class="form-group">
-			          <label for="newsignature" class="col-lg-1 control-label">签名</label>
-			          <div class="col-lg-5">
-			            <textarea class="form-control" rows="5" name="newsignature"><s:property value="%{#Information.signature}"/></textarea>
-			          </div>
-        			</div>
-			        <!-- 按钮 -->
-			        <div class="row">
-			          <div class="col-lg-1"></div>
-			          <div class="col-lg-1">
-			            <button type="submit" class="btn btn-block">提交</button>
-			          </div>
-			          <div class="col-lg-1"></div>
-			        </div>
-			     
-			     </form>
+            
             </div>
         </div>
     </div>
-  <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
-  <script src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
 </body>
 </html>

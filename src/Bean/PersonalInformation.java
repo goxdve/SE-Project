@@ -12,11 +12,14 @@ public class PersonalInformation
         setPassword((String)ret.get("password"));
         setAge((int)ret.get("age"));
         setSex((int)ret.get("sex"));
+        setTelephone((String)ret.get("telephone"));
+        setSignature((String)ret.get("signature"));
     }
     public String password;
     public int sex;
     public int age;
-
+    public String telephone;
+    public String signature;
     public int getSex() {
         return sex;
     }
@@ -40,4 +43,21 @@ public class PersonalInformation
     public void setPassword(String password) {
         this.password = password;
     }
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
+    
 }
