@@ -52,6 +52,7 @@
             <li><a href="<%=request.getContextPath() %>/Privateletter/SendPrivateletter.jsp">发私信</a></li>
           </ul>
         </li>
+        <li><a href="<%=request.getContextPath() %>/Route/Route.jsp">路线推荐</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% ActionContext ac=ActionContext.getContext();
@@ -113,7 +114,6 @@
  
   <div class="container">
     <div style="padding: 5px" class="page-header">
-      <!-- <h1 style="font-size: 2em">寻找队友</h1> -->
     </div>
     <form class="form-inline" role="form" method="post">
       <div class="col-1-sm"></div>
