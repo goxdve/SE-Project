@@ -182,4 +182,11 @@ public class GroupRepository {
     	String sql="update tourgroup set completed=1 where groupid='"+groupid+"'";
     	stat.executeUpdate(sql);
     }
+    
+    public void addOne(String groupid) throws Exception {
+    	int nowNum=this.getgroup(groupid).getMembercount();
+		String sql="update tourgroup set membercount="+(nowNum+1)+" where groupid='"+groupid+"'";
+		System.out.println(sql);
+		stat.executeUpdate(sql);
+	}
 }

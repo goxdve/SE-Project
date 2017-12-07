@@ -7,9 +7,9 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="../css/bootstrap.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/time/bootstrap-datetimepicker.min.css" />
-<title>驴吧</title>
+<title>小组评价</title>
 <style>
 .table th, .table td {
   text-align: center;
@@ -127,9 +127,50 @@
             <a data-toggle="collapse" data-parent="#accordion" href="#GroupInfo"> 小组整体评价</a>
           </h4>
         </div>
-      </div>  
-    </div>    
-    
+        
+        <div class="panel-collapse collapse">
+          <div class="panel-body">
+            <form class="form-horizontal" role="form" method="post">
+              <input type="hidden" id="groupid" name="groupid" value="<s:property value="#parameters.groupid"/>" />
+              
+              <!-- 组名 -->
+              <div class="form-group">
+                <label for="groupname" class="col-sm-2 control-label">组名</label>
+                <div class="col-sm-4">
+<!--                   <input type="text" class="form-control" name="groupname" style="height:33px; width:210px" -->
+<%--                    value="<s:property value="#content.group.groupname" />" required /> --%>
+                  <label class="col-sm-2 control-label"><s:property value="#content.group.groupname" /></label>
+                </div>
+              </div>
+              <!-- 打分 -->
+              <div class="form-group">
+                <label class="col-sm-2 control-label">为您的本次出行打分</label>
+                <div class="col-sm-4">
+                  <label for="departureprovince"></label>
+                  <select class="form-control" id="departureprovince" name="departureprovince" style="height:33px; width:210px" required></select>
+                </div>
+                <div class="col-sm-4">
+                  <label for="departurecity"></label>
+                  <select class="form-control" id="departurecity" name="departurecity" style="height:33px; width:210px" required></select>
+                </div>
+              </div>
+              <!-- 评价 -->
+              <div class="form-group">
+                <label class="col-sm-2 control-label">朋友一生一起走</label>
+                <div class="col-sm-4">
+                  <label for="departureprovince"></label>
+                  <select class="form-control" id="departureprovince" name="departureprovince" style="height:33px; width:210px" required></select>
+                </div>
+                <div class="col-sm-4">
+                  <label for="departurecity"></label>
+                  <select class="form-control" id="departurecity" name="departurecity" style="height:33px; width:210px" required></select>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>  
+      </div>    
+    </div>
   </div>
 </body>
 </html>

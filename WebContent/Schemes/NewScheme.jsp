@@ -115,8 +115,8 @@
         <p>您尚未登录</p>
         <ul>
           <li><a data-toggle="modal" data-target="#login" href=""> 登录</a></li>
-          <li><a href="../Other/Register.jsp">还没有账号？点击此处注册</a></li>
-          <li><a href="../index.jsp">再看看</a></li>
+          <li><a href="<%=request.getContextPath() %>/Other/Register.jsp">还没有账号？点击此处注册</a></li>
+          <li><a href="<%=request.getContextPath() %>/index.jsp">再看看</a></li>
         </ul>
       </div>
     </s:if>
@@ -142,7 +142,7 @@
             </select>
           </div>
           <div class="col-lg-3">
-            <a href="../Groups/NewGroup.jsp">没有想要关联的小组？点击此处</a>
+            <a href="<%=request.getContextPath() %>/Groups/NewGroup.jsp">没有想要关联的小组？点击此处</a>
           </div>
         </div>
         <!-- 出发地 -->

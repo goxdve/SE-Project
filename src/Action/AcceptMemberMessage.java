@@ -62,6 +62,7 @@ public class AcceptMemberMessage
 		GroupUserRepository groupUserRepository = new GroupUserRepository();
 		groupUserRepository.addGroupUser(groupid, username);
 		GroupRepository groupRepository=new GroupRepository();
+		groupRepository.addOne(groupid);
 		MessageRepository messageRepository = new MessageRepository();
 		Groupmessage oldmessage = messageRepository.getMessageByID(messageid);
 		oldmessage.setState(1);

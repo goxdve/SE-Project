@@ -7,7 +7,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="../css/bootstrap.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css" />
 <title>驴吧</title>
 <style>
 .table th, .table td {
@@ -141,7 +141,12 @@
             <td style="width: 150px">
               <form action="JoinGroup">
                 <input type="hidden" value="${var.groupid}" name="joingroupid" />
-                <button type="submit" class="btn btn-primary">申请加入</button>
+                <s:if test="%{#var.membercount<#var.maxmembercount}">
+                  <button type="submit" class="btn btn-primary">申请加入</button>
+                </s:if>
+                <s:else>
+                  <button type="submit" class="btn btn-primary" disabled>申请加入</button>
+                </s:else>
               </form>
             </td>
           </tr>
@@ -157,8 +162,8 @@
 
   </div>
 
-  <script src="../js/jquery.min.js"></script>
-  <script src="../js/bootstrap.min.js"></script>
+  <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+  <script src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
       $("#LoginButton").bind("click", function() {

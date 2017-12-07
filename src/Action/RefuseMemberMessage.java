@@ -2,10 +2,12 @@ package Action;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import com.opensymphony.xwork2.ActionContext;
 
 import Class.Groupmessage;
+import Data.GroupRepository;
 import Data.MessageRepository;
 import net.sf.json.JSONObject;
 
@@ -48,12 +50,15 @@ public class RefuseMemberMessage
         String me = (String) session1.get("username");
         
         MessageRepository messageRepository = new MessageRepository();
+        GroupRepository groupRepository=new GroupRepository();
         Groupmessage oldmessage = messageRepository.getMessageByID(messageid);
 		oldmessage.setState(1);
 		messageRepository.changeState(messageid);
 		Groupmessage message= new Groupmessage();
 		message.setType(2);
 		message.setGroupid(groupid);
+		message.setGroupname(groupRepository.getgroup(groupid).getGroupname());
+		message.setMessageid(UUID.randomUUID().toString().replace("-", ""));
 		message.setSender(me);
 		message.setReceiver(username);
 		message.setState(0);

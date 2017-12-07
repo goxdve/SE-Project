@@ -7,7 +7,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="../css/bootstrap.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/time/bootstrap-datetimepicker.min.css" />
 <title>驴吧</title>
 <style>
@@ -227,6 +227,7 @@
                       <s:property value="#u.username" />
                       <input type="hidden" name="groupid" value="<s:property value="#parameters.groupid"/>"/>
                       <input type="hidden" name="username" value="<s:property value="#u.username"/>"/>
+                      <input type="hidden" name="managername" value="<s:property value="#session.username"/>"/>
                       <button type="submit" class="btn btn-primary pull-right btn-sm">请他/她离开</button>
                     </form>
                   </li>

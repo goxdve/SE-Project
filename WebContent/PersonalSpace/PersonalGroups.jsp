@@ -7,7 +7,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="../css/bootstrap.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css" />
 <title>驴吧</title>
 <style>
 .table th, .table td {
@@ -148,8 +148,8 @@
         </div>
     </div>
   
-  <script src="../js/jquery.min.js"></script>
-  <script src="../js/bootstrap.min.js"></script>
+  <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
+  <script src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
   <script type="text/javascript">
       $(function() {
         $('#ManagedGroups').collapse('toggle')
