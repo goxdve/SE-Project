@@ -5,9 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
-import com.opensymphony.xwork2.ActionContext;
 import Class.User;
 
 public class UserRepository {
@@ -57,9 +54,6 @@ public class UserRepository {
         ResultSet rs = stat.executeQuery("select * from user where username='" + username + "'");
         if (rs.next()) {
             if (rs.getString(2).equals(password)) {
-                ActionContext ac = ActionContext.getContext();
-                Map<String, Object> session1 = ac.getSession();
-                session1.put("username", username);
                 return true;
             } else {
                 return false;
@@ -69,43 +63,16 @@ public class UserRepository {
         }
     }
 
-    public HashMap<String, Object> SearchInformation() throws Exception {
-        HashMap<String, Object> ret = new HashMap<String, Object>();
-        ActionContext ac = ActionContext.getContext();
-        Map<String, Object> session1 = ac.getSession();
-        String username = (String) session1.get("username");
-        stat = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        String SearchString = String.format("SELECT * from user WHERE username = \"%s\";", username);
-        rs = stat.executeQuery(SearchString);
-        rs.first();
-        ret.put("password", rs.getString("password"));
-        ret.put("age", rs.getInt("age"));
-        ret.put("sex", rs.getInt("sex"));
-        ret.put("telephone", rs.getString("telephone"));
-        ret.put("signature", rs.getString("signature"));
-        rs.close();
-        stat.close();
-        close();
-        return ret;
-    }
-
-    public void UpdateInformation(HashMap<String, Object> newinformation) throws Exception {
-        ActionContext ac = ActionContext.getContext();
-        Map<String, Object> session1 = ac.getSession();
-        String username = (String) session1.get("username");
-        stat = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        String SearchString = String.format("SELECT * from user WHERE username = \"%s\";", username);
-        rs = stat.executeQuery(SearchString);
-        rs.first();
-        rs.updateString("password", (String) newinformation.get("newpassword"));
-        rs.updateInt("age", (int) newinformation.get("newage"));
-        rs.updateInt("sex", (int) newinformation.get("newsex"));
-        rs.updateString("telephone", (String) newinformation.get("newtelephone"));
-        rs.updateString("signature", (String) newinformation.get("newsignature"));
-        rs.updateRow();
-        rs.close();
-        stat.close();
-        close();
+    public void UpdateInformation(User user) throws Exception {
+        String sql = String.format(
+                "update user set telephone='%s',signature='%s',sex=%d,"
+                        + "age=%d where username='%s';",
+                        user.getTelephone(),
+                        user.getSignature(),
+                        user.getSex(),
+                        user.getAge(),
+                        user.getUsername());
+        stat.executeUpdate(sql);
     }
 
     public User getUser(String username) throws Exception {
