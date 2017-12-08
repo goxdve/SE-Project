@@ -119,44 +119,13 @@
         <input type="hidden" name="noteID" value='<s:property value="noteID"/>'>
         <input type="hidden" name="noteTitle" value='<s:property value="noteTitle"/>'>
         <s:property escape="false" value="travelNote" />
-        <div class="row">
-          <div class="col-lg-1"></div>
-          <div class="col-lg-1">
-            <button id="deleteButton" class="btn btn-block">删除</button>
-          </div>
-        </div>
+        
       </form>
     </s:iterator>
   </div>
   <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
   <script src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $("#deleteButton").bind("click", function() {
-        var submitdata = $("form").serialize();
-        submitdata = decodeURIComponent(submitdata, true);
-        submitdata = encodeURI(encodeURI(submitdata));
-        $.ajax({
-          async: false,
-          type: "post",
-          url: "deleteNote.action",
-          data: submitdata,
-          dataType: "json",
-          success:function(data) {
-            var d = eval("(" + data + ")");
-            if (d.success == "true") {
-              alert("删除成功");
-            } else {
-              window.alert("删除失败，请重新删除");
-            }
-          },
-          error:function() {
-            window.alert("系统异常，请稍后重试");
-          }
-        });
-      });
-    });
-  </script>
+
 </body>
 </html>
 
