@@ -172,7 +172,7 @@
           <div class="row">
             <div class="col-lg-1"></div>
             <div class="col-lg-1">
-              <button id="NewCommentButton" class="btn btn-block">提交</button>
+              <button onclick="SubmitComment()" class="btn btn-block">提交</button>
             </div>
             <div class="col-lg-1"></div>
             <div class="col-lg-1">
@@ -189,31 +189,29 @@
   <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
   <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
   <script type="text/javascript">
-    $(document).ready(function() {
-      $("#NewCommentButton").bind("click", function() {
-        var submitdata = $("form").serialize();
-        submitdata = decodeURIComponent(submitdata, true);
-        submitdata = encodeURI(encodeURI(submitdata));
-        $.ajax({
-          async : false,
-          type : "post",
-          url : "NewComment.action",
-          data : submitdata,
-          dataType : "json",
-          success : function(data) {
-            var d = eval("(" + data + ")");
-            if (d.success == "true") {
-              alert("提交成功");
-            } else {
-              window.alert("提交失败，请重新提交");
-            }
-          },
-          error : function() {
-            window.alert("系统异常，请稍后重试");
+    function SubmitComment() {
+      var submitdata = $("form").serialize();
+      submitdata = decodeURIComponent(submitdata, true);
+      submitdata = encodeURI(encodeURI(submitdata));
+      $.ajax({
+        async : false,
+        type : "post",
+        url : "NewComment.action",
+        data : submitdata,
+        dataType : "json",
+        success : function(data) {
+          var d = eval("(" + data + ")");
+          if (d.success == "true") {
+            alert("评价成功");
+          } else {
+            alert("提交失败，请重新提交");
           }
-        });
+        },
+        error : function() {
+          window.alert("系统异常，请稍后重试");
+        }
       });
-    });
+    }
   </script>
   <script type="text/javascript">
     $(document).ready(function() {

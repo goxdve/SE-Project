@@ -193,6 +193,7 @@
       var url="DeletePrivateLetter.action";
       var params={"privateletterID":privateletterID};
       $.ajax({
+        async: false,
         type : "POST",
         url : url,
         data : params,

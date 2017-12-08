@@ -73,8 +73,9 @@
     </action>
     <action name="JoinGroup" class="Action.JoinGroup" method="execute">
       <interceptor-ref name="basicStack" />
-      <result name="success">/Groups/AllGroups.jsp</result>
-      <result name="error">/Groups/error.jsp</result>
+      <result type="json">
+        <param name="root">result</param>
+      </result>
     </action>
     <action name="UpdateGroup" class="Action.UpdateGroup">
       <interceptor-ref name="basicStack" />
@@ -116,10 +117,12 @@
       <result name="success">/Groups/CommentGroup.jsp</result>
     </action>
 
-	<action name="NewComment" class="Action.NewComment" method="execute">
-	  <interceptor-ref name="basicStack" />
-      <result name="success">/Groups/CommentGroup.jsp</result>
-	</action>
+    <action name="NewComment" class="Action.NewComment" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
+    </action>
 
   </package>
   

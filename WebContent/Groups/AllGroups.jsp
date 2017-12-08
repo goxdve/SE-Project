@@ -130,6 +130,9 @@
         </tr>
       </thead>
       <tbody>
+        <%
+            int i = 1;
+        %>
         <s:iterator value="%{#content.groups}" var="var">
           <tr>
             <td style="width: 150px"><s:property value="#var.groupname" /></td>
@@ -139,10 +142,12 @@
             <td style="width: 150px"><s:property value="#var.membercount" />/<s:property value="#var.maxmembercount" /></td>
             <td style="width: 150px"><s:property value="#var.manager" /></td>
             <td style="width: 150px">
-              <form action="JoinGroup">
-                <input type="hidden" value="${var.groupid}" name="joingroupid" />
+              <form method="post">
+                <div id=<%=i%>>
+                  <input type="hidden" value="${var.groupid}" id="joingroupid" />
+                </div>
                 <s:if test="%{#var.membercount<#var.maxmembercount}">
-                  <button type="submit" class="btn btn-primary">申请加入</button>
+                  <button class="btn btn-primary" onclick="joingroup(<%=i%>)">申请加入</button>
                 </s:if>
                 <s:else>
                   <button type="submit" class="btn btn-primary" disabled>申请加入</button>
@@ -150,6 +155,9 @@
               </form>
             </td>
           </tr>
+          <%
+              ++i;
+          %>
         </s:iterator>
       </tbody>
     </table>
@@ -193,6 +201,34 @@
         }
       });
     });
+  </script>
+  <script type="text/javascript">
+    function joingroup(num) {
+      var mark= "#" + num;
+      var joingroupid = $(mark).find("#joingroupid").val();
+      $.ajax({
+        async: false,
+        type : "post",
+        url : "JoinGroup.action",
+        data : {
+          groupid : joingroupid
+        },
+        dataType : "json",
+        success : function(data) {
+          var d = eval("(" + data + ")");
+          if (d.success == "true") {
+            alert("提交成功");
+          } else if (d.success == "isingroup") {
+            alert("您已在该小组中");
+          } else {
+            alert("您尚未登录，请先登录");
+          }
+        },
+        error : function() {
+          alert("系统异常，请稍后再试");
+        }
+      });
+    }
   </script>
 </body>
 
