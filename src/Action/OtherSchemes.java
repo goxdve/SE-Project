@@ -27,13 +27,9 @@ public class OtherSchemes {
     }
 
     public String execute() throws Exception {
-        HttpServletRequest request = ServletActionContext.getRequest();
-        username = new String(request.getParameter("username").getBytes("ISO-8859-1"), "UTF-8");
         SchemeRepository schemeRepository = new SchemeRepository();
         setAllotherSchemes(schemeRepository.mySchemes(username));
-        for (Scheme a : allotherSchemes) {
-            System.out.println(a.getSchemeID());
-        }
+        
         return "success";
     }
 }
