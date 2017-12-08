@@ -200,7 +200,27 @@
 	        <param name="root">result</param>
 	      </result>
  	</action>
-
-
+  </package>
+  <package name="OtherSpace" extends="struts-default,json-default">
+  	<action name="OtherSpace" class="Action.OtherSpace">
+  		<interceptor-ref name="basicStack" />
+  		<result name="success">/OtherSpace/OtherSpace.jsp</result>
+  	</action>
+  	<action name="OtherInformation" class="Action.OtherInformation">
+  		<interceptor-ref name="basicStack" />
+  		<result name="success">/OtherSpace/OtherInformation.jsp</result>
+  	</action>
+  	<action name="OtherSchemes" class="Action.OtherSchemes">
+  		<interceptor-ref name="basicStack" />
+  		<result name="success">/OtherSpace/OtherSchemes.jsp</result>
+  	</action>
+  	<action name="OtherGroups" class="Action.OtherGroups">
+  		<interceptor-ref name="basicStack" />
+  		<result name="success">/OtherSpace/OtherGroups.jsp</result>
+  	</action>
+  	<action name="OtherNotes" class="Action.OtherNotes">
+  		<interceptor-ref name="basicStack" />
+  		<result name="success">/OtherSpace/OtherNotes.jsp</result>
+  	</action>
   </package>
 </struts>
