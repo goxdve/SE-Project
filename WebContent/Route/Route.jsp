@@ -12,6 +12,7 @@
 </head>
 
 <body>
+  <s:bean name="Bean.CheckNewMessage" var="checknewmessage"></s:bean>
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -21,7 +22,7 @@
       <ul class="nav navbar-nav">
         <li><a href="<%=request.getContextPath() %>/index.jsp">首页</a></li>
         <li><a href="<%=request.getContextPath() %>/Schemes/NewScheme.jsp">寻找旅伴</a></li>
-        <li><a href="#">个人中心</a></li>
+        <li><a href="<%=request.getContextPath() %>/PersonalSpace/PersonalSpace.jsp">个人中心</a></li>
         <li class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">旅游小组<b class="caret"></b></a>
           <ul class="dropdown-menu">
@@ -37,7 +38,12 @@
             <li><a href="<%=request.getContextPath() %>/travelNotes/editTravelNotes.jsp">写攻略</a></li>
           </ul>
         </li>
-        <li><a href="#">通知</a></li>
+        <s:if test="%{#checknewmessage.messageNumber==0}">  
+        <li><a href="<%=request.getContextPath() %>/Other/Message.jsp">通知</a></li>
+        </s:if>
+        <s:else>
+        <li><a href="<%=request.getContextPath() %>/Other/Message.jsp">通知(${checknewmessage.messageNumber})</a></li>
+        </s:else>
         <li class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">私信<b class="caret"></b></a>
           <ul class="dropdown-menu">
@@ -69,6 +75,7 @@
         <li><a href="<%=request.getContextPath() %>/Other/Register.jsp"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
         <%} %>
       </ul>
+
     </div>
   </div>
   </nav>
