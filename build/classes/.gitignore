@@ -1,10 +1,6 @@
-/Action/*
-/Bean/*
-/Class/*
-/Data/*
-/Filter/*
-<<<<<<< HEAD
+/Action/
+/Bean/
+/Class/
+/Data/
+/Filter/
 /struts.xml
-=======
-/struts.xml
->>>>>>> e6a9d4382c75784965082e5432c0cea27f388499
