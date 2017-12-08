@@ -3,8 +3,7 @@
 /Class/*
 /Data/*
 /Filter/*
-<<<<<<< HEAD
 /struts.xml
-=======
-/struts.xml
->>>>>>> 4cbda96f22192d7fec63c1c4a1af33edcaac0592
+/Action/
+/Class/
+/Data/

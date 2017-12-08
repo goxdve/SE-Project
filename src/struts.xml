@@ -62,6 +62,12 @@
     	<interceptor-ref name="basicStack" />
     	<result name="success">/PersonalSpace/PerfectInformation.jsp</result>
     </action>
+    <action name="ThumbUp" class="Action.ThumbUp" method="execute">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
+    </action>
   </package>
 
   <package name="Groups" extends="struts-default,json-default">

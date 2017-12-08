@@ -107,7 +107,7 @@
       <div id="panel"></div>
     </div>
   </div>
-  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=DD279b2a90afdf0ae7a3796787a0742e"></script>
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Humudg8I39n6YPBWjlXvsLLnrZzQgncY"></script>
   <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
   <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
   <script src="<%=request.getContextPath()%>/js/time/bootstrap-datetimepicker.js"></script>

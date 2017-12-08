@@ -39,14 +39,12 @@ public class UserRepository {
         String signature = "";
         ResultSet result = stat.executeQuery("select * from user where username='" + username + "'");
         if (result.next()) {
-            close();
             return false;
         }
-        String sql = "insert into user(username,password,age,sex,telephone,signature)values('" + username + "','" + password + "'," + age
-                + "," + sex +",'"+telephone+"','"+signature+"'"+")";
+        String sql = String.format("insert into user(username,password,age,sex,telephone,"
+                + "signature,thumbupnum)values('%s','%s',%d,%d,'%s','%s',%d);", username,
+                password,age,sex,telephone,signature,0);
         stat.executeUpdate(sql);
-        close();
-
         return true;
     }
 
@@ -86,6 +84,7 @@ public class UserRepository {
             ret.setSex(rs.getInt("sex"));
             ret.setTelephone(rs.getString("telephone"));
             ret.setSignature(rs.getString("signature"));
+            ret.setThumbupnum(rs.getInt("thumbupnum"));
         }
         return ret;
     }
@@ -97,5 +96,11 @@ public class UserRepository {
             rowCount = rs.getInt(1);
         }
         return rowCount != 0;
+    }
+    public void ThumbUp(User user) throws Exception {
+        String sql = String.format("update user set thumbupnum = %d where username = '%s';",
+                user.getThumbupnum() + 1, user.getUsername());
+        System.out.println("Data/UserRepository.java: sql = " + sql);
+        stat.executeUpdate(sql);
     }
 }
