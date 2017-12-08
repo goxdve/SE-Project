@@ -11,28 +11,46 @@
 <title>个人发布的攻略</title>
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand brand-lg" href="<%=request.getContextPath() %>/index.jsp">驴吧</a>
     </div>
     <div>
       <ul class="nav navbar-nav">
-        <li><a href="<%=request.getContextPath() %>/index.jsp">首页</a></li>
+        <li class="active"><a href="<%=request.getContextPath() %>/index.jsp">首页</a></li>
         <li><a href="<%=request.getContextPath() %>/Schemes/NewScheme.jsp">寻找旅伴</a></li>
-        <li class="active"><a href="#">个人中心</a></li>
-        <li><a href="#">旅游小组</a></li>
+        <li><a href="<%=request.getContextPath() %>/PersonalSpace/PersonalSpace.jsp">个人中心</a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                     出行攻略
-            <b class="caret"></b>
-          </a>
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">旅游小组<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="<%=request.getContextPath() %>/Groups/AllGroups.jsp">所有小组</a></li>
+            <li><a href="<%=request.getContextPath() %>/Groups/NewGroup.jsp">创建小组</a></li>
+            <li><a href="<%=request.getContextPath() %>/Groups/MyGroups.jsp">我的小组</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">出行攻略<b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="allTravelNotes">查看所有攻略</a></li>
             <li><a href="<%=request.getContextPath() %>/travelNotes/editTravelNotes.jsp">写攻略</a></li>
           </ul>
         </li>
-        <li><a href="#">通知</a></li>
+        <s:if test="%{#checknewmessage.messageNumber==0}">  
+        <li class="active"><a href="<%=request.getContextPath() %>/Other/Message.jsp">通知</a></li>
+        </s:if>
+        <s:else>
+        <li class="active"><a href="<%=request.getContextPath() %>/Other/Message.jsp">通知(${checknewmessage.messageNumber})</a></li>
+        </s:else>
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">私信<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="<%=request.getContextPath() %>/Privateletter/ReceivedPrivateletter.jsp">收信箱</a></li>
+            <li><a href="<%=request.getContextPath() %>/Privateletter/SendedPrivateletter.jsp">已发送</a></li>
+            <li><a href="<%=request.getContextPath() %>/Privateletter/SendPrivateletter.jsp">发私信</a></li>
+          </ul>
+        </li>
+        <li><a href="<%=request.getContextPath() %>/Route/Route.jsp">路线推荐</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% ActionContext ac=ActionContext.getContext();
@@ -47,7 +65,7 @@
           <ul class="dropdown-menu">
             <li><a href="<%=request.getContextPath() %>/PersonalSpace/PerfectInformation.jsp">个人中心</a></li>
             <li><a href="#">消息</a></li>
-            <li><a href="#">退出</a></li>
+            <li><a href="Logout.action">退出</a></li>
           </ul>
         </li>
         <%}else{ %>

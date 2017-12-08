@@ -216,6 +216,37 @@
   <script src="<%=request.getContextPath() %>/js/time/moment-with-locales.js"></script>
   <script src="<%=request.getContextPath() %>/js/time/bootstrap-datetimepicker.zh-CN.js"></script>
   <script type="text/javascript">
+    $(document).ready(function() {
+      $("#LoginButton").bind("click", function() {
+        if ($("#username").val != "") {
+          $.ajax({
+            async: false,
+            type: "post",
+            url: "Login.action",
+            data: {
+              username: $("#username").val(),
+              password: $("#password").val()
+            },
+            dataType: "json",
+            success: function(data) {
+              var d = eval("(" + data + ")");
+              if (d.LoginResult == 1) {
+                location.reload();
+              }
+              else if (d.LoginResult == 2) {
+                $("LoginError").html("密码错误!");
+                alert("密码错误!");
+              }
+            },
+            error: function() {
+              alert("系统异常，请稍后再试");
+            }
+          });
+        }
+      });
+    });
+  </script>
+  <script type="text/javascript">
     $(function() {
       $('#datetimepicker').datetimepicker({
         language : 'zh-CN',

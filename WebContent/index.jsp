@@ -43,7 +43,12 @@
             <li><a href="<%=request.getContextPath() %>/travelNotes/editTravelNotes.jsp">写攻略</a></li>
           </ul>
         </li>
-        <li><a href="<%=request.getContextPath() %>/Other/Message.jsp">通知</a></li>
+        <s:if test="%{#checknewmessage.messageNumber==0}">  
+        <li class="active"><a href="<%=request.getContextPath() %>/Other/Message.jsp">通知</a></li>
+        </s:if>
+        <s:else>
+        <li class="active"><a href="<%=request.getContextPath() %>/Other/Message.jsp">通知(${checknewmessage.messageNumber})</a></li>
+        </s:else>
         <li class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">私信<b class="caret"></b></a>
           <ul class="dropdown-menu">
