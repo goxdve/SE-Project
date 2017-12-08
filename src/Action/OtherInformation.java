@@ -10,8 +10,7 @@ public class OtherInformation {
     public String username;
 
     public String execute() throws Exception {
-        HttpServletRequest request = ServletActionContext.getRequest();
-        username = new String(request.getParameter("username").getBytes("ISO-8859-1"), "UTF-8");
+    
         UserRepository userRepository = new UserRepository();
         user = userRepository.getUser(username);
 
