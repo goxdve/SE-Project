@@ -159,7 +159,7 @@
 	              },
 	              error:function()
 	              {
-// 	                  alert("撤销失败！");
+ 	                  
 	                  window.location.reload();
 	              }
 	  		  }
