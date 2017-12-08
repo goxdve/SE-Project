@@ -13,6 +13,8 @@ public class Group {
     private String manager;             // 管理员
     private long timestamp;             // 时间戳
     private int completed;				// 是否结束
+    private int commentNumber;			// 评价人数
+    private int totalScore;				// 总分数
     public String getGroupid() {
         return groupid;
     }
@@ -84,5 +86,17 @@ public class Group {
     }
     public void setCompleted(int completed) {
 		this.completed=completed;
+	}
+    public int getCommentNumber() {
+    	return this.commentNumber;
+    }
+    public void setCommentNumber(int commentNumber) {
+		this.commentNumber=commentNumber;
+	}
+    public int getTotalScore() {
+    	return this.totalScore;
+    }
+    public void setTotalScore(int totalScore) {
+		this.totalScore=totalScore;
 	}
 }

@@ -138,18 +138,18 @@
     <div class="panel panel-primary">
       <div class="panel-heading">小组评价</div>
       <div class="panel-body">
-      
-        <div class="row">
-          <div class="col-sm-2">小组:</div>
-          <div class="col-sm-5"><s:property value="#content.group.groupname" /></div>
-        </div>
-        <hr/>
-        
         <form class="form-horizontal" role="form" method="post">
+          <div class="row">
+            <div class="col-sm-2">小组:</div>
+            <div class="col-sm-5"><s:property value="#content.group.groupname" /></div>
+            <input type="hidden" name="groupid" value="<s:property value="#content.group.groupid" />"/>
+          </div>
+          <hr/>
+          
           <div class="row">
             <div class="col-sm-2">对小组进行评分:</div>
             <div class="col-sm-5">
-              <select>
+              <select name="score">
                 <option value="5">★★★★★</option>
                 <option value="4">★★★★</option>
                 <option value="3">★★★</option>
@@ -159,11 +159,11 @@
             </div>
           </div>
           <hr/>
-          
+            
           <div class="row">
             <div class="col-sm-2">评价:</div>
             <div class="col-sm-5">
-              <textarea rows="5" cols="100"></textarea>
+              <textarea name="comment" rows="5" cols="100"></textarea>
             </div>
           </div>
           <hr/>
@@ -179,7 +179,7 @@
               <button type="reset" class="btn btn-block">重置</button>
             </div>
           </div>
-        </form>
+     	</form>
         
       </div>
     </div>
