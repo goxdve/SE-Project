@@ -330,5 +330,12 @@
       });
     });
   </script>
+  <script type="text/javascritp">
+    function ToUserSpace(username) {
+      username = username.toString();
+      alert(username);
+      window.location=encodeURI(encodeURI('OtherSpace.action?username=' + username));
+    }
+  </script>
 </body>
 </html>
