@@ -146,19 +146,12 @@
       </div>
       <div class="panel-body">
         <ul>
-          <!-- <li style="height: 33px">
-            <s:a href="UserInfo.action?username=%{#u.username}">
-              <s:property value="#u.username" />
-            </s:a>
-          </li> -->
           <s:iterator value="%{#managegroup.users}" var="u">
-            <!-- <s:if test="%{#u.username != #session.username}"> -->
               <li style="height: 33px">
                 <s:a href="UserInfo.action?username=%{#u.username}">
                   <s:property value="#u.username" />
                 </s:a>
               </li>
-            <!-- </s:if> -->
           </s:iterator>
         </ul>
       </div>

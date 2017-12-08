@@ -110,7 +110,9 @@
       </div>
     </div>
   </div>
-  <div class="container page-header" style="padding: 20px">
+
+  <div class="container">
+    <div style="padding: 5px" class="page-header"> </div>
     <s:if test="%{#checkloginstate.loggedin==false}">
       <div style="font-size: 110%">
         <p>您尚未登录</p>
@@ -122,67 +124,103 @@
       </div>
     </s:if>
     <s:else>
-      <% int i=1; %>
-      <s:iterator value="%{#allmessages.messages}" var="var">
-        <div id=<%=i %>>
-          <input type="hidden" value="<s:property value="%{#var.messageid}"/>" id="messageid"/>
-          <input type="hidden" value="<s:property value="%{#var.groupid}"/>" id="groupid"/>
-          <input type="hidden" value="<s:property value="%{#var.sender}"/>" id="username"/>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          消息
         </div>
-        <s:if test="%{#var.type==0}">
-          <s:property value="#var.sender" />请求加入你的小组
-          <s:a href="ManageGroup.action?groupid=%{#var.groupid}">
-          <s:property value="#var.groupname" /></s:a>
-          <s:if test="%{#var.state==0}">
-          <button onclick="AcceptMember(<%=i %>)">同意</button><button onclick="RefuseMember(<%=i %>)">拒绝</button>
-          </s:if>
-          <br>
-        </s:if>
-        <s:if test="%{#var.type==1}">
-          <s:property value="#var.sender" />同意了你加入
-          <s:a href="ManageGroup.action?groupid=%{#var.groupid}">
-          <s:property value="#var.groupname" /></s:a>的申请
-          <s:if test="%{#var.state==0}">
-          <button onclick="isRead(<%=i %>)">我知道了</button>
-          </s:if>
-          <br>
-        </s:if>
-        <s:if test="%{#var.type==2}">
-          <s:property value="#var.sender" />拒绝了你加入
-          <s:a href="ManageGroup.action?groupid=%{#var.groupid}">
-          <s:property value="#var.groupname" /></s:a>的申请
-          <s:if test="%{#var.state==0}">
-          <button onclick="isRead(<%=i %>)">我知道了</button>
-          </s:if>
-          <br>
-        </s:if>
-        <s:if test="%{#var.type==3}">
-          <s:property value="#var.sender" />的小组
-          <s:a href="ManageGroup.action?groupid=%{#var.groupid}">
-          <s:property value="#var.groupname" /></s:a>行程已结束
-          <s:if test="%{#var.state==0}">
-                  ，请您点击<s:a href="CommentGroup.action?groupid=%{#var.groupid}&messageid=%{#var.messageid}">这里</s:a>对本次行程做出评价
-          </s:if>
-          <br>
-        </s:if>
-        <s:if test="%{#var.type==4}">
-          <s:property value="#var.sender" />的小组
-          <s:a href="ManageGroup.action?groupid=%{#var.groupid}">
-          <s:property value="#var.groupname" /></s:a>已将您移出
-          <s:if test="%{#var.state==0}">
-          <button onclick="isRead(<%=i %>)">我知道了</button>
-          </s:if>
-          <br>
-        </s:if>
-        <% ++i; %>
-      </s:iterator>
+        <div class="panel-body">
+          <% int i=1; %>
+          <s:iterator value="%{#allmessages.messages}" var="var">
+            <div id=<%=i %>>
+              <input type="hidden" value="<s:property value="%{#var.messageid}"/>" id="messageid"/>
+              <input type="hidden" value="<s:property value="%{#var.groupid}"/>" id="groupid"/>
+              <input type="hidden" value="<s:property value="%{#var.sender}"/>" id="username"/>
+            </div>
+
+            <!-- 类型1: 申请 -->
+            <s:if test="%{#var.type==0}">
+              <s:if test="%{#var.state==0}">(未读) </s:if>
+              <s:a href="OtherSpace.action?username=%{#var.sender}">
+                <s:property value="#var.sender" />
+              </s:a>
+              请求加入你的小组
+              <s:a href="GroupInfo.action?groupid=%{#var.groupid}">
+                <s:property value="#var.groupname" />
+              </s:a>
+              &nbsp;&nbsp;
+              <s:if test="%{#var.state==0}">
+                <button type="button" class="btn btn-link" onclick="AcceptMember(<%=i %>)">同意</button>
+                <button type="button" class="btn btn-link" onclick="RefuseMember(<%=i %>)">拒绝</button>
+              </s:if>
+            </s:if>
+
+            <!-- 类型2: 同意 -->
+            <s:if test="%{#var.type==1}">
+              <s:if test="%{#var.state==0}">(未读) </s:if>
+              <s:a href="OtherSpace.action?username=%{#var.sender}">
+                <s:property value="#var.sender" />
+              </s:a>
+              同意了你加入
+              <s:a href="GroupInfo.action?groupid=%{#var.groupid}">
+                <s:property value="#var.groupname" />
+              </s:a>
+              的申请
+              <s:if test="%{#var.state==0}">
+                <button type="button" class="btn btn-link" onclick="isRead(<%=i %>)">我知道了</button>
+              </s:if>
+            </s:if>
+
+            <!-- 类型3: 拒绝 -->
+            <s:if test="%{#var.type==2}">
+              <s:if test="%{#var.state==0}">(未读) </s:if>
+              <s:a href="OtherSpace.action?username=%{#var.sender}">
+                <s:property value="#var.sender" />
+              </s:a>
+              拒绝了你加入
+              <s:a href="GroupInfo.action?groupid=%{#var.groupid}">
+                <s:property value="#var.groupname" />
+              </s:a>
+              的申请
+              <s:if test="%{#var.state==0}">
+                <button type="button" class="btn btn-link" onclick="isRead(<%=i %>)">我知道了</button>
+              </s:if>
+            </s:if>
+
+            <!-- 类型4: 行程结束通知 -->
+            <s:if test="%{#var.type==3}">
+              <s:if test="%{#var.state==0}">(未读) </s:if>
+              小组
+              <s:a href="GroupInfo.action?groupid=%{#var.groupid}">
+                <s:property value="#var.groupname" />
+              </s:a>
+              的行程已结束
+              <s:if test="%{#var.state==0}">
+                ，请您点击<s:a href="CommentGroup.action?groupid=%{#var.groupid}&messageid=%{#var.messageid}">此处</s:a>对本次行程做出评价
+              </s:if>
+            </s:if>
+
+            <!-- 类型5: 被移除 -->
+            <s:if test="%{#var.type==4}">
+              <s:if test="%{#var.state==0}">(未读) </s:if>
+              您已被移出小组
+              <s:a href="GroupInfo.action?groupid=%{#var.groupid}">
+                <s:property value="#var.groupname" />
+              </s:a>
+              <s:if test="%{#var.state==0}">
+                <button type="button" class="btn btn-link" onclick="isRead(<%=i %>)">我知道了</button>
+              </s:if>
+            </s:if>
+            <hr>
+            <% ++i; %>
+          </s:iterator>
+        </div>
+      </div>
     </s:else>
   </div>
   <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
   <script src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
   <script type="text/javascript" language="javascript">
-  	function AcceptMember(num)
-  	{
+  	function AcceptMember(num) {
   		var mark="#"+num;
   		var groupid=$(mark).find("#groupid").val();
   		var messageid=$(mark).find("#messageid").val();
@@ -198,7 +236,8 @@
   					dataType:"json",
   					success:function(data)
   					{
-  						alert("操作成功");
+  						//alert("操作成功");
+              location.reload();
   					},
   					error:function()
   					{
@@ -224,7 +263,8 @@
   					dataType:"json",
   					success:function(data)
   					{
-  						alert("操作成功");
+              location.reload();
+  						//alert("操作成功");
   					},
   					error:function()
   					{
@@ -233,8 +273,7 @@
   				}
   		)
   	}
-  	function isRead(num)
-  	{
+  	function isRead(num) {
   		var mark="#"+num;
   		var groupid=$(mark).find("#groupid").val();
   		var messageid=$(mark).find("#messageid").val();
@@ -250,7 +289,7 @@
   					dataType:"json",
   					success:function(data)
   					{
-  						alert("操作成功");
+              location.reload();
   					},
   					error:function()
   					{
