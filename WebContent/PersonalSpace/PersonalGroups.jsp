@@ -117,33 +117,74 @@
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-9 col-md-10">
-            	<table class="table table-striped table-hover cos-sm-12">
-					<thead>
-						<tr>
-							<th style="width: 150px;">标题</th>
-							<th style="width: 150px;">开始日期</th>
-							<th style="width: 150px;">发布时间</th>
-							<th style="width: 150px;"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<% int i=1;%>
-						<s:bean name="Bean.MyGroups" var="content"></s:bean>
-						<s:iterator value="%{#content.allmyschemes}" var="var" status="st">
-							<tr>
-								<td style="width: 150px;"><s:a href="SchemeInfo.action?schemeid=%{#var.schemeID}">
-								<s:property value="%{#var.schemeTitle}" /></s:a>
-								</td>
-								<td style="width: 150px;"><s:property value="%{#var.beginDate}" /></td>
-								<td style="width: 150px;"><s:property value="%{#var.postDate}" /> <s:property value="%{#var.postTime}" /></td>
-								<td style="width: 150px;" id=<%= i %>>
-									<input type="hidden" value="<s:property value="%{#var.schemeID}"/>" id="schemeid"/>
-									<button type="button" onclick="cancelscheme(<%= i++ %>)">撤销此计划</button>
-								</td>
-							</tr>
-						</s:iterator>
-					</tbody>
-				</table>
+            	<s:bean name="Bean.CheckLoginState" var="checkloginstate"></s:bean>
+			  <s:bean name="Bean.MyGroups" var="content"></s:bean>
+			  <div class="container">
+			    <div style="padding: 5px" class="page-header">
+			      <h1 style="font-size: 2em">我的小组</h1>
+			    </div>
+			    <div class="row"></div>
+			    <s:if test="%{#checkloginstate.loggedin==false}">
+			      <div style="font-size: 110%">
+			        <p>您尚未登录</p>
+			        <ul>
+			          <li><a data-toggle="modal" data-target="#login" href=""> 登录</a></li>
+			          <li><a href="<%=request.getContextPath() %>/Other/Register.jsp">还没有账号？点击此处注册</a></li>
+			          <li><a href="<%=request.getContextPath() %>/index.jsp">再看看</a></li>
+			        </ul>
+			      </div>
+			    </s:if>
+			    <s:else>
+			      <div class="panel-group col-sm-8" id="accordion">
+			        <div class="panel panel-info">
+			          <div class="panel-heading">
+			            <h4 class="panel-title">
+			              <a data-toggle="collapse" data-parent="#accordion" href="#ManagedGroups"> 我管理的小组</a>
+			            </h4>
+			          </div>
+			
+			          <div id="ManagedGroups" class="panel-collapse collapse">
+			            <div class="panel-body">
+			              <ul>
+			                <s:iterator value="%{#content.allmygroups}" var="var">
+			                  <s:if test="%{#var.isManaged==true}">
+			                    <li>
+			                      <s:a href="ManageGroup.action?groupid=%{#var.groupid}">
+			                        <s:property value="#var.groupname" />
+			                      </s:a>
+			                    </li>
+			                  </s:if>
+			                </s:iterator>
+			              </ul>
+			            </div>
+			          </div>
+			        </div>
+			
+			        <div class="panel panel-info">
+			          <div class="panel-heading">
+			            <h4 class="panel-title">
+			              <a data-toggle="collapse" data-parent="#accordion" href="#JoinedGroups"> 我加入的小组</a>
+			            </h4>
+			          </div>
+			          <div id="JoinedGroups" class="panel-collapse collapse">
+			            <div class="panel-body">
+			              <s:iterator value="%{#content.allmygroups}" var="var">
+			                <s:if test="%{#var.isManaged==false}">
+			                  <li>
+			                    <s:a href="GroupInfo.action?groupid=%{#var.groupid}">
+			                      <s:property value="#var.groupname" />
+			                    </s:a>
+			                  </li>
+			                </s:if>
+			              </s:iterator>
+			            </div>
+			          </div>
+			        </div>
+			      </div>
+			
+			    </s:else>
+			  </div>
+  
             </div>
         </div>
     </div>
