@@ -135,13 +135,13 @@
   	  <result name="error">/Other/RegisterError.jsp</result>
   	</action>
  	
-    <action name="SaveNote" class="Action.SaveNote">
+    <action name="SaveNote" class="Action.SaveNote" method="execute">
       <interceptor-ref name="basicStack" />
       <result type="json">
         <param name="root">result</param>
       </result>
     </action>
-    <action name="deleteNote" class="Action.DeleteNote">
+    <action name="DeleteNote" class="Action.DeleteNote" method="execute">
       <interceptor-ref name="basicStack" />
       <result type="json">
         <param name="root">result</param>
