@@ -27,8 +27,14 @@ public class OtherGroups {
     }
 
     public String execute() throws Exception {
-        HttpServletRequest request = ServletActionContext.getRequest();
-        username = new String(request.getParameter("username").getBytes("ISO-8859-1"), "UTF-8");
+        GroupUserRepository groupUserRepository = new GroupUserRepository();
+        GroupRepository groupRepository = new GroupRepository();
+        ArrayList<String> mygroupid= groupUserRepository.mygroupid(username);
+        allotherGroups= new ArrayList<Group>();
+        for(int i=0;i<mygroupid.size();++i)
+        {
+        	allotherGroups.add(groupRepository.getgroup(mygroupid.get(i)));
+        }
         return "success";
     }
 }
