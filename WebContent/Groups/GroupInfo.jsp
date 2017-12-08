@@ -157,7 +157,7 @@
         <ul>
           <s:iterator value="%{#managegroup.users}" var="u">
               <li style="height: 33px">
-                <s:a href="UserInfo.action?username=%{#u.username}">
+                <s:a href="OtherSpace.action?username=%{#u.username}">
                   <s:property value="#u.username" />
                 </s:a>
               </li>

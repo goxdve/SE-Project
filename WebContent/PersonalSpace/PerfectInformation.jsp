@@ -90,29 +90,33 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
-          <button class="close" data-dismiss="modal">
+          <button class="close" data-dismiss="modal" id="CloseLoginModal">
             <span>&times;</span>
           </button>
           <div class="modal-title">
             <h2 class="text-center">登录</h2>
           </div>
-          <form class="form-group" action="Login">
+          <form class="form-group" method="post">
             <div class="form-group">
-              <label for="username">用户名</label> <input class="form-control" type="text" name="username" required>
+              <label for="username">用户名</label>
+              <input class="form-control" type="text" name="username" id="username" required>
             </div>
             <div class="form-group">
-              <label for="password">密码</label> <input class="form-control" type="password" name="password" required>
+              <label for="password">密码</label>
+              <input class="form-control" type="password" name="password" id="password" required>
+              <label id="LoginError"></label>
             </div>
             <div class="text-right">
-              <button class="btn btn-primary" type="submit">登录</button>
+              <button class="btn btn-primary" id="LoginButton">登录</button>
               <button class="btn btn-danger" data-dismiss="modal">取消</button>
             </div>
-            <a href="<%=request.getContextPath()%>/Other/Register.jsp">还没有账号？点我注册</a>
+            <a href="<%=request.getContextPath() %>/Other/Register.jsp">还没有账号？点我注册</a>
           </form>
         </div>
       </div>
     </div>
   </div>
+
   <h2>cccc</h2>
   <div class="container-fluid">
     <div class="row">
@@ -180,12 +184,43 @@
   <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
   <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
   <script type="text/javascript">
-      $(function() {
-        if (parseInt('<s:property value="#Information.user.sex"/>') == 0)
-          $("#male").click();
-        else
-          $("#female").click();
+    $(function() {
+      if (parseInt('<s:property value="#Information.user.sex"/>') == 0)
+        $("#male").click();
+      else
+        $("#female").click();
+    });
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#LoginButton").bind("click", function() {
+        if ($("#username").val != "") {
+          $.ajax({
+            async: false,
+            type: "post",
+            url: "Login.action",
+            data: {
+              username: $("#username").val(),
+              password: $("#password").val()
+            },
+            dataType: "json",
+            success: function(data) {
+              var d = eval("(" + data + ")");
+              if (d.LoginResult == 1) {
+                location.reload();
+              }
+              else if (d.LoginResult == 2) {
+                $("LoginError").html("密码错误!");
+                alert("密码错误!");
+              }
+            },
+            error: function() {
+              alert("系统异常，请稍后再试");
+            }
+          });
+        }
       });
-    </script>
+    });
+  </script>
 </body>
 </html>

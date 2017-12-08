@@ -90,15 +90,15 @@
           <div class="modal-title">
             <h2 class="text-center">登录</h2>
           </div>
-          <form class="form-group" action="Login">
+          <form class="form-group" method="post">
             <div class="form-group">
-              <label for="username">用户名</label> <input class="form-control" type="text" name="username" required>
+              <label for="username">用户名</label> <input class="form-control" type="text" name="username" id="username" required>
             </div>
             <div class="form-group">
-              <label for="password">密码</label> <input class="form-control" type="password" name="password" required>
+              <label for="password">密码</label> <input class="form-control" type="password" name="password" id="password" required>
             </div>
             <div class="text-right">
-              <button class="btn btn-primary" type="submit">登录</button>
+              <button class="btn btn-primary" id="LoginButton">登录</button>
               <button class="btn btn-danger" data-dismiss="modal">取消</button>
             </div>
             <a href="<%=request.getContextPath() %>/Other/Register.jsp">还没有账号？点我注册</a>
@@ -107,6 +107,7 @@
       </div>
     </div>
   </div>
+
   <h2>cccc</h2>
   <div class="container-fluid">
         <div class="row">
