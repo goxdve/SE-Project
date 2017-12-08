@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/time/bootstrap-datetimepicker.min.css" />
 <link href="<%=request.getContextPath()%>/utf8-jsp/themes/default/css/ueditor.css" type="text/css" rel="stylesheet">
-<title>驴吧</title>
+<title>写攻略</title>
 </head>
 <body>
   <s:bean name="Bean.CheckNewMessage" var="checknewmessage"></s:bean>

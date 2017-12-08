@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css" />
-<title>驴吧</title>
+<title>所有旅游小组</title>
 <style>
 .table th, .table td {
 	text-align: center;

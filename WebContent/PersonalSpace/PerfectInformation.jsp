@@ -12,7 +12,7 @@
 <html>
 
 <head>
-<title>PerfectInformation</title>
+<title>个人信息</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css" />
 </head>
