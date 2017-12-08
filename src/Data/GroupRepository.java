@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import Class.Comment;
 import Class.Group;
 
 public class GroupRepository {
@@ -49,12 +50,10 @@ public class GroupRepository {
         String sql = String.format( "insert into tourgroup(groupid,groupname,"
                 + "destprovince,destcity,begindate,membercount,maxmembercount,"
 
-                + "manager,timestamp,departureprovince,departurecity,completed)values"
-                + "(\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%d,%d,\"%s\",%d,\"%s\",\"%s\",%d)",
+                + "manager,timestamp,departureprovince,departurecity,completed,commentnumber,totalscore)values"
+                + "(\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%d,%d,\"%s\",%d,\"%s\",\"%s\",%d,%d,%d)",
                 groupid, groupname, destprovince, destcity, begindate, membercount,
-                maxmembercount, manager, timestamp, departureprovince, departurecity,completed);
-
-        System.out.println("GroupRepository.java: sql = " + sql);
+                maxmembercount, manager, timestamp, departureprovince, departurecity,completed,0,0);
         stat.execute(sql);
     }
 
@@ -137,7 +136,8 @@ public class GroupRepository {
             ret.setDeparturecity(rs.getString("departurecity"));
 
             ret.setCompleted(rs.getInt("completed"));
-
+            ret.setCommentNumber(rs.getInt("commentnumber"));
+            ret.setTotalScore(rs.getInt("totalscore"));
         }
         return ret;
     }
@@ -179,11 +179,18 @@ public class GroupRepository {
     	String sql="update tourgroup set completed=1 where groupid='"+groupid+"'";
     	stat.executeUpdate(sql);
     }
-    
+    //增加一个组员
     public void addOne(String groupid) throws Exception {
     	int nowNum=this.getgroup(groupid).getMembercount();
 		String sql="update tourgroup set membercount="+(nowNum+1)+" where groupid='"+groupid+"'";
-		System.out.println(sql);
 		stat.executeUpdate(sql);
 	}
+    
+    public void addComment(Comment comment) throws Exception {
+    	Group group=this.getgroup(comment.getGroupid());
+    	group.setCommentNumber(group.getCommentNumber()+1);
+    	group.setTotalScore(group.getTotalScore()+comment.getScore());
+    	String sql="update tourgroup set commentnumber="+group.getCommentNumber()+",totalscore="+group.getTotalScore()+" where groupid='"+group.getGroupid()+"'";
+    	stat.executeUpdate(sql);
+    }
 }

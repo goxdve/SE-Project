@@ -116,7 +116,10 @@
       <result name="success">/Groups/CommentGroup.jsp</result>
     </action>
 
-
+	<action name="NewComment" class="Action.NewComment" method="execute">
+	  <interceptor-ref name="basicStack" />
+      <result name="success">/Groups/CommentGroup.jsp</result>
+	</action>
 
   </package>
   

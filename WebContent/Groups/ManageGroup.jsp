@@ -239,9 +239,14 @@
 
       </div>
       <div class="col-sm-1"></div>
+      <s:if test="%{#content.group.completed==0}">
       <div class="col-sm-2">
         <button id="EndTravelButton" class="btn btn-block">结束行程</button>
       </div>
+      </s:if>
+      <s:else>
+        <button id="EndTravelButton" class="btn btn-block" disabled="disabled">行程已结束</button>
+      </s:else>
     </div>
   </div>
   <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script>

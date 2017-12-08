@@ -15,6 +15,7 @@
 <body>
   <s:bean name="Bean.CheckLoginState" var="checkloginstate"></s:bean>
   <s:bean name="Bean.MyGroups" var="mygroups"></s:bean>
+  <s:bean name="Bean.GroupComments" var="comt"></s:bean>
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -130,7 +131,13 @@
           <div class="col-sm-2">出发日期:</div>
           <div class="col-sm-5"><s:property value="#managegroup.group.begindate" /></div>
         </div>
+        <hr/>
+        <div class="row">
+          <div class="col-sm-2">总分:</div>
+          <div class="col-sm-5"><s:property value="#managegroup.group.totalScore" /></div>
+        </div>
       </div>
+      
     </div>
 
     <div class="panel panel-primary">
@@ -147,6 +154,20 @@
               </li>
           </s:iterator>
         </ul>
+      </div>
+    </div>
+    
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        小组评论
+      </div>
+      <div class="panel-body">
+        <s:iterator value="%{#comt.comments}" var="var">
+          <div class="row">
+          <div class="col-sm-5"><s:property value="#var" /></div>
+        </div>
+        <hr/>
+        </s:iterator>
       </div>
     </div>
   </div>
