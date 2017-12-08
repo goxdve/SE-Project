@@ -102,8 +102,30 @@
             </div>
             <div class="col-xs-12 col-sm-9 col-md-10">
             	<div style="padding: 5px" class="page-header">
-				      <h1 style="font-size: 2em"><s:property value="username"/>的小组</h1>
+				      <h1 style="font-size: 2em"><s:property value="username"/>参与的小组</h1>
 				</div>
+				<table class="table table-striped table-hover cos-sm-12">
+		    		<thead>
+		        		<tr>
+		          			<th style="width: 150px;">名字</th>
+							<th style="width: 150px;">开始日期</th>
+							<th style="width: 300px;">出发地</th>
+							<th style="width: 300px;">目的地</th>
+		        		</tr>
+		      		</thead>
+		      		<tbody>
+		      			<s:iterator value="allotherGroups" id="var" status="st">
+		      				<tr>
+		      					<td style="width: 150px;"><s:a href="GroupInfo.action?groupid=%{#var.groupid}">
+								<s:property value="#var.groupname" /></s:a>
+								</td>
+								<td style="width: 150px;"><s:property value="#var.begindate" /></td>
+								<td style="width: 300px;"><s:property value="#var.departureprovince" /> <s:property value="#var.departurecity" /></td>
+								<td style="width: 300px;"><s:property value="#var.destprovince" /> <s:property value="#var.destcity" /></td>
+		      				</tr>
+		      			</s:iterator>
+		      		</tbody>
+    			</table>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
-/Action/
-/Bean/
-/Class/
-/Data/
-/Filter/
-/struts.xml
+/Action/*
+/Bean/*
+/Class/*
+/Data/*
+/Filter/*
+/struts.xml/*

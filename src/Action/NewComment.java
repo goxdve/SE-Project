@@ -3,26 +3,22 @@ package Action;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.struts2.ServletActionContext;
-
 import com.opensymphony.xwork2.ActionSupport;
-
 import Class.Comment;
 import Data.CommentRepository;
 import Data.GroupRepository;
 import Data.MessageRepository;
 import net.sf.json.JSONObject;
 
-public class NewComment extends ActionSupport{
+public class NewComment extends ActionSupport {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7618221630962216201L;
-	private HttpServletRequest request;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7618221630962216201L;
+    private HttpServletRequest request;
     private String result;
 
     public String getResult() {
@@ -32,6 +28,7 @@ public class NewComment extends ActionSupport{
     public void setResult(String result) {
         this.result = result;
     }
+
     public String execute() {
     	try {
 			request=ServletActionContext.getRequest();
@@ -55,9 +52,9 @@ public class NewComment extends ActionSupport{
             map.put("success", "true");
             JSONObject json = JSONObject.fromObject(map);
             result = json.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "success";
     }
 }

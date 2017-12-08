@@ -221,9 +221,8 @@
                 <button type="submit" class="btn btn-primary pull-right btn-sm disabled">请他/她离开</button></li>
               <s:iterator value="%{#content.users}" var="u">
                 <s:if test="%{#u.username!=#session.username}">
-
                   <li style="height: 33px">
-                    <form action="QuitGroup">
+                    <form action="QuitGroup" method="post">
                       <s:property value="#u.username" />
                       <input type="hidden" name="groupid" value="<s:property value="#parameters.groupid"/>"/>
                       <input type="hidden" name="username" value="<s:property value="#u.username"/>"/>
