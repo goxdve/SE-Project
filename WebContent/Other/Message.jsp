@@ -20,7 +20,7 @@
     </div>
     <div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="<%=request.getContextPath() %>/index.jsp">首页</a></li>
+        <li><a href="<%=request.getContextPath() %>/index.jsp">首页</a></li>
         <li><a href="<%=request.getContextPath() %>/Schemes/NewScheme.jsp">寻找旅伴</a></li>
         <li><a href="<%=request.getContextPath() %>/PersonalSpace/PersonalSpace.jsp">个人中心</a></li>
         <li class="dropdown">
