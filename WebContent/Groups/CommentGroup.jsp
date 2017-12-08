@@ -143,6 +143,7 @@
             <div class="col-sm-2">小组:</div>
             <div class="col-sm-5"><s:property value="#content.group.groupname" /></div>
             <input type="hidden" name="groupid" value="<s:property value="#content.group.groupid" />"/>
+            <input type="hidden" name="messageid" value="<s:property value="#content.messageid" />"/>
           </div>
           <hr/>
           

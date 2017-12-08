@@ -1,5 +1,6 @@
-/Data/*
 /Action/*
 /Bean/*
 /Class/*
+/Data/*
 /Filter/*
+/struts.xml

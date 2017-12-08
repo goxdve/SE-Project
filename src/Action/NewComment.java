@@ -13,6 +13,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import Class.Comment;
 import Data.CommentRepository;
 import Data.GroupRepository;
+import Data.MessageRepository;
 import net.sf.json.JSONObject;
 
 public class NewComment extends ActionSupport{
@@ -35,6 +36,9 @@ public class NewComment extends ActionSupport{
     	try {
 			request=ServletActionContext.getRequest();
 			String groupid=request.getParameter("groupid");
+			String messageid=request.getParameter("messageid");
+			MessageRepository messageRepository=new MessageRepository();
+			messageRepository.changeState(messageid);
 			GroupRepository groupRepository=new GroupRepository();
 			String groupname=groupRepository.getgroup(groupid).getGroupname();
 			Integer score=Integer.valueOf(request.getParameter("score"));
