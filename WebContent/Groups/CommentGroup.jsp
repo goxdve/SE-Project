@@ -126,17 +126,23 @@
     <div class="panel panel-primary">
       <div class="panel-heading">组员评价</div>
       <div class="panel-body">
+        <%
+            int i = 1;
+        %>
         <s:iterator value="%{#content.users}" var="u">
           <s:if test="%{#u.username!=#session.username}">
-            <div class="row">
-              <div class="col-sm-2">
-                <input type="hidden" name="membername" value="<s:property value="#u.username" />"/>
-                  <s:property value="#u.username" />
+            <div class="row" id=<%=i%>>
+              <input type="hidden" value="<s:property value="#u.username" />" id="membername" />
+              <div class="col-sm-3">
+                <s:property value="#u.username" />
               </div>
-              <div class="col-sm-2"><button id="GreatButton" class="btn btn-block">给ta点赞</button></div>
+              <div class="col-sm-2"><button class="btn btn-block" onclick="ThumbUp(<%=i%>)" id="ThumbUpButton">给ta点赞</button></div>
             </div>
             <hr/>
           </s:if>
+          <%
+              ++i;
+          %>
         </s:iterator>
       </div>
     </div>
@@ -249,6 +255,27 @@
         }
       });
     });
+  </script>
+  <script type="text/javascript">
+    function ThumbUp(num) {
+      var mark= "#" + num;
+      var MemberName = $(mark).find("#membername").val();
+      $.ajax({
+        async: false,
+        type : "post",
+        url : "ThumbUp.action",
+        data : {
+          membername: MemberName
+        },
+        dataType:"json",
+        success:function(data) {
+          alert("点赞成功");
+          $(mark).find("#ThumbUpButton").attr("disabled", true);
+        },
+        error:function() {
+        }
+		  });
+    }
   </script>
 </body>
 </html>

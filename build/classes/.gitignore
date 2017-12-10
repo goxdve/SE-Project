@@ -3,5 +3,4 @@
 /Class/*
 /Data/*
 /Filter/*
-/struts.xml/*
-/Action/
+/struts.xml

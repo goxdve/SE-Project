@@ -94,7 +94,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
-          <button class="close" data-dismiss="modal">
+          <button class="close" data-dismiss="modal" id="CloseLoginModal">
             <span>&times;</span>
           </button>
           <div class="modal-title">
@@ -102,10 +102,13 @@
           </div>
           <form class="form-group" method="post">
             <div class="form-group">
-              <label for="username">用户名</label> <input class="form-control" type="text" name="username" id="username" required>
+              <label for="username">用户名</label>
+              <input class="form-control" type="text" name="username" id="username" required>
             </div>
             <div class="form-group">
-              <label for="password">密码</label> <input class="form-control" type="password" name="password" id="password" required>
+              <label for="password">密码</label>
+              <input class="form-control" type="password" name="password" id="password" required>
+              <label id="LoginError"></label>
             </div>
             <div class="text-right">
               <button class="btn btn-primary" id="LoginButton">登录</button>
@@ -117,7 +120,7 @@
       </div>
     </div>
   </div>
-  <h2>cccc</h2>
+
   <div class="container-fluid">
         <div class="row">
             <div class="span2  col-xs-12 col-sm-3 col-md-2">

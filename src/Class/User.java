@@ -5,6 +5,7 @@ public class User {
     private String password;
     private int age;
     private int sex;
+    private int thumbupnum;
     public String telephone;
     public String signature;
     public String getUsername() {
@@ -31,7 +32,13 @@ public class User {
     public void setSex(int sex) {
         this.sex = sex;
     }
-	public String getTelephone() {
+	public int getThumbupnum() {
+        return thumbupnum;
+    }
+    public void setThumbupnum(int thumbupnum) {
+        this.thumbupnum = thumbupnum;
+    }
+    public String getTelephone() {
 		return telephone;
 	}
 	public void setTelephone(String telephone) {
