@@ -7,6 +7,7 @@
 
 <head>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/my_navbar.css" />
 <title>展示路线</title>
 
 </head>

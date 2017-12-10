@@ -8,6 +8,7 @@
 <title>驴吧</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/my_navbar.css" />
 </head>
 <body>
   <s:bean name="Bean.CheckNewMessage" var="checknewmessage"></s:bean>

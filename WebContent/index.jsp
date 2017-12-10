@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bootstrap.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/my_navbar.css" />
 <title>驴吧</title>
 <style>
   .table th, .table td {
@@ -212,6 +213,7 @@
   <script src="<%=request.getContextPath()%>/js/time/moment-with-locales.js"></script>
   <script src="<%=request.getContextPath()%>/js/time/bootstrap-datetimepicker.zh-CN.js"></script>
   <script src="<%=request.getContextPath()%>/js/provincecity.js"></script>
+  <script scr="<%=request.getContextPath()%>/js/canvas-nest.js"></script>
   <script type="text/javascript">
     $(function() {
       $('#datetimepicker').datetimepicker({
