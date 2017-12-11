@@ -229,7 +229,7 @@
                 <s:if test="%{#u.username!=#session.username}">
                   <li style="height: 33px">
                     <form action="QuitGroup" method="post">
-                      <s:property value="#u.username" />
+                      <s:a href="OtherSpace.action?username=%{#u.username}"><s:property value="#u.username" /></s:a>
                       <input type="hidden" name="groupid" value="<s:property value="#parameters.groupid"/>"/>
                       <input type="hidden" name="username" value="<s:property value="#u.username"/>"/>
                       <input type="hidden" name="managername" value="<s:property value="#session.username"/>"/>
