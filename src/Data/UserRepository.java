@@ -14,10 +14,10 @@ public class UserRepository {
 
     public UserRepository() throws ClassNotFoundException, SQLException {
         String driver = "com.mysql.jdbc.Driver";
-        String username = "root";
-        String password = "123456";
+        String username = "jx2k3j2zl4";
+        String password = "iz3l1315y14mj00z32whz05hi4z5ymk12ixx12zj";
         String dbUrl = String.format("jdbc:mysql://%s:%s/%s?useUnicode=true&characterEncoding=utf8",
-                new Object[] { "localhost", "3306", "tourba" });
+                new Object[] { "w.rdc.sae.sina.com.cn", "3306", "app_lvba" });
 
         Class.forName(driver);
         this.con = DriverManager.getConnection(dbUrl, username, password);
@@ -30,22 +30,17 @@ public class UserRepository {
         }
     }
 
-    public boolean register(User user) throws SQLException {
+    public void register(User user) throws SQLException {
         String username = user.getUsername();
         String password = user.getPassword();
         int age = user.getAge();
         int sex = user.getSex();
-        String telephone = "";
-        String signature = "";
-        ResultSet result = stat.executeQuery("select * from user where username='" + username + "'");
-        if (result.next()) {
-            return false;
-        }
+        String telephone = user.getTelephone();
+        String signature = user.getSignature();
         String sql = String.format("insert into user(username,password,age,sex,telephone,"
                 + "signature,thumbupnum)values('%s','%s',%d,%d,'%s','%s',%d);", username,
                 password,age,sex,telephone,signature,0);
         stat.executeUpdate(sql);
-        return true;
     }
 
     public boolean Login(String username, String password) throws Exception {

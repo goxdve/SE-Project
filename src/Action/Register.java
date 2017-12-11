@@ -1,74 +1,73 @@
 package Action;
 
-import java.util.Calendar;
-
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-import Data.UserRepository;
 import Class.User;
+import Data.UserRepository;
+
+import java.net.URLDecoder;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.json.JSONObject;
 
 public class Register extends ActionSupport {
     /**
      * 
      */
-    private static final long serialVersionUID = 7948807408555449626L;
-    // 这一部分内容通过页面获取
-    private String username;
-    private String password1;
-    private String password2;
-    private String birthday;
-    private int sex;
-    
-    // 在这个Action中得到
-    private int age;
+    private static final long serialVersionUID = 5424080242037436671L;
+    private HttpServletRequest request;
+    private String result;
+    public String getResult() {
+        return result;
+    }
+    public void setResult(String result) {
+        this.result = result;
+    }
+    public String execute() {
+       try {
+         request = ServletActionContext.getRequest();
+         String username = URLDecoder.decode(request.getParameter("username"), "UTF-8");
+         String pwd1 = request.getParameter("password1");
+         String pwd2 = request.getParameter("password2");
+         int sex = Integer.parseInt(request.getParameter("sex"));
+         String birth = request.getParameter("birthday");
+         String telephone = request.getParameter("telephone");
+         String signature = request.getParameter("signature");
 
-    public String getUsername() {
-        return username;
-    }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    public String getPassword1() {
-        return password1;
-    }
-    public void setPassword1(String password1) {
-        this.password1 = password1;
-    }
-    public String getPassword2() {
-        return password2;
-    }
-    public void setPassword2(String password2) {
-        this.password2 = password2;
-    }
-    public String getBirthday() {
-        return birthday;
-    }
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
-    public int getSex() {
-        return sex;
-    }
-    public void setSex(int sex) {
-        this.sex = sex;
-    }
+         UserRepository userDao = new UserRepository();
+         int status = 0;
+         if (userDao.ContainsUser(username)) {
+             status = 2;
+         } else if (!pwd1.equals(pwd2)) {
+             status = 3;
+         } else {
+             status = 1;
+             User user = new User();
+             user.setUsername(username);
+             user.setPassword(pwd1);
+             user.setSex(sex);
+             user.setThumbupnum(0);
+             user.setTelephone(telephone);
+             user.setSignature(signature);
+             Calendar now = Calendar.getInstance();
+             int presentYear = now.get(Calendar.YEAR);
+             int birthYear = Integer.valueOf(birth.substring(0, 4));
+             int age = presentYear - birthYear;
+             user.setAge(age);
+             userDao.register(user);
+         }
+         userDao.close();
+         Map<String, Object> map = new HashMap<String, Object>(); 
+         map.put("RegisterResult", status);
 
-    public String execute() throws Exception {
-        if (!password1.equals(password2))
-            return "error";
-        Calendar now = Calendar.getInstance();
-        int presentYear = now.get(Calendar.YEAR);
-        int birthYear = Integer.valueOf(birthday.substring(0, 4));
-        age = presentYear - birthYear;
-        User user = new User();
-        user.setAge(age);
-        user.setSex(sex);
-        user.setUsername(username);
-        user.setPassword(password1);
-        UserRepository userrepository = new UserRepository();
-        if (userrepository.register(user))
-            return "success";
-        else
-            return "error";
+         JSONObject json = JSONObject.fromObject(map);
+         result = json.toString();
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+       return "success";
     }
 }

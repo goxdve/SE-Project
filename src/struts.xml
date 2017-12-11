@@ -45,10 +45,23 @@
         <param name="root">result</param>
       </result>
     </action>
-    <action name="register" class="Action.Register" method="execute">
+    <action name="RegisterCheckUsername" class="Action.RegisterCheckUsername">
       <interceptor-ref name="basicStack" />
-      <result name="success">/Other/RegisterSuccess.jsp</result>
-      <result name="error">/Other/RegisterError.jsp</result>
+      <result type="json">
+        <param name="root">result</param>
+      </result>
+    </action>
+    <action name="RegisterCheckPWD" class="Action.RegisterCheckPWD">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
+    </action>
+    <action name="Register" class="Action.Register">
+      <interceptor-ref name="basicStack" />
+      <result type="json">
+        <param name="root">result</param>
+      </result>
     </action>
     <action name="Logout" class="Action.Logout" method="execute">
       <interceptor-ref name="basicStack" />

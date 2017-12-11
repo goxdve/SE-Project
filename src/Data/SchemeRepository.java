@@ -18,10 +18,10 @@ public class SchemeRepository {
 
     public SchemeRepository() throws ClassNotFoundException, SQLException {
         String driver = "com.mysql.jdbc.Driver";
-        String username = "root";
-        String password = "123456";
+        String username = "jx2k3j2zl4";
+        String password = "iz3l1315y14mj00z32whz05hi4z5ymk12ixx12zj";
         String dbUrl = String.format("jdbc:mysql://%s:%s/%s?useUnicode=true&characterEncoding=utf8",
-                new Object[] { "localhost", "3306", "tourba" });
+                new Object[] { "w.rdc.sae.sina.com.cn", "3306", "app_lvba" });
 
         Class.forName(driver);
         this.con = DriverManager.getConnection(dbUrl, username, password);

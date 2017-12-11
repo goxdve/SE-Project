@@ -93,18 +93,18 @@
           <div class="modal-title">
             <h2 class="text-center">登录</h2>
           </div>
-          <form class="form-group" action="Login" method="post">
+          <form class="form-group" method="post">
             <div class="form-group">
-              <label for="username">用户名</label> <input class="form-control" type="text" name="username" required>
+              <label for="username">用户名</label> <input class="form-control" type="text" id="username" required>
             </div>
             <div class="form-group">
-              <label for="password">密码</label> <input class="form-control" type="password" name="password" required>
+              <label for="password">密码</label> <input class="form-control" type="password" id="password" required>
             </div>
             <div class="text-right">
-              <button class="btn btn-primary" type="submit">登录</button>
+              <button class="btn btn-primary" id="LoginButton">登录</button>
               <button class="btn btn-danger" data-dismiss="modal">取消</button>
             </div>
-            <a href="./Other/Register.jsp">还没有账号？点我注册</a>
+            <a href="<%=request.getContextPath()%>/Other/Register.jsp">还没有账号？点我注册</a>
           </form>
         </div>
       </div>
@@ -115,45 +115,69 @@
     <div style="padding: 5px" class="page-header">
       <h1 style="font-size: 2em">注册</h1>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        基本信息
-      </div>
+    <div class="panel panel-primary">
+      <div class="panel-heading"></div>
       <div class="panel-body">
-        <form class="form-horizontal" role="form" action="register" method="post">
+        <form class="form-horizontal" role="form" method="post">
+          <h3>基本资料</h3>
+          <br/>
+          <!-- 用户名 -->
           <div class="form-group">
             <label for="username" class="col-lg-1 control-label">用户名</label>
             <div class="col-lg-3">
-              <input type="text" class="form-control" name="username" placeholder="请输入用户名" required>
+              <input type="text" class="form-control" name="username" id="RegisterUsername" onblur="checkusername()" required />
             </div>
+            <div class="col-lg-3" id="UsernameError"></div>
           </div>
+          <!-- 密码 -->
           <div class="form-group">
             <label for="password1" class="col-lg-1 control-label">密码</label>
             <div class="col-lg-3">
-              <input type="password" class="form-control" name="password1" required>
+              <input type="password" class="form-control" name="password1" id="password1" onblur="checkpassword()" required />
             </div>
           </div>
+          <!-- 确认密码 -->
           <div class="form-group">
             <label for="password2" class="col-lg-1 control-label">确认密码</label>
             <div class="col-lg-3">
-              <input type="password" class="form-control" name="password2" required>
+              <input type="password" class="form-control" name="password2" id="password2" onblur="checkpassword()" required />
             </div>
+            <div class="col-lg-3" id="pwdnotmatch"></div>
           </div>
-
+          <!-- 性别 -->
           <div class="form-group">
             <label for="sex" class="col-lg-1 control-label">性别</label>
             <div class="col-lg-3">
-              <input type="radio" name="sex" value=0 />男 &nbsp;&nbsp; <input type="radio" name="sex" value=1 />女
+              <input type="radio" name="sex" value=0 selected />男 &nbsp;&nbsp; <input type="radio" name="sex" value=1 />女
+            </div>
+          </div>
+          <!-- 出生年月 -->
+          <div class="form-group">
+            <label for="birthday" class="col-lg-1 control-label">出生年月</label>
+            <div class="col-lg-3">
+              <div class='input-group date' id='datetimepicker'>
+                <input type="text" class="form-control" name="birthday" placeholder="出生年月" required/> <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+              </div>
             </div>
           </div>
 
+          <hr/>
+
+          <h3>详细信息</h3>
+          <br/>
+          <!-- 联系方式 -->
           <div class="form-group">
-            <label for="birthday" class="col-lg-1 control-label">出生日期</label>
-            <div class="col-lg-3">
-              <div class='input-group date' id='datetimepicker'>
-                <input type="text" class="form-control" name="birthday" placeholder="出生日期" required/> <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-              </div>
+            <label for="telephone" class="col-md-1 control-label">联系方式</label>
+            <div class="col-md-3">
+              <input type="text" class="form-control" name="telephone" />
+            </div>
+          </div>
+          <!-- 个人说明 -->
+          <div class="form-group">
+            <label for="signature" class="col-md-1 control-label">个人说明</label>
+            <div class="col-md-5">
+              <textarea class="form-control" rows="5" name="signature"></textarea>
             </div>
           </div>
 
@@ -161,7 +185,7 @@
           <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-1">
-              <button type="submit" class="btn btn-block">提交</button>
+              <button class="btn btn-block" onclick="register()">注册</button>
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-1">
@@ -172,65 +196,6 @@
       </div>
     </div>
   </div> 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      详细资料
-    </div>
-    <div class="panel-body">
-      <form class="form-horizontal" role="form" action="register" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-          <label for="username" class="col-md-1 control-label">用户名</label>
-          <div class="col-lg-3">
-            <input type="text" class="form-control" name="username" placeholder="请输入用户名" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="password1" class="col-lg-1 control-label">密码</label>
-          <div class="col-lg-3">
-            <input type="password" class="form-control" name="password1" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="password2" class="col-lg-1 control-label">确认密码</label>
-          <div class="col-lg-3">
-            <input type="password" class="form-control" name="password2" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="sex" class="col-lg-1 control-label">性别</label>
-          <div class="col-lg-3">
-            <input type="radio" name="sex" value=0 />男 &nbsp;&nbsp; <input type="radio" name="sex" value=1 />女
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="birthday" class="col-lg-1 control-label">出生日期</label>
-          <div class="col-lg-3">
-            <div class='input-group date' id='datetimepicker'>
-              <input type="text" class="form-control" name="birthday" placeholder="出生日期" required/> <span class="input-group-addon"> <span class="glyphicon glyphicon-calendar"></span>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 按钮 -->
-        <div class="row">
-          <div class="col-md-1"></div>
-          <div class="col-md-1">
-            <button type="submit" class="btn btn-block">提交</button>
-          </div>
-          <div class="col-md-1"></div>
-          <div class="col-md-1">
-            <button type="reset" class="btn btn-block">重置</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  
-
 
   <script src="<%=request.getContextPath() %>/js/jquery.min.js"></script>
   <script src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
@@ -238,9 +203,19 @@
   <script src="<%=request.getContextPath() %>/js/time/moment-with-locales.js"></script>
   <script src="<%=request.getContextPath() %>/js/time/bootstrap-datetimepicker.zh-CN.js"></script>
   <script type="text/javascript">
+      $(function() {
+        $('#datetimepicker').datetimepicker({
+          language : 'zh-CN',
+          format : 'yyyy-mm-dd',
+          minView : "month",
+          locale : moment.locale('zh-cn')
+        });
+      });
+    </script>
+  <script type="text/javascript">
     $(document).ready(function() {
       $("#LoginButton").bind("click", function() {
-        if ($("#username").val != "") {
+        if ($("#RegisterUsername").val != "") {
           $.ajax({
             async: false,
             type: "post",
@@ -269,14 +244,84 @@
     });
   </script>
   <script type="text/javascript">
-    $(function() {
-      $('#datetimepicker').datetimepicker({
-        language : 'zh-CN',
-        format : 'yyyy-mm-dd',
-        minView : "month",
-        locale : moment.locale('zh-cn')
+    function checkusername() {
+      if ($("#RegisterUsername").val != "") {
+        $.ajax({
+          async: false,
+          type: "post",
+          url: "RegisterCheckUsername.action",
+          data: {
+            username: $("#RegisterUsername").val(),
+          },
+          dataType: "json",
+          success: function(data) {
+            var d = eval("(" + data + ")");
+            if (d.RegisterResult == 1) {
+              document.getElementById("UsernameError").innerHTML = "用户名已存在";
+            } else {
+              document.getElementById("UsernameError").innerHTML = "用户名可用";
+            }
+          },
+          error: function() {
+          }
+        });
+      }
+    }
+  </script>
+  <script type="text/javascript">
+    function checkpassword() {
+      if ($("#password1").val() != "" || $("#password2").val() != "") {
+        $.ajax({
+          async: false,
+          type: "post",
+          url: "RegisterCheckPWD.action",
+          data: {
+            pwd1: $("#password1").val(),
+            pwd2: $("#password2").val()
+          },
+          dataType: "json",
+          success: function(data) {
+            var d = eval("(" + data + ")");
+            if (d.RegisterResult == 1) {
+              document.getElementById("pwdnotmatch").innerHTML = "两次密码不一致";
+            } else {
+              document.getElementById("pwdnotmatch").innerHTML = "";
+            }
+          },
+          error: function() {
+          }
+        });
+      } else {
+        document.getElementById("pwdnotmatch").innerHTML = "";
+      }
+    }
+  </script>
+  <script type="text/javascript">
+    function register() {
+      var submitdata = $("form").serialize();
+      submitdata = decodeURIComponent(submitdata, true);
+      submitdata = encodeURI(encodeURI(submitdata));
+      $.ajax({
+        async : false,
+        type : "post",
+        url : "Register.action",
+        data : submitdata,
+        dataType : "json",
+        success : function(data) {
+          var d = eval("(" + data + ")");
+          if (d.RegisterResult == 1) {
+            alert("注册成功");
+          } else if (d.RegisterResult == 2) {
+            alert("用户名已存在");
+          } else {
+            alert("两次密码不一致");
+          }
+        },
+        error : function() {
+          window.alert("系统异常，请稍后重试");
+        }
       });
-    });
+    }
   </script>
 
 </body>
