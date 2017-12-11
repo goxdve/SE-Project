@@ -117,7 +117,7 @@
         <div class="row">
             <div class="span2  col-xs-12 col-sm-3 col-md-2">
                 <ul class="nav nav-pills nav-stacked">
-                    <li class="active"><a href="#">首页</a></li>
+                    <li class="active"><a href="<%=request.getContextPath() %>/PersonalSpace/PersonalSpace.jsp">首页</a></li>
                     <li><a href="<%=request.getContextPath() %>/PersonalSpace/PerfectInformation.jsp">个人信息</a></li>
                     <li><a href="<%=request.getContextPath() %>/PersonalSpace/PersonalSchemes.jsp">发布计划</a></li>
                     <li><a href="<%=request.getContextPath() %>/PersonalSpace/PersonalGroups.jsp">参与小组</a></li>
