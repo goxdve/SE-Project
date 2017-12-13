@@ -181,6 +181,14 @@
       </div>
     </div>
   </div>
+  
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-1">
+      <input type="hidden" value="<s:property value="#managegroup.group.groupid"/>" id="joingroupid" /> 
+      <button id="JoinGroupButton" onclick="joingroup()" class="btn btn-block">申请加入</button>
+    </div>
+  </div>
 
   <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
   <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
@@ -214,7 +222,32 @@
       });
     });
   </script>
-
+  <script type="text/javascript">
+    function joingroup(num) {
+      $.ajax({
+        async: false,
+        type : "post",
+        url : "JoinGroup.action",
+        data : {
+          groupid : $("#joingroupid").val()
+        },
+        dataType : "json",
+        success : function(data) {
+          var d = eval("(" + data + ")");
+          if (d.success == "true") {
+            alert("提交成功");
+          } else if (d.success == "isingroup") {
+            alert("您已在该小组中");
+          } else {
+            alert("您尚未登录，请先登录");
+          }
+        },
+        error : function() {
+          alert("系统异常，请稍后再试");
+        }
+      });
+    }
+  </script>
 </body>
 
 </html>
